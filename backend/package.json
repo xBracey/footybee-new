@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "ts-node ./index.ts",
+    "dev": "watchexec -r 'npm start'",
+    "migrate": "ts-node ./db/migrate.ts",
+    "migration": "drizzle-kit generate:sqlite"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^9.0.0",
+    "better-sqlite3": "^9.3.0",
+    "drizzle-orm": "^0.29.3",
+    "fastify": "^4.26.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.11.10",
+    "drizzle-kit": "^0.20.13",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
