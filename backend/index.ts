@@ -1,18 +1,12 @@
 import fastify from "fastify";
-import { getUsers } from "./db";
 import cors from "@fastify/cors";
+import { buildApiRoutes } from "./db/router";
 
 const server = fastify();
 
 server.register(cors);
 
-server.get("/", async (request, reply) => {
-  return "Hello there! 👋";
-});
-
-server.get("/users", async (request, reply) => {
-  return getUsers();
-});
+server.register(buildApiRoutes, { prefix: "/api" });
 
 server.listen(
   {
