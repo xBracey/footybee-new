@@ -1,7 +1,7 @@
-import { text, sqliteTable } from "drizzle-orm/sqlite-core";
+import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
 
 export const teams = sqliteTable("teams", {
-  id: text("id"),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name"),
 });
 

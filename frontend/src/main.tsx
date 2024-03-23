@@ -1,9 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { registerSW } from "virtual:pwa-register";
+// Import the generated route tree
+import { routeTree } from "./routeTree.gen";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+
+// Create a new router instance
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 const queryClient = new QueryClient();
 
@@ -19,7 +30,7 @@ const updateSW = registerSW({
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

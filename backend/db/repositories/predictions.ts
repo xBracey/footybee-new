@@ -5,5 +5,5 @@ import { InsertPrediction, predictions } from "../schema";
 export const getPredictions = () => db.select().from(predictions).all();
 
 export const insertPrediction = (prediction: InsertPrediction) => {
-  return db.insert(predictions).values(prediction).run();
+  return db.insert(predictions).values(prediction).execute();
 };

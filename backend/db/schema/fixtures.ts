@@ -1,9 +1,10 @@
 import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
+import { teams } from "./teams";
 
 export const fixtures = sqliteTable("fixtures", {
-  id: text("id"),
-  homeTeamId: text("home_team_id"),
-  awayTeamId: text("away_team_id"),
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  homeTeamId: text("home_team_id").references(() => teams.id),
+  awayTeamId: text("away_team_id").references(() => teams.id),
   date: integer("date"),
   time: integer("time"),
 });

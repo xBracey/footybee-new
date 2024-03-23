@@ -1,10 +1,7 @@
-import { FastifyInstance } from "fastify";
 import { buildUserRoutes } from "./users";
+import { Router } from "./types";
 
-export const buildApiRoutes = (
-  fastify: FastifyInstance,
-  opts: { prefix: string },
-  done: (err?: Error | undefined) => void
-) => {
+export const buildApiRoutes: Router = (fastify, _, done) => {
   fastify.register(buildUserRoutes, { prefix: "/users" });
+  done();
 };
