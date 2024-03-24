@@ -12,8 +12,34 @@ export const getUserHandler: ServiceHandler = async (request, reply) => {
     return;
   }
 
-  reply.send({ id: user.username, username: user.username });
+  reply.send({ username: user.username });
 };
+
+export const getMeHandler: (server: FastifyInstance) => ServiceHandler =
+  (server) => async (request, reply) => {
+    const token = request.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      reply.status(401).send({ error: "Unauthorized" });
+      return;
+    }
+
+    const verified = server.jwt.verify(token);
+
+    if (!verified) {
+      reply.status(401).send({ error: "Unauthorized" });
+      return;
+    }
+
+    const user = server.jwt.decode(token) as { username: string };
+
+    if (!user) {
+      reply.status(404).send({ error: "User not found" });
+      return;
+    }
+
+    reply.send({ username: user.username });
+  };
 
 export const registerUserHandler: (server: FastifyInstance) => ServiceHandler =
   (server) => async (request, reply) => {
@@ -24,7 +50,7 @@ export const registerUserHandler: (server: FastifyInstance) => ServiceHandler =
 
     await insertUser({ username, password });
 
-    const token = server.jwt.sign({ username, password });
+    const token = server.jwt.sign({ username });
     reply.send({ token });
   };
 
@@ -49,6 +75,6 @@ export const loginUserHandler: (server: FastifyInstance) => ServiceHandler =
       return;
     }
 
-    const token = server.jwt.sign({ username, password });
+    const token = server.jwt.sign({ username });
     reply.send({ token });
   };
