@@ -5,7 +5,13 @@ export const apiRequest = async <T>(
   options: AxiosRequestConfig = {}
 ) => {
   try {
-    const response = await axios<T>(`http://localhost:7231/api${url}`, options);
+    const isDev = process.env.NODE_ENV === "development";
+
+    const prefix = isDev
+      ? "http://localhost:7231"
+      : "https://footyapi.tombrace.co.uk";
+
+    const response = await axios<T>(`${prefix}/api${url}`, options);
 
     return response.data;
   } catch (error) {
