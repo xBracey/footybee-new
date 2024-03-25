@@ -6,7 +6,8 @@
     "start": "ts-node ./index.ts",
     "dev": "watchexec -r 'npm start'",
     "migrate": "ts-node ./db/migrate.ts",
-    "migration": "drizzle-kit generate:sqlite"
+    "migration": "drizzle-kit generate:sqlite",
+    "migration-empty": "drizzle-kit generate:sqlite --custom"
   },
   "author": "",
   "license": "ISC",

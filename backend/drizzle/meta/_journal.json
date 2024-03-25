@@ -8,6 +8,20 @@
       "when": 1711178458849,
       "tag": "0000_wakeful_loki",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1711356550021,
+      "tag": "0001_secret_odin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1711356727645,
+      "tag": "0002_smooth_calypso",
+      "breakpoints": true
     }
   ]
 }

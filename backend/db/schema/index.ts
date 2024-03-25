@@ -6,3 +6,4 @@ export * from "./results";
 export * from "./predictions";
 export * from "./userLeagues";
 export * from "./points";
+export * from "./groups";
