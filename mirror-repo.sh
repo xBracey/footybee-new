@@ -1,1 +1,0 @@
-git push --mirror https://github.com/xBracey/$name.git

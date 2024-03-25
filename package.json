@@ -1,0 +1,17 @@
+{
+  "name": "footybee-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "cd ./frontend && npm run dev & cd ./backend && npm run dev",
+    "start": "cd ./backend && pm2 start npm --name \"footybee-backend\" -- start && cd ../frontend && pm2 start npm --name \"footybee-frontend\" -- start",
+    "stop": "pm2 stop footybee-backend && pm2 stop footybee-frontend && pm2 delete footybee-backend && pm2 delete footybee-frontend"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pm2": "^5.3.1"
+  }
+}
