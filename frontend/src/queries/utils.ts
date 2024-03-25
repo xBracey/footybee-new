@@ -5,7 +5,7 @@ export const apiRequest = async <T>(
   options: AxiosRequestConfig = {}
 ) => {
   try {
-    const response = await axios<T>(`http://localhost:8080/api${url}`, options);
+    const response = await axios<T>(`http://localhost:7231/api${url}`, options);
 
     return response.data;
   } catch (error) {

@@ -16,7 +16,7 @@ server.register(buildApiRoutes, { prefix: "/api" });
 server.listen(
   {
     host: "0.0.0.0",
-    port: 8080,
+    port: 7231,
   },
   (err, address) => {
     if (err) {

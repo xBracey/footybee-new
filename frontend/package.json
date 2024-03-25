@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "start": "npm run build && vite preview",
     "preview": "vite preview",
     "ladle": "BROWSER=\"arc\" npx ladle serve"
   },
