@@ -22,6 +22,13 @@
       "when": 1711356727645,
       "tag": "0002_smooth_calypso",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1711440990507,
+      "tag": "0003_tan_leper_queen",
+      "breakpoints": true
     }
   ]
 }
