@@ -3,6 +3,7 @@ import { apiRequest } from "./utils";
 
 export interface Fixture {
   id: string;
+  groupLetter: string;
   homeTeamId: string;
   awayTeamId: string;
   dateTime: number;

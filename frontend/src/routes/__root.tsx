@@ -16,6 +16,10 @@ export const Route = createRootRoute({
               Home
             </Link>
 
+            <Link to="/fixtures" className="[&.active]:font-bold">
+              Fixtures
+            </Link>
+
             <LogoutButton />
           </div>
         </div>
