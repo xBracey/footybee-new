@@ -29,6 +29,20 @@
       "when": 1711440990507,
       "tag": "0003_tan_leper_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1711788086763,
+      "tag": "0004_next_golden_guardian",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1711788572719,
+      "tag": "0005_romantic_sentinel",
+      "breakpoints": true
     }
   ]
 }
