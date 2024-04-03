@@ -1,75 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { Fixture } from "../../queries/useGetFixtures";
+import React from "react";
 import { Prediction } from "../../queries/useGetPredictions";
 import { Team } from "../../queries/useGetTeams";
 
 interface SinglePredictionProps {
-  fixture: Fixture;
-  existingPrediction?: Prediction;
   homeTeam: Team;
   awayTeam: Team;
-  onChange: (prediction: Prediction) => void;
   username: string;
+  prediction: Omit<Prediction, "username">;
+  onChange: (Prediction: Omit<Prediction, "username">) => void;
 }
 
 const SinglePrediction: React.FC<SinglePredictionProps> = ({
-  fixture,
-  existingPrediction,
   homeTeam,
   awayTeam,
+  prediction,
   onChange,
-  username,
 }) => {
-  const [homeScore, setHomeScore] = useState(0);
-  const [awayScore, setAwayScore] = useState(0);
+  const { homeTeamScore, awayTeamScore } = prediction;
 
-  useEffect(() => {
-    if (existingPrediction) {
-      setHomeScore(existingPrediction.homeTeamScore);
-      setAwayScore(existingPrediction.awayTeamScore);
-    }
-  }, [existingPrediction]);
+  const incrementHomeScore = () =>
+    onChange({
+      ...prediction,
+      homeTeamScore: homeTeamScore + 1,
+    });
 
-  const handleScoreChange = () => {
-    const prediction: Prediction = {
-      id: existingPrediction ? existingPrediction.id : "",
-      fixtureId: fixture.id,
-      homeTeamScore: homeScore,
-      awayTeamScore: awayScore,
-      username,
-    };
-    onChange(prediction);
-  };
+  const decrementHomeScore = () =>
+    onChange({
+      ...prediction,
+      homeTeamScore: Math.max(0, homeTeamScore - 1),
+    });
 
-  const incrementHomeScore = () => {
-    setHomeScore((prevScore) => prevScore + 1);
-    handleScoreChange();
-  };
+  const incrementAwayScore = () =>
+    onChange({
+      ...prediction,
+      awayTeamScore: awayTeamScore + 1,
+    });
 
-  const decrementHomeScore = () => {
-    if (homeScore > 0) {
-      setHomeScore((prevScore) => prevScore - 1);
-      handleScoreChange();
-    }
-  };
-
-  const incrementAwayScore = () => {
-    setAwayScore((prevScore) => prevScore + 1);
-    handleScoreChange();
-  };
-
-  const decrementAwayScore = () => {
-    if (awayScore > 0) {
-      setAwayScore((prevScore) => prevScore - 1);
-      handleScoreChange();
-    }
-  };
+  const decrementAwayScore = () =>
+    onChange({
+      ...prediction,
+      awayTeamScore: Math.max(0, awayTeamScore - 1),
+    });
 
   return (
-    <div className="flex items-center justify-center space-x-8">
+    <div className="flex items-center justify-center gap-4">
       <div className="flex flex-col items-center">
         <span className="text-lg font-bold">{homeTeam.name}</span>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-4">
           <button
             className="rounded bg-gray-200 px-2 py-1 text-gray-800"
             onClick={decrementHomeScore}
@@ -77,7 +54,7 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
             -
           </button>
           <span className="flex w-4 justify-center text-xl font-bold">
-            {homeScore}
+            {homeTeamScore}
           </span>
           <button
             className="rounded bg-gray-200 px-2 py-1 text-gray-800"
@@ -89,7 +66,7 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
       </div>
       <div className="flex flex-col items-center">
         <span className="text-lg font-bold">{awayTeam.name}</span>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center  gap-4">
           <button
             className="rounded bg-gray-200 px-2 py-1 text-gray-800"
             onClick={decrementAwayScore}
@@ -97,7 +74,7 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
             -
           </button>
           <span className="flex w-4 justify-center text-xl font-bold">
-            {awayScore}
+            {awayTeamScore}
           </span>
           <button
             className="rounded bg-gray-200 px-2 py-1 text-gray-800"

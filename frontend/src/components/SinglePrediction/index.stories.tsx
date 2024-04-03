@@ -10,11 +10,16 @@ const awayTeam = teams.find((team) => team.id === fixture.awayTeamId)!;
 
 export const SinglePredictionStory: Story = () => (
   <SinglePrediction
-    fixture={fixture}
     homeTeam={homeTeam}
     awayTeam={awayTeam}
     onChange={() => {}}
     username="xBracey"
+    prediction={{
+      id: "1",
+      fixtureId: fixture.id,
+      homeTeamScore: 0,
+      awayTeamScore: 0,
+    }}
   />
 );
 

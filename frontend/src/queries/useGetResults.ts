@@ -1,12 +1,6 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
-
-export interface Result {
-  id: string;
-  fixtureId: string;
-  homeTeamScore: number;
-  awayTeamScore: number;
-}
+import { Result } from "../../../shared/types/database";
 
 export const getResults = async () => {
   return apiRequest<Result[]>(`/results`, {

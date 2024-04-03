@@ -1,9 +1,8 @@
-import { Fixture } from "../../queries/useGetFixtures";
-import { Result } from "../../queries/useGetResults";
+import { Fixture, Result, Team } from "../../../../shared/types/database";
 import { useCalculateTeamStats } from "./utils";
 
 interface LeagueTableProps {
-  teams: { id: string; name: string }[];
+  teams: Team[];
   fixtures: Fixture[];
   results: Result[];
 }
@@ -13,7 +12,10 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
   fixtures,
   results,
 }) => {
-  const teamStats = useCalculateTeamStats(teams, fixtures, results);
+  const teamStats = useCalculateTeamStats(fixtures, results, teams);
+  const { table, pairings } = teamStats;
+
+  console.log({ pairings });
 
   return (
     <table className="w-full overflow-hidden rounded">
@@ -43,7 +45,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
         </tr>
       </thead>
       <tbody className="text-xs text-gray-600 md:text-sm">
-        {teamStats.map((team, index) => (
+        {table.map((team, index) => (
           <tr
             key={team.id}
             className={index % 2 === 0 ? "bg-shamrock-200" : "bg-shamrock-50"}

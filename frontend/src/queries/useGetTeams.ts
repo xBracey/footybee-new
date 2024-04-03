@@ -1,11 +1,6 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
-
-export interface Team {
-  id: string;
-  groupLetter: string;
-  name: string;
-}
+import { Team } from "../../../shared/types/database";
 
 export const getTeams = async () => {
   return apiRequest<Team[]>(`/teams`, {

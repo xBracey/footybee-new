@@ -1,13 +1,6 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
-
-export interface Fixture {
-  id: string;
-  groupLetter: string;
-  homeTeamId: string;
-  awayTeamId: string;
-  dateTime: number;
-}
+import { Fixture } from "../../../shared/types/database";
 
 export const getFixtures = async () => {
   return apiRequest<Fixture[]>(`/fixtures`, {
