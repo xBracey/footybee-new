@@ -1,7 +1,5 @@
+import { Fixture, Result, Team } from "../../../../shared/types/database";
 import LeagueTable from "../../components/LeagueTable";
-import { Fixture } from "../../queries/useGetFixtures";
-import { Result } from "../../queries/useGetResults";
-import { Team } from "../../queries/useGetTeams";
 
 interface FixturesPageProps {
   fixtures: Fixture[];

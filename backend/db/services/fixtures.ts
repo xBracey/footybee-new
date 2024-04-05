@@ -10,8 +10,8 @@ export const getFixturesHandler: ServiceHandler = async (_, reply) => {
 export const insertFixturesHandler: ServiceHandler = async (request, reply) => {
   const data = request.body as {
     groupLetter: string;
-    homeTeamId: string;
-    awayTeamId: string;
+    homeTeamId: number;
+    awayTeamId: number;
     dateTime: number;
   };
 

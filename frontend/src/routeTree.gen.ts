@@ -16,12 +16,18 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const PredictionsLazyImport = createFileRoute('/predictions')()
 const LoginLazyImport = createFileRoute('/login')()
 const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const PredictionsLazyRoute = PredictionsLazyImport.update({
+  path: '/predictions',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/predictions.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
@@ -63,6 +69,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
+    '/predictions': {
+      preLoaderRoute: typeof PredictionsLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -73,6 +83,7 @@ export const routeTree = rootRoute.addChildren([
   DashboardLazyRoute,
   FixturesLazyRoute,
   LoginLazyRoute,
+  PredictionsLazyRoute,
 ])
 
 /* prettier-ignore-end */

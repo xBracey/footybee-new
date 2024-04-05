@@ -14,7 +14,7 @@ export interface RawPairing {
 
 export const calculateTable = (
   fixtures: Fixture[],
-  results: Result[],
+  results: Omit<Result, "id">[],
   teamsArray: Team[]
 ): TablePairings => {
   const groupMatches = getGroupMatches(fixtures, results, teamsArray);

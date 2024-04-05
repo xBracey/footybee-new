@@ -5,7 +5,7 @@ import { users } from "./users";
 export const points = sqliteTable("points", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   username: text("username").references(() => users.username),
-  fixtureId: text("fixture_id").references(() => fixtures.id),
+  fixtureId: integer("fixture_id").references(() => fixtures.id),
   points: integer("points"),
 });
 

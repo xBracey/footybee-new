@@ -11,7 +11,7 @@ export const predictions = sqliteTable(
   "predictions",
   {
     username: text("username").references(() => users.username),
-    fixtureId: text("fixture_id").references(() => fixtures.id),
+    fixtureId: integer("fixture_id").references(() => fixtures.id),
     homeTeamScore: integer("home_team_score"),
     awayTeamScore: integer("away_team_score"),
   },

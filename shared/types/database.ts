@@ -29,7 +29,7 @@ export interface Fixture {
 }
 
 export interface Prediction {
-  id: string;
+  id?: string;
   username: string;
   fixtureId: string;
   homeTeamScore: number;

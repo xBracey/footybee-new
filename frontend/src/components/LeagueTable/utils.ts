@@ -6,7 +6,7 @@ import {
 
 export const useCalculateTeamStats = (
   fixtures: Fixture[],
-  results: Result[],
+  results: Omit<Result, "id">[],
   teams: Team[]
 ): TablePairings => {
   const table = calculateTable(fixtures, results, teams);

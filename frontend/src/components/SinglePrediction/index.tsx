@@ -1,6 +1,46 @@
 import React from "react";
-import { Prediction } from "../../queries/useGetPredictions";
-import { Team } from "../../queries/useGetTeams";
+import { Prediction, Team } from "../../../../shared/types/database";
+
+const PredictionButton = ({
+  onClick,
+  children,
+  disabled,
+}: {
+  onClick: () => void;
+  children: React.ReactNode;
+  disabled?: boolean;
+}) => (
+  <button
+    className="bg-supernova-400 hover:bg-supernova-500 rounded px-2 py-1 text-gray-800 transition-all disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+    onClick={onClick}
+    disabled={disabled}
+  >
+    {children}
+  </button>
+);
+
+const TeamPrediction = ({
+  teamName,
+  score,
+  incrementScore,
+  decrementScore,
+}: {
+  teamName: string;
+  score: number;
+  incrementScore: () => void;
+  decrementScore: () => void;
+}) => (
+  <div className="flex flex-col items-center">
+    <span className="text-lg font-bold">{teamName}</span>
+    <div className="flex items-center gap-5">
+      <PredictionButton onClick={decrementScore} disabled={score === 0}>
+        -
+      </PredictionButton>
+      <span className="flex w-4 justify-center text-xl font-bold">{score}</span>
+      <PredictionButton onClick={incrementScore}>+</PredictionButton>
+    </div>
+  </div>
+);
 
 interface SinglePredictionProps {
   homeTeam: Team;
@@ -43,46 +83,21 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
     });
 
   return (
-    <div className="flex items-center justify-center gap-4">
-      <div className="flex flex-col items-center">
-        <span className="text-lg font-bold">{homeTeam.name}</span>
-        <div className="flex items-center gap-4">
-          <button
-            className="rounded bg-gray-200 px-2 py-1 text-gray-800"
-            onClick={decrementHomeScore}
-          >
-            -
-          </button>
-          <span className="flex w-4 justify-center text-xl font-bold">
-            {homeTeamScore}
-          </span>
-          <button
-            className="rounded bg-gray-200 px-2 py-1 text-gray-800"
-            onClick={incrementHomeScore}
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-col items-center">
-        <span className="text-lg font-bold">{awayTeam.name}</span>
-        <div className="flex items-center  gap-4">
-          <button
-            className="rounded bg-gray-200 px-2 py-1 text-gray-800"
-            onClick={decrementAwayScore}
-          >
-            -
-          </button>
-          <span className="flex w-4 justify-center text-xl font-bold">
-            {awayTeamScore}
-          </span>
-          <button
-            className="rounded bg-gray-200 px-2 py-1 text-gray-800"
-            onClick={incrementAwayScore}
-          >
-            +
-          </button>
-        </div>
+    <div className="flex justify-center">
+      <div className="bg-shamrock-300 flex items-center justify-center gap-4 rounded-md p-2 px-4">
+        <TeamPrediction
+          teamName={homeTeam.name}
+          score={homeTeamScore}
+          incrementScore={incrementHomeScore}
+          decrementScore={decrementHomeScore}
+        />
+
+        <TeamPrediction
+          teamName={awayTeam.name}
+          score={awayTeamScore}
+          incrementScore={incrementAwayScore}
+          decrementScore={decrementAwayScore}
+        />
       </div>
     </div>
   );

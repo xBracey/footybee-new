@@ -59,7 +59,7 @@ export const calculateMatch = (match: GroupMatch, teams: ILeagueTeams) => {
 
 export const getGroupMatches = (
   fixtures: Fixture[],
-  results: Result[],
+  results: Omit<Result, "id">[],
   teamsArray: Team[]
 ): GroupMatch[] => {
   return fixtures

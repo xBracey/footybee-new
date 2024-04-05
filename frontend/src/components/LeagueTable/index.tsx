@@ -4,7 +4,7 @@ import { useCalculateTeamStats } from "./utils";
 interface LeagueTableProps {
   teams: Team[];
   fixtures: Fixture[];
-  results: Result[];
+  results: Omit<Result, "id">[];
 }
 
 const LeagueTable: React.FC<LeagueTableProps> = ({

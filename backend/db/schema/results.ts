@@ -3,7 +3,7 @@ import { fixtures } from "./fixtures";
 
 export const results = sqliteTable("results", {
   id: integer("id").primaryKey({ autoIncrement: true }),
-  fixtureId: text("fixture_id").references(() => fixtures.id),
+  fixtureId: integer("fixture_id").references(() => fixtures.id),
   homeTeamScore: integer("home_team_score"),
   awayTeamScore: integer("away_team_score"),
 });

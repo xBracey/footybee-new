@@ -43,6 +43,13 @@
       "when": 1711788572719,
       "tag": "0005_romantic_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1712264462738,
+      "tag": "0006_closed_monster_badoon",
+      "breakpoints": true
     }
   ]
 }

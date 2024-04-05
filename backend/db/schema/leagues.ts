@@ -4,7 +4,7 @@ import { users } from "./users";
 export const leagues = sqliteTable("leagues", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name"),
-  creatorusername: text("creator_user_id").references(() => users.username),
+  creatorUsername: text("creator_username").references(() => users.username),
 });
 
 export type League = typeof leagues.$inferSelect;
