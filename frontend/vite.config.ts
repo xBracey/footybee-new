@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
+import path from "path";
+
+const isLadle = !!process.env.VITE_LADLE_APP_ID;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -38,5 +41,15 @@ export default defineConfig({
   preview: {
     host: "0.0.0.0",
     port: 7232,
+  },
+  resolve: {
+    alias: isLadle
+      ? {
+          "@tanstack/react-router": path.resolve(
+            __dirname,
+            "./.ladle/Router.tsx"
+          ),
+        }
+      : {},
   },
 });

@@ -31,14 +31,21 @@ export const getMeHandler: (server: FastifyInstance) => ServiceHandler =
       return;
     }
 
-    const user = server.jwt.decode(token) as { username: string };
+    const userDecoded = server.jwt.decode(token) as { username: string };
+
+    if (!userDecoded) {
+      reply.status(404).send({ error: "User not found" });
+      return;
+    }
+
+    const user = await getUser(userDecoded.username);
 
     if (!user) {
       reply.status(404).send({ error: "User not found" });
       return;
     }
 
-    reply.send({ username: user.username });
+    reply.send({ username: user.username, admin: !!user.admin });
   };
 
 export const registerUserHandler: (server: FastifyInstance) => ServiceHandler =

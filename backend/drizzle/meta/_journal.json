@@ -50,6 +50,13 @@
       "when": 1712264462738,
       "tag": "0006_closed_monster_badoon",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1714820938743,
+      "tag": "0007_shiny_the_captain",
+      "breakpoints": true
     }
   ]
 }

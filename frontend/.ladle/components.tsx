@@ -1,4 +1,10 @@
+import React from "react";
 import type { GlobalProvider } from "@ladle/react";
 import "../src/index.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-export const Provider: GlobalProvider = ({ children }) => children;
+const queryClient = new QueryClient();
+
+export const Provider: GlobalProvider = ({ children }) => (
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+);

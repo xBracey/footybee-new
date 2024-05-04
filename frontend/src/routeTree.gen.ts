@@ -20,6 +20,7 @@ const PredictionsLazyImport = createFileRoute('/predictions')()
 const LoginLazyImport = createFileRoute('/login')()
 const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
+const AdminLazyImport = createFileRoute('/admin')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
@@ -44,6 +45,11 @@ const DashboardLazyRoute = DashboardLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
 
+const AdminLazyRoute = AdminLazyImport.update({
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/admin.lazy').then((d) => d.Route))
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -55,6 +61,10 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin': {
+      preLoaderRoute: typeof AdminLazyImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -80,6 +90,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
+  AdminLazyRoute,
   DashboardLazyRoute,
   FixturesLazyRoute,
   LoginLazyRoute,

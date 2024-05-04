@@ -4,9 +4,14 @@ import { useUserStore } from "../zustand/user";
 
 export type User = {
   username: string;
+  admin: boolean;
 };
 
 export const getMe = async (token: string) => {
+  if (!token) {
+    return null;
+  }
+
   return apiRequest<User>(`/users/me`, {
     method: "GET",
     headers: {
@@ -18,7 +23,7 @@ export const getMe = async (token: string) => {
 export const useGetMe = () => {
   const { token } = useUserStore();
 
-  const { data } = useQuery(["getMe"], () => getMe(token));
+  const data = useQuery(["getMe"], () => getMe(token));
 
   return data;
 };
