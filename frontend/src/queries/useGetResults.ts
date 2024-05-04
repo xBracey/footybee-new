@@ -9,7 +9,7 @@ export const getResults = async () => {
 };
 
 export const useGetResults = () => {
-  const { data } = useQuery(["getResults"], () => getResults());
+  const query = useQuery(["getResults"], () => getResults());
 
-  return data;
+  return query;
 };

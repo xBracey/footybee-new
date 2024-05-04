@@ -6,14 +6,18 @@ export type User = {
   name: string;
 };
 
-export const getUser = async (username: string) => {
+export const getUser = async (username?: string) => {
+  if (!username) {
+    return null;
+  }
+
   return apiRequest<User>(`/users/${username}`, {
     method: "GET",
   });
 };
 
-export const useGetUser = (username: string) => {
-  const { data } = useQuery(["users", { username }], () => getUser(username));
+export const useGetUser = (username?: string) => {
+  const query = useQuery(["users", { username }], () => getUser(username));
 
-  return data;
+  return query;
 };

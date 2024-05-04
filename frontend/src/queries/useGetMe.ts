@@ -23,7 +23,7 @@ export const getMe = async (token: string) => {
 export const useGetMe = () => {
   const { token } = useUserStore();
 
-  const data = useQuery(["getMe"], () => getMe(token));
+  const query = useQuery(["getMe"], () => getMe(token));
 
-  return data;
+  return query;
 };

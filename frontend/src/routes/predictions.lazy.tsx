@@ -4,15 +4,24 @@ import { useGetFixtures } from "../queries/useGetFixtures";
 import { useGetPredictions } from "../queries/useGetPredictions";
 import { PredictionsPage } from "../pages/Predictions";
 import { useGetMe } from "../queries/useGetMe";
+import Loading from "../components/Loading";
 
 const Predictions = () => {
-  const user = useGetMe();
-  const teams = useGetTeams();
-  const fixtures = useGetFixtures();
-  const predictions = useGetPredictions();
+  const { data: user, isLoading: userIsLoading } = useGetMe();
+  const { data: teams } = useGetTeams();
+  const { data: fixtures } = useGetFixtures();
+  const { data: predictions } = useGetPredictions();
 
-  if (!teams || !fixtures || !predictions || !user) {
-    return <div className="p-4">Loading</div>;
+  if (userIsLoading) {
+    return <Loading />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!teams || !fixtures || !predictions) {
+    return <Loading />;
   }
 
   return (

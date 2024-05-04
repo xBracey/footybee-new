@@ -11,7 +11,7 @@ export const Button = ({
   buttonType = "primary",
 }: {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   buttonType?: "primary" | "secondary" | "danger";
 }) => {

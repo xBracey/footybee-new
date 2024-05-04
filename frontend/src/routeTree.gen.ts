@@ -20,8 +20,9 @@ const PredictionsLazyImport = createFileRoute('/predictions')()
 const LoginLazyImport = createFileRoute('/login')()
 const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
-const AdminLazyImport = createFileRoute('/admin')()
 const IndexLazyImport = createFileRoute('/')()
+const AdminIndexLazyImport = createFileRoute('/admin/')()
+const AdminEntityIndexLazyImport = createFileRoute('/admin/$entity/')()
 
 // Create/Update Routes
 
@@ -45,15 +46,22 @@ const DashboardLazyRoute = DashboardLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
 
-const AdminLazyRoute = AdminLazyImport.update({
-  path: '/admin',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/admin.lazy').then((d) => d.Route))
-
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AdminIndexLazyRoute = AdminIndexLazyImport.update({
+  path: '/admin/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
+
+const AdminEntityIndexLazyRoute = AdminEntityIndexLazyImport.update({
+  path: '/admin/$entity/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/admin/$entity/index.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -61,10 +69,6 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
       preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin': {
-      preLoaderRoute: typeof AdminLazyImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -83,6 +87,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PredictionsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin/': {
+      preLoaderRoute: typeof AdminIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/$entity/': {
+      preLoaderRoute: typeof AdminEntityIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -90,11 +102,12 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  AdminLazyRoute,
   DashboardLazyRoute,
   FixturesLazyRoute,
   LoginLazyRoute,
   PredictionsLazyRoute,
+  AdminIndexLazyRoute,
+  AdminEntityIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

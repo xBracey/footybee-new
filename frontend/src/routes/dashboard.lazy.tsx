@@ -4,7 +4,7 @@ import { useUserStore } from "../zustand/user";
 
 const Dashboard = () => {
   const { token } = useUserStore();
-  const user = useGetMe();
+  const { data: user } = useGetMe();
 
   if (!token) {
     return <Navigate to="/login" from="/dashboard" />;

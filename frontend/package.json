@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@ladle/react": "^4.0.2",
-    "@tanstack/react-router": "^1.22.3",
-    "@tanstack/router-devtools": "^1.22.3",
+    "@tanstack/react-router": "^1.31.19",
+    "@tanstack/router-devtools": "^1.31.19",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
+    "pm2": "^5.3.1",
     "react": "^18.0.33",
     "react-dom": "^18.0.10",
     "react-query": "^3.39.3",
+    "react-spinners": "^0.13.8",
+    "zod": "^3.23.6",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
@@ -25,7 +29,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.5",
-    "typescript": "^4.4.4",
+    "typescript": "^5.4.5",
     "vitawind": "^2.2.4",
     "vite": "^5.0.12",
     "vite-plugin-pwa": "^0.17.5"

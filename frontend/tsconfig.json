@@ -9,14 +9,14 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vite-plugin-pwa/client"]
   },
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist", "node_modules/@tanstack"],
   "include": ["./src", ".ladle"]
 }

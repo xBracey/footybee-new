@@ -15,7 +15,7 @@ export const SinglePredictionStory: Story = () => (
     onChange={() => {}}
     username="xBracey"
     prediction={{
-      id: "1",
+      id: 1,
       fixtureId: fixture.id,
       homeTeamScore: 0,
       awayTeamScore: 0,

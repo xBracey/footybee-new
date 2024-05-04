@@ -9,7 +9,7 @@ export const getPredictions = async () => {
 };
 
 export const useGetPredictions = () => {
-  const { data } = useQuery(["getPredictions"], () => getPredictions());
+  const query = useQuery(["getPredictions"], () => getPredictions());
 
-  return data;
+  return { ...query, data: query.data || [] };
 };

@@ -1,5 +1,5 @@
 export interface LeagueTeam {
-  id: string;
+  id: number;
   name: string;
   played: number;
   points: number;
@@ -12,7 +12,7 @@ export interface LeagueTeam {
 }
 
 export interface GroupMatch {
-  id: string;
+  id: number;
   homeTeam: Team;
   awayTeam: Team;
   groupLetter: string;
@@ -21,30 +21,30 @@ export interface GroupMatch {
 }
 
 export interface Fixture {
-  id: string;
+  id: number;
   groupLetter: string;
-  homeTeamId: string;
-  awayTeamId: string;
+  homeTeamId: number;
+  awayTeamId: number;
   dateTime: number;
 }
 
 export interface Prediction {
-  id?: string;
+  id?: number;
   username: string;
-  fixtureId: string;
+  fixtureId: number;
   homeTeamScore: number;
   awayTeamScore: number;
 }
 
 export interface Result {
-  id: string;
-  fixtureId: string;
+  id: number;
+  fixtureId: number;
   homeTeamScore: number;
   awayTeamScore: number;
 }
 
 export interface Team {
-  id: string;
+  id: number;
   groupLetter: string;
   name: string;
 }

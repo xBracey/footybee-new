@@ -5,9 +5,9 @@ import { useGetResults } from "../queries/useGetResults";
 import { FixturesPage } from "../pages/Fixtures";
 
 const Fixtures = () => {
-  const teams = useGetTeams();
-  const fixtures = useGetFixtures();
-  const results = useGetResults();
+  const { data: teams } = useGetTeams();
+  const { data: fixtures } = useGetFixtures();
+  const { data: results } = useGetResults();
 
   if (!teams || !fixtures || !results) {
     return <div className="p-4">Loading</div>;

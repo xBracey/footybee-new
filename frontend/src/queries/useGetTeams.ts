@@ -9,7 +9,7 @@ export const getTeams = async () => {
 };
 
 export const useGetTeams = () => {
-  const { data } = useQuery(["getTeams"], () => getTeams());
+  const query = useQuery(["getTeams"], () => getTeams());
 
-  return data;
+  return { ...query, data: query.data || [] };
 };

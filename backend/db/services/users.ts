@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { getUser, insertUser } from "../repositories/users";
+import { getUser, getUsers, insertUser } from "../repositories/users";
 import { ServiceHandler } from "./types";
 import bcrypt from "bcrypt";
 
@@ -13,6 +13,17 @@ export const getUserHandler: ServiceHandler = async (request, reply) => {
   }
 
   reply.send({ username: user.username });
+};
+
+export const getUsersHandler: ServiceHandler = async (request, reply) => {
+  const users = await getUsers();
+
+  const usersWithoutPassword = users.map((user) => ({
+    username: user.username,
+    admin: !!user.admin,
+  }));
+
+  reply.send(usersWithoutPassword);
 };
 
 export const getMeHandler: (server: FastifyInstance) => ServiceHandler =

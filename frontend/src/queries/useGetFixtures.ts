@@ -9,7 +9,7 @@ export const getFixtures = async () => {
 };
 
 export const useGetFixtures = () => {
-  const { data } = useQuery(["getFixtures"], () => getFixtures());
+  const query = useQuery(["getFixtures"], () => getFixtures());
 
-  return data;
+  return { ...query, data: query.data || [] };
 };

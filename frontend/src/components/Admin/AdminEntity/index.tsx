@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "../../Button";
 
 interface EntityBasic {
-  id: string;
+  id: string | number;
   name: string;
 }
 
@@ -11,7 +11,7 @@ interface IAdminEntity {
   name: string;
   path: string;
   entities: EntityBasic[];
-  onDelete: (id: string) => void;
+  onDelete: (id: string | number) => void;
 }
 
 const AdminEntity: React.FC<IAdminEntity> = ({
@@ -27,24 +27,27 @@ const AdminEntity: React.FC<IAdminEntity> = ({
   };
 
   const titleClass =
-    "border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600";
+    "border-b-2 border-gray-200 bg-gray-100 px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider text-gray-600";
 
-  const entityClass = "border-b border-gray-200 bg-white px-5 py-5 text-sm";
+  const entityClass = "border-b border-gray-200 bg-white px-3 py-3 text-sm";
 
   return (
-    <div className="mb-6 rounded-lg bg-white p-4 shadow-2xl">
-      <h2
-        onClick={toggleCollapse}
-        className="cursor-pointer p-2 text-xl font-semibold text-gray-700"
-      >
-        {name} {!isCollapsed ? "+" : "-"}
-      </h2>
+    <div
+      className="mb-6 w-full rounded-lg bg-white p-3 shadow-2xl"
+      onClick={toggleCollapse}
+    >
+      <div className="flex">
+        <h2 className="flex-1 cursor-pointer p-1 text-lg font-semibold text-gray-700">
+          {name} {!isCollapsed ? "+" : "-"}
+        </h2>
+
+        <Link to={`/admin/$entity`} params={{ entity: path }}>
+          <Button onClick={(e) => e.stopPropagation()}>Add New</Button>
+        </Link>
+      </div>
       {isCollapsed && (
         <div>
-          <Link href={`/admin/${path}/add`}>
-            <Button>Add New</Button>
-          </Link>
-          <table className="mt-4 min-w-full leading-normal">
+          <table className="mt-2 min-w-full leading-normal">
             <thead>
               <tr>
                 <th className={titleClass}>ID</th>
@@ -58,7 +61,11 @@ const AdminEntity: React.FC<IAdminEntity> = ({
                   <td className={entityClass}>{entity.id}</td>
                   <td className={entityClass}>{entity.name}</td>
                   <td className={`w-48 ${entityClass}`}>
-                    <Link href={`/admin/${path}/edit`}>
+                    <Link
+                      to={`/admin/$entity`}
+                      params={{ entity: path }}
+                      search={{ id: entity.id }}
+                    >
                       <Button className="mr-2">Edit</Button>
                     </Link>
 

@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 
 const saltRounds = 10;
 
-export const getUsers = () => db.select().from(users).all();
+export const getUsers = () => db.select().from(users).execute();
 
 export const getUser = async (username: string) => {
   const resp = await db

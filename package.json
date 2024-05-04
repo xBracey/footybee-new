@@ -12,7 +12,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "pm2": "^5.3.1"
-  }
+  "dependencies": {}
 }

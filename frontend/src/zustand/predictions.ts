@@ -15,7 +15,7 @@ type SetPredictions = {
 
 type ChangePrediction = {
   type: "CHANGE_PREDICTION";
-  payload: { fixtureId: string; homeTeamScore: number; awayTeamScore: number };
+  payload: { fixtureId: number; homeTeamScore: number; awayTeamScore: number };
 };
 
 interface PredictionState {

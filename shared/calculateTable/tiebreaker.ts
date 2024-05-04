@@ -5,7 +5,7 @@ import { reducePairings } from "./reducePairings";
 
 export const tiebreaker = (
   groupMatches: GroupMatch[],
-  teamsArray: { id: string; name: string }[],
+  teamsArray: { id: number; name: string }[],
   includedTeams?: string[]
 ): TablePairings => {
   const pairings: RawPairing[] = [];

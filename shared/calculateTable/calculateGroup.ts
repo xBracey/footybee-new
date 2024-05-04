@@ -6,7 +6,7 @@ import {
   Team,
 } from "../types/database";
 
-const defaultTeam = (team: { id: string; name: string }): LeagueTeam => ({
+const defaultTeam = (team: { id: number; name: string }): LeagueTeam => ({
   id: team.id,
   name: team.name,
   played: 0,
@@ -82,7 +82,7 @@ export const getGroupMatches = (
 
 export const calculateGroup = (
   groupMatches: GroupMatch[],
-  teamsArray: { id: string; name: string }[]
+  teamsArray: { id: number; name: string }[]
 ): ILeagueTeams => {
   const teams: ILeagueTeams = {};
   const teamNames = teamsArray.map((team) => team.name);
