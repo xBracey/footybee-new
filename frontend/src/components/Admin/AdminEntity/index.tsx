@@ -12,6 +12,7 @@ interface IAdminEntity {
   path: string;
   entities: EntityBasic[];
   onDelete: (id: string | number) => void;
+  hasAddNew?: boolean;
 }
 
 const AdminEntity: React.FC<IAdminEntity> = ({
@@ -19,6 +20,7 @@ const AdminEntity: React.FC<IAdminEntity> = ({
   path,
   entities,
   onDelete,
+  hasAddNew = true,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -41,9 +43,11 @@ const AdminEntity: React.FC<IAdminEntity> = ({
           {name} {!isCollapsed ? "+" : "-"}
         </h2>
 
-        <Link to={`/admin/$entity`} params={{ entity: path }}>
-          <Button onClick={(e) => e.stopPropagation()}>Add New</Button>
-        </Link>
+        {hasAddNew && (
+          <Link to={`/admin/$entity`} params={{ entity: path }}>
+            <Button onClick={(e) => e.stopPropagation()}>Add New</Button>
+          </Link>
+        )}
       </div>
       {isCollapsed && (
         <div>

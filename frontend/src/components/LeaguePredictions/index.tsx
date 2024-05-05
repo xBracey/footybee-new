@@ -1,6 +1,6 @@
 import { Fixture, Prediction, Team } from "../../../../shared/types/database";
 import LeagueTable from "../LeagueTable";
-import SinglePrediction from "../SinglePrediction";
+import SinglePrediction from "../Prediction/SinglePrediction";
 
 interface ILeaguePredictions {
   username: string;

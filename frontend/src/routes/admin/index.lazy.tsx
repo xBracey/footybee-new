@@ -39,14 +39,17 @@ const Admin = () => {
   }
 
   const onUserDelete = (userId: string | number) => {
+    // TODO: Delete user
     console.log(`Deleting user ${userId}`);
   };
 
   const onTeamDelete = (teamId: string | number) => {
+    // TODO: Delete team
     console.log(`Deleting team ${teamId}`);
   };
 
   const onFixtureDelete = (fixtureId: string | number) => {
+    // TODO: Delete fixture
     console.log(`Deleting fixture ${fixtureId}`);
   };
 
@@ -54,17 +57,12 @@ const Admin = () => {
     <div className="flex w-full flex-col items-center justify-center gap-4 p-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-4">
         <AdminEntity
-          name="Teams"
-          entities={teams}
-          path="teams"
-          onDelete={onTeamDelete}
-        />
-        <AdminEntity
           name="Fixtures"
           entities={fixuresWithNames}
           path="fixtures"
           onDelete={onFixtureDelete}
         />
+
         <AdminEntity
           name="Users"
           entities={users.map((user) => ({
@@ -73,6 +71,14 @@ const Admin = () => {
           }))}
           path="users"
           onDelete={onUserDelete}
+          hasAddNew={false}
+        />
+
+        <AdminEntity
+          name="Teams"
+          entities={teams}
+          path="teams"
+          onDelete={onTeamDelete}
         />
       </div>
     </div>

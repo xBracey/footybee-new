@@ -12,13 +12,18 @@ interface LoginResponse {
 }
 
 export const registerUser = async ({ username, password }: LoginRequest) => {
-  return apiRequest<LoginResponse>("/users/register", {
-    method: "POST",
-    data: {
-      username,
-      password,
-    },
-  });
+  try {
+    const resp = await apiRequest<LoginResponse>("/users/register", {
+      method: "POST",
+      data: {
+        username,
+        password,
+      },
+    });
+    return resp;
+  } catch (error) {
+    return { error: "Username already exists" };
+  }
 };
 
 export const useRegisterUser = () => {

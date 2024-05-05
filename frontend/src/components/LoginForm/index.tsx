@@ -1,17 +1,49 @@
-import { useState } from "react";
+import { PasswordInput, TextInput } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { useForm } from "@mantine/form";
+
+const passwordMinLength = 6;
 
 interface LoginFormProps {
   onLogin: (username: string, password: string) => void;
   onRegister: (username: string, password: string) => void;
+  errorMessage?: string;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onRegister }) => {
+const LoginForm: React.FC<LoginFormProps> = ({
+  onLogin,
+  onRegister,
+  errorMessage,
+}) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validate: {
+      username: (value) => (value !== "" ? null : "Invalid username"),
+      password: (value) =>
+        !isLogin && value.length < passwordMinLength
+          ? `Password must be at least ${passwordMinLength} characters long`
+          : null,
+    },
+  });
+
+  useEffect(() => {
+    if (errorMessage) {
+      if (isLogin) {
+        form.setErrors({ username: errorMessage, password: errorMessage });
+      } else {
+        form.setErrors({ username: errorMessage });
+      }
+    }
+  }, [errorMessage]);
+
+  const handleSubmit = (values: { username: string; password: string }) => {
+    const { username, password } = values;
     if (isLogin) {
       onLogin(username, password);
     } else {
@@ -22,35 +54,25 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onRegister }) => {
   return (
     <form
       className="border-shamrock-700 mx-auto max-w-md rounded-lg border-4 bg-white p-6"
-      onSubmit={handleSubmit}
+      onSubmit={form.onSubmit(handleSubmit)}
     >
       <h2 className="mb-6 text-2xl font-bold">
         {isLogin ? "Login" : "Register"}
       </h2>
       <div className="mb-4">
-        <label htmlFor="username" className="mb-2 block">
-          Username
-        </label>
-        <input
-          type="text"
+        <TextInput
           id="username"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          label="Username"
           required
+          {...form.getInputProps("username")}
         />
       </div>
       <div className="mb-6">
-        <label htmlFor="password" className="mb-2 block">
-          Password
-        </label>
-        <input
-          type="password"
+        <PasswordInput
           id="password"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          label="Password"
           required
+          {...form.getInputProps("password")}
         />
       </div>
       <button

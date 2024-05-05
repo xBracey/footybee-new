@@ -1,46 +1,6 @@
 import React from "react";
-import { Prediction, Team } from "../../../../shared/types/database";
-
-const PredictionButton = ({
-  onClick,
-  children,
-  disabled,
-}: {
-  onClick: () => void;
-  children: React.ReactNode;
-  disabled?: boolean;
-}) => (
-  <button
-    className="bg-supernova-400 hover:bg-supernova-500 rounded px-2 py-1 text-gray-800 transition-all disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
-    onClick={onClick}
-    disabled={disabled}
-  >
-    {children}
-  </button>
-);
-
-const TeamPrediction = ({
-  teamName,
-  score,
-  incrementScore,
-  decrementScore,
-}: {
-  teamName: string;
-  score: number;
-  incrementScore: () => void;
-  decrementScore: () => void;
-}) => (
-  <div className="flex flex-col items-center">
-    <span className="text-lg font-bold">{teamName}</span>
-    <div className="flex items-center gap-5">
-      <PredictionButton onClick={decrementScore} disabled={score === 0}>
-        -
-      </PredictionButton>
-      <span className="flex w-4 justify-center text-xl font-bold">{score}</span>
-      <PredictionButton onClick={incrementScore}>+</PredictionButton>
-    </div>
-  </div>
-);
+import { Prediction, Team } from "../../../../../shared/types/database";
+import TeamPrediction from "../TeamPrediction";
 
 interface SinglePredictionProps {
   homeTeam: Team;

@@ -25,7 +25,7 @@ const AdminAddEdit = ({
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center p-4">
+    <div className="relative flex w-full flex-col items-center justify-center p-4">
       <div className="mx-auto w-full max-w-xl rounded-lg border border-gray-300 bg-white p-4 shadow-md">
         <h1 className="mb-4 text-lg font-semibold text-gray-700">
           {id ? "Edit" : "Add"} {title}

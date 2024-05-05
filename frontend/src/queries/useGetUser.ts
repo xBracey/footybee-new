@@ -1,10 +1,6 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
-
-export type User = {
-  id: number;
-  name: string;
-};
+import { User } from "../../../shared/types/database";
 
 export const getUser = async (username?: string) => {
   if (!username) {

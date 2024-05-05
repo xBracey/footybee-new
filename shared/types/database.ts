@@ -48,3 +48,8 @@ export interface Team {
   groupLetter: string;
   name: string;
 }
+
+export interface User {
+  username: string;
+  admin: boolean;
+}

@@ -14,7 +14,14 @@ export const getUser = async (username: string) => {
     .from(users)
     .where(eq(users.username, username))
     .execute();
-  return resp.length ? resp[0] : null;
+
+  if (resp.length === 0) return null;
+
+  return {
+    username: resp[0].username,
+    password: resp[0].password,
+    admin: !!resp[0].admin,
+  };
 };
 
 export const insertUser = async (user: InsertUser) => {
@@ -24,5 +31,13 @@ export const insertUser = async (user: InsertUser) => {
   return db
     .insert(users)
     .values({ ...user, password })
+    .execute();
+};
+
+export const editUser = (username: string, admin: boolean) => {
+  return db
+    .update(users)
+    .set({ admin: admin ? 1 : 0 })
+    .where(eq(users.username, username))
     .execute();
 };

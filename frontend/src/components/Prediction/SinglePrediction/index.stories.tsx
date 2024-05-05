@@ -1,7 +1,7 @@
 import { Story } from "@ladle/react";
 import SinglePrediction from ".";
-import { fixtures } from "../../fixtures/fixtures";
-import { teams } from "../../fixtures/teams";
+import { fixtures } from "../../../fixtures/fixtures";
+import { teams } from "../../../fixtures/teams";
 
 const fixture = fixtures[0];
 

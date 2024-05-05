@@ -7,18 +7,24 @@ interface LoginRequest {
   password: string;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   token: string;
 }
 
 export const loginUser = async ({ username, password }: LoginRequest) => {
-  return apiRequest<LoginResponse>("/users/login", {
-    method: "POST",
-    data: {
-      username,
-      password,
-    },
-  });
+  try {
+    const resp = await apiRequest<LoginResponse>("/users/login", {
+      method: "POST",
+      data: {
+        username,
+        password,
+      },
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+    return { error: "Username or password is incorrect" };
+  }
 };
 
 export const useLoginUser = () => {

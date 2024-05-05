@@ -1,11 +1,7 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
 import { useUserStore } from "../zustand/user";
-
-export type User = {
-  username: string;
-  admin: boolean;
-};
+import { User } from "../../../shared/types/database";
 
 export const getMe = async (token: string) => {
   if (!token) {
