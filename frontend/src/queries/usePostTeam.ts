@@ -7,19 +7,12 @@ interface PostTeamRequest {
   team: Omit<Team, "id">;
 }
 
-export interface PostTeamResponse {
-  team: Team;
-}
-
 export const addEditTeam = async ({ team, id }: PostTeamRequest) => {
   try {
-    const resp = await apiRequest<PostTeamResponse>(
-      `/teams${id ? `/${id}` : ""}`,
-      {
-        method: id ? "PUT" : "POST",
-        data: team,
-      }
-    );
+    const resp = await apiRequest<Team>(`/teams${id ? `/${id}` : ""}`, {
+      method: id ? "PUT" : "POST",
+      data: team,
+    });
     return resp;
   } catch (error) {
     console.log(error);

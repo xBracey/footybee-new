@@ -8,8 +8,12 @@ export const getPredictions = async () => {
   });
 };
 
-export const useGetPredictions = () => {
-  const query = useQuery(["getPredictions"], () => getPredictions());
+export const useGetPredictions = (
+  onSuccess?: (predictions: Prediction[]) => void
+) => {
+  const query = useQuery(["getPredictions"], () => getPredictions(), {
+    onSuccess,
+  });
 
   return { ...query, data: query.data || [] };
 };

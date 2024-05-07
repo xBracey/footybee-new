@@ -7,13 +7,9 @@ interface PostUserRequest {
   isAdmin: boolean;
 }
 
-export interface PostUserResponse {
-  user: User;
-}
-
 export const editUser = async ({ username, isAdmin }: PostUserRequest) => {
   try {
-    const resp = await apiRequest<PostUserResponse>(`/users/${username}`, {
+    const resp = await apiRequest<User>(`/users/${username}`, {
       method: "PUT",
       data: { isAdmin },
     });

@@ -7,19 +7,12 @@ interface PostFixtureRequest {
   fixture: Omit<Fixture, "id">;
 }
 
-export interface PostFixtureResponse {
-  fixture: Fixture;
-}
-
 export const addEditFixture = async ({ fixture, id }: PostFixtureRequest) => {
   try {
-    const resp = await apiRequest<PostFixtureResponse>(
-      `/fixtures${id ? `/${id}` : ""}`,
-      {
-        method: id ? "PUT" : "POST",
-        data: fixture,
-      }
-    );
+    const resp = await apiRequest<Fixture>(`/fixtures${id ? `/${id}` : ""}`, {
+      method: id ? "PUT" : "POST",
+      data: fixture,
+    });
     return resp;
   } catch (error) {
     console.log(error);

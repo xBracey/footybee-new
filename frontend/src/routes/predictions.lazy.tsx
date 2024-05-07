@@ -1,38 +1,29 @@
 import { createLazyFileRoute, Navigate } from "@tanstack/react-router";
 import { useGetTeams } from "../queries/useGetTeams";
 import { useGetFixtures } from "../queries/useGetFixtures";
-import { useGetPredictions } from "../queries/useGetPredictions";
-import { PredictionsPage } from "../pages/Predictions";
 import { useGetMe } from "../queries/useGetMe";
 import Loading from "../components/Loading";
+import { PredictionsLayout } from "../layouts/PredictionsLayout";
 
 const Predictions = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
   const { data: teams } = useGetTeams();
   const { data: fixtures } = useGetFixtures();
-  const { data: predictions } = useGetPredictions();
 
   if (userIsLoading) {
     return <Loading />;
   }
 
-  if (!user) {
+  if (!user || !user.username) {
     return <Navigate to="/login" />;
   }
 
-  if (!teams || !fixtures || !predictions) {
-    return <Loading />;
-  }
-
   return (
-    <div className="p-4">
-      <PredictionsPage
-        teams={teams}
-        fixtures={fixtures}
-        predictions={predictions}
-        username={user.username}
-      />
-    </div>
+    <PredictionsLayout
+      username={user.username}
+      teams={teams}
+      fixtures={fixtures}
+    />
   );
 };
 
