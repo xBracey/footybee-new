@@ -2,8 +2,9 @@ import { Dispatch } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PredictionActions, PredictionState } from "./types";
-import { onChangePrediction } from "./onChangePrediction";
+import { onChangePredictions } from "./onChangePredictions";
 import { onAddPredictions } from "./onAddPredictions";
+import { onChangePrediction } from "./onChangePrediction";
 
 const reducer = (
   state: PredictionState,
@@ -19,6 +20,9 @@ const reducer = (
 
     case "CHANGE_PREDICTION":
       return onChangePrediction(state, action.payload);
+
+    case "CHANGE_PREDICTIONS":
+      return onChangePredictions(state, action.payload);
 
     case "ADD_PREDICTIONS":
       return onAddPredictions(state, action.payload);

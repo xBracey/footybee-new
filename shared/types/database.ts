@@ -29,7 +29,6 @@ export interface Fixture {
 }
 
 export interface Prediction {
-  id?: number;
   username: string;
   fixtureId: number;
   homeTeamScore: number;

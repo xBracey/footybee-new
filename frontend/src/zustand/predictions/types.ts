@@ -9,6 +9,11 @@ export type SetPredictions = {
   payload: Prediction[];
 };
 
+export type ChangePredictions = {
+  type: "CHANGE_PREDICTIONS";
+  payload: PredictionWithSaved[];
+};
+
 export type ChangePrediction = {
   type: "CHANGE_PREDICTION";
   payload: PredictionWithSaved;
@@ -25,5 +30,6 @@ export interface PredictionState {
 
 export type PredictionActions =
   | SetPredictions
+  | ChangePredictions
   | ChangePrediction
   | AddPredictions;

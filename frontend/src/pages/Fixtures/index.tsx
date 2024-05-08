@@ -29,8 +29,6 @@ export const FixturesPage = ({
     return acc;
   }, {} as Record<string, FixturesPageProps>);
 
-  console.log({ groups });
-
   const groupFixtures = fixtures.reduce((acc, fixture) => {
     const result = results.find((result) => result.fixtureId === fixture.id);
 

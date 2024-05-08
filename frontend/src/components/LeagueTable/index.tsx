@@ -15,8 +15,6 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
   const teamStats = useCalculateTeamStats(fixtures, results, teams);
   const { table, pairings } = teamStats;
 
-  console.log({ pairings });
-
   return (
     <table className="w-full overflow-hidden rounded">
       <thead>

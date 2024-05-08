@@ -2,6 +2,7 @@ import { Dialog, Loader } from "@mantine/core";
 import { Fixture, Prediction, Team } from "../../../../shared/types/database";
 import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
+import { Fragment } from "react";
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -10,6 +11,7 @@ interface PredictionsPageProps {
   username: string;
   onPredictionChange: (prediction: Prediction) => void;
   isSavingPrediction: boolean;
+  isError: boolean;
 }
 
 export const PredictionsPage = ({
@@ -19,16 +21,28 @@ export const PredictionsPage = ({
   username,
   onPredictionChange,
   isSavingPrediction,
+  isError,
 }: PredictionsPageProps) => {
   const groupFixtures = usePredictions(teams, fixtures, predictions);
 
   return (
     <div className="flex items-center justify-center">
-      <Dialog opened={isSavingPrediction}>
-        <Loader color="blue" size="sm" className="mr-4" />
-        <p className="text-blue-600">
-          Saving prediction, please wait until this dialog is closed.
-        </p>
+      <Dialog opened={isSavingPrediction || isError}>
+        {isError ? (
+          <p className="text-center text-sm text-red-600">
+            Error - Predictions editing failed, please refresh the page and try
+            again.
+          </p>
+        ) : (
+          <Fragment>
+            <div className="mb-2 flex items-center justify-center gap-4">
+              <Loader color="blue" size="sm" className="mr-4" />
+            </div>
+            <p className="text-center text-sm text-blue-600">
+              Saving prediction, please wait until this dialog is closed.
+            </p>
+          </Fragment>
+        )}
       </Dialog>
 
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">

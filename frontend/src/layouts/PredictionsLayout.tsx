@@ -1,11 +1,12 @@
 import { useGetPredictions } from "../queries/useGetPredictions";
-import { useEditPrediction } from "../queries/useEditPrediction";
+import { useEditPredictions } from "../queries/useEditPredictions";
 import { useInitPredictions } from "../queries/useInitPredictions";
 import { Fixture, Prediction, Team } from "../../../shared/types/database";
 import { usePredictionStore } from "../zustand/predictions";
 import { PredictionsPage } from "../pages/Predictions";
 import Loading from "../components/Loading";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 interface PredictionsLayoutProps {
   username: string;
@@ -18,10 +19,11 @@ export const PredictionsLayout = ({
   teams,
   fixtures,
 }: PredictionsLayoutProps) => {
+  const [firstPredictionLoad, setFirstPredictionLoad] = useState(false);
+
   const { state, dispatch } = usePredictionStore();
 
   const onInitPredictionsSuccess = (data: Prediction[]) => {
-    console.log("Initialized predictions", data);
     dispatch({
       type: "ADD_PREDICTIONS",
       payload: data.map((prediction) => ({ ...prediction, saved: true })),
@@ -34,6 +36,12 @@ export const PredictionsLayout = ({
   );
 
   const onPredictionSuccess = (predictions: Prediction[]) => {
+    if (firstPredictionLoad) {
+      return;
+    }
+
+    setFirstPredictionLoad(true);
+
     dispatch({ type: "SET_PREDICTIONS", payload: predictions });
 
     const fixturesWithNoPredictions = fixtures.filter((fixture) => {
@@ -49,13 +57,27 @@ export const PredictionsLayout = ({
 
   useGetPredictions(onPredictionSuccess);
 
-  const onEditPredictionSuccess = (data: Prediction) => {
-    dispatch({ type: "CHANGE_PREDICTION", payload: { ...data, saved: true } });
+  const onEditPredictionsSuccess = (data: Prediction[]) => {
+    dispatch({
+      type: "CHANGE_PREDICTIONS",
+      payload: data.map((prediction) => ({ ...prediction, saved: true })),
+    });
   };
 
-  const { editPrediction } = useEditPrediction(
+  const { editPredictions, isError } = useEditPredictions(
     username,
-    onEditPredictionSuccess
+    onEditPredictionsSuccess
+  );
+
+  const onEditPredictions = useDebouncedCallback(
+    useCallback(() => {
+      const localPredictions = state.predictions.filter(
+        (prediction) => prediction.saved === false
+      );
+
+      editPredictions(localPredictions);
+    }, [state.predictions, editPredictions]),
+    2000
   );
 
   const onPredictionChange = (prediction: Prediction) => {
@@ -63,7 +85,7 @@ export const PredictionsLayout = ({
       type: "CHANGE_PREDICTION",
       payload: { ...prediction, saved: false },
     });
-    editPrediction(prediction);
+    onEditPredictions();
   };
 
   const hasAllPredictions = useMemo(() => {
@@ -92,6 +114,7 @@ export const PredictionsLayout = ({
         isSavingPrediction={state.predictions.some(
           (prediction) => prediction.saved === false
         )}
+        isError={isError}
       />
     </div>
   );

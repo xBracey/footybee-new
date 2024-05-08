@@ -1,13 +1,17 @@
 import { PredictionState, PredictionWithSaved } from "./types";
 
-export const onChangePrediction = (
+export const onChangePredictions = (
   state: PredictionState,
-  payload: PredictionWithSaved
+  payload: PredictionWithSaved[]
 ) => {
-  const { fixtureId, homeTeamScore, awayTeamScore, saved } = payload;
+  const payloadFixtureIds = payload.map(({ fixtureId }) => fixtureId);
 
   const updatedPredictions = state.predictions.map((prediction) => {
-    if (prediction.fixtureId === fixtureId) {
+    if (payloadFixtureIds.includes(prediction.fixtureId)) {
+      const { homeTeamScore, awayTeamScore, saved } = payload.find(
+        ({ fixtureId }) => fixtureId === prediction.fixtureId
+      );
+
       return {
         ...prediction,
         homeTeamScore,

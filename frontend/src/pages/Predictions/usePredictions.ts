@@ -50,7 +50,5 @@ export const usePredictions = (
     return acc;
   }, groups as Record<string, Predictions>);
 
-  console.log({ groupFixtures });
-
   return groupFixtures;
 };
