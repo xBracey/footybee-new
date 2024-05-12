@@ -26,7 +26,7 @@ export const PredictionsPage = ({
   const groupFixtures = usePredictions(teams, fixtures, predictions);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <Dialog opened={isSavingPrediction || isError}>
         {isError ? (
           <p className="text-center text-sm text-red-600">
@@ -45,11 +45,11 @@ export const PredictionsPage = ({
         )}
       </Dialog>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
-        <h1 className="my-2 text-center text-3xl font-bold text-white">
-          Fixtures
-        </h1>
+      <h1 className="my-2 mb-6 text-center text-3xl font-bold text-white">
+        Fixtures
+      </h1>
 
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
         {Object.entries(groupFixtures).map(
           ([groupLetter, { fixtures, predictions, teams }]) => (
             <div className="flex flex-col gap-2">

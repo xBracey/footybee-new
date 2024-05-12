@@ -54,7 +54,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 p-4">
+    <div className="flex w-full flex-col items-center justify-center gap-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-4">
         <AdminEntity
           name="Fixtures"

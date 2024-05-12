@@ -36,16 +36,12 @@ const Login = () => {
     return undefined;
   }, [loginData, registerData]);
 
-  console.log(errorMessage);
-
   return (
-    <div className="p-4">
-      <LoginForm
-        onLogin={onHandleLogin}
-        onRegister={onHandleRegister}
-        errorMessage={errorMessage}
-      />
-    </div>
+    <LoginForm
+      onLogin={onHandleLogin}
+      onRegister={onHandleRegister}
+      errorMessage={errorMessage}
+    />
   );
 };
 

@@ -48,15 +48,15 @@ export const FixturesPage = ({
   }, groups as Record<string, FixturesPageProps>);
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
-        <h1 className="my-2 text-center text-3xl font-bold text-white">
-          Fixtures
-        </h1>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="my-2 mb-6 text-center text-3xl font-bold text-white">
+        Fixtures
+      </h1>
 
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
         {Object.entries(groupFixtures).map(
           ([groupLetter, { fixtures, results, teams }]) => (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <h2 className="text-center text-xl font-bold text-white">
                 Group {groupLetter}
               </h2>

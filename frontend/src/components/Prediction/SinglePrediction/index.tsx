@@ -43,8 +43,8 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
     });
 
   return (
-    <div className="flex justify-center">
-      <div className="bg-shamrock-300 flex items-center justify-center gap-4 rounded-md p-2 px-4">
+    <div className="flex w-full justify-center md:w-auto">
+      <div className="bg-shamrock-300 flex w-full items-center justify-around gap-4 rounded-md p-2 px-4">
         <TeamPrediction
           teamName={homeTeam.name}
           score={homeTeamScore}

@@ -3,6 +3,7 @@ import { useGetTeams } from "../queries/useGetTeams";
 import { useGetFixtures } from "../queries/useGetFixtures";
 import { useGetResults } from "../queries/useGetResults";
 import { FixturesPage } from "../pages/Fixtures";
+import Loading from "../components/Loading";
 
 const Fixtures = () => {
   const { data: teams } = useGetTeams();
@@ -10,14 +11,10 @@ const Fixtures = () => {
   const { data: results } = useGetResults();
 
   if (!teams || !fixtures || !results) {
-    return <div className="p-4">Loading</div>;
+    return <Loading />;
   }
 
-  return (
-    <div className="p-4">
-      <FixturesPage teams={teams} fixtures={fixtures} results={results} />
-    </div>
-  );
+  return <FixturesPage teams={teams} fixtures={fixtures} results={results} />;
 };
 
 export const Route = createLazyFileRoute("/fixtures")({

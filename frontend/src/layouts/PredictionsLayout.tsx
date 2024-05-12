@@ -104,18 +104,16 @@ export const PredictionsLayout = ({
   }
 
   return (
-    <div className="p-4">
-      <PredictionsPage
-        teams={teams}
-        fixtures={fixtures}
-        predictions={state.predictions}
-        username={username}
-        onPredictionChange={onPredictionChange}
-        isSavingPrediction={state.predictions.some(
-          (prediction) => prediction.saved === false
-        )}
-        isError={isError}
-      />
-    </div>
+    <PredictionsPage
+      teams={teams}
+      fixtures={fixtures}
+      predictions={state.predictions}
+      username={username}
+      onPredictionChange={onPredictionChange}
+      isSavingPrediction={state.predictions.some(
+        (prediction) => prediction.saved === false
+      )}
+      isError={isError}
+    />
   );
 };

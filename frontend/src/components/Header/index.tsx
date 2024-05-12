@@ -7,12 +7,12 @@ const Header = () => {
   const { data: user } = useGetMe();
 
   return (
-    <div className="bg-shamrock-800 flex h-24 gap-2 p-6 text-white">
-      <div className="mx-auto flex w-full max-w-3xl items-center">
+    <div className="bg-shamrock-800 flex h-14 items-center gap-2 px-6 text-white md:h-24">
+      <div className="md:justify-normal mx-auto flex w-full max-w-3xl items-center justify-center">
         <Link to="/">
           <Logo />
         </Link>
-        <div className="flex flex-1 items-center justify-end gap-4">
+        <div className="hidden flex-1 items-center justify-end gap-4 md:flex">
           {user && user.admin && (
             <Link to="/admin" className="[&.active]:font-bold">
               Admin

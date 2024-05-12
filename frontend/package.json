@@ -6,7 +6,8 @@
     "build": "vite build",
     "start": "npm run build && vite preview",
     "preview": "vite preview",
-    "ladle": "BROWSER=\"arc\" npx ladle serve"
+    "ladle": "BROWSER=\"arc\" npx ladle serve",
+    "generate-icons": "node .icons/index.js"
   },
   "dependencies": {
     "@ladle/react": "^4.0.2",
@@ -17,6 +18,7 @@
     "@tanstack/react-router": "^1.31.19",
     "@tanstack/router-devtools": "^1.31.19",
     "axios": "^1.6.8",
+    "change-case": "^4.0.0",
     "dayjs": "^1.11.11",
     "pm2": "^5.3.1",
     "react": "^18.0.33",
@@ -31,6 +33,7 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^4.2.1",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "^1.15.0",
     "postcss-simple-vars": "^7.0.1",
