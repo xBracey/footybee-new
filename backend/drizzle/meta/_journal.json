@@ -57,6 +57,13 @@
       "when": 1714820938743,
       "tag": "0007_shiny_the_captain",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1715533829297,
+      "tag": "0008_ambitious_cannonball",
+      "breakpoints": true
     }
   ]
 }

@@ -7,3 +7,4 @@ export * from "./predictions";
 export * from "./userLeagues";
 export * from "./points";
 export * from "./groups";
+export * from "./userGroups";

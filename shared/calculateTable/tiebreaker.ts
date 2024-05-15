@@ -25,7 +25,7 @@ export const tiebreaker = (
     }
 
     pairings.push({ a: a.name, b: b.name });
-    return 0;
+    return a.id - b.id;
   });
 
   if (includedTeams) {

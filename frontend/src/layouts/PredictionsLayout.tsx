@@ -35,6 +35,13 @@ export const PredictionsLayout = ({
     username
   );
 
+  const onEditGroupSwitch = (groupLetter: string, switches: number[]) => {
+    dispatch({
+      type: "EDIT_GROUP_SWITCH",
+      payload: { groupLetter, switches },
+    });
+  };
+
   const onPredictionSuccess = (predictions: Prediction[]) => {
     if (firstPredictionLoad) {
       return;
@@ -80,10 +87,14 @@ export const PredictionsLayout = ({
     2000
   );
 
-  const onPredictionChange = (prediction: Prediction) => {
+  const onPredictionChange = (prediction: Prediction, groupLetter: string) => {
     dispatch({
       type: "CHANGE_PREDICTION",
       payload: { ...prediction, saved: false },
+    });
+    dispatch({
+      type: "EDIT_GROUP_SWITCH",
+      payload: { groupLetter, switches: [] },
     });
     onEditPredictions();
   };
@@ -114,6 +125,8 @@ export const PredictionsLayout = ({
         (prediction) => prediction.saved === false
       )}
       isError={isError}
+      groupSwitches={state.groupSwitches}
+      onGroupSwitchChange={onEditGroupSwitch}
     />
   );
 };

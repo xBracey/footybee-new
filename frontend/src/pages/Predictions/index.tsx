@@ -9,9 +9,11 @@ interface PredictionsPageProps {
   predictions: Prediction[];
   teams: Team[];
   username: string;
-  onPredictionChange: (prediction: Prediction) => void;
+  onPredictionChange: (prediction: Prediction, groupLetter: string) => void;
   isSavingPrediction: boolean;
   isError: boolean;
+  groupSwitches: { [groupLetter: string]: number[] };
+  onGroupSwitchChange: (groupLetter: string, switches: number[]) => void;
 }
 
 export const PredictionsPage = ({
@@ -22,8 +24,19 @@ export const PredictionsPage = ({
   onPredictionChange,
   isSavingPrediction,
   isError,
+  groupSwitches,
+  onGroupSwitchChange,
 }: PredictionsPageProps) => {
   const groupFixtures = usePredictions(teams, fixtures, predictions);
+
+  const onEditGroupSwitch = (groupLetter: string) => (switches: number[]) => {
+    onGroupSwitchChange(groupLetter, switches);
+  };
+
+  const onEditPrediction =
+    (groupLetter: string) => (prediction: Prediction) => {
+      onPredictionChange(prediction, groupLetter);
+    };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -62,7 +75,9 @@ export const PredictionsPage = ({
                 predictions={predictions}
                 teams={teams}
                 username={username}
-                onPredictionChange={onPredictionChange}
+                onPredictionChange={onEditPrediction(groupLetter)}
+                groupSwitches={groupSwitches[groupLetter] ?? []}
+                onEditGroupSwitch={onEditGroupSwitch(groupLetter)}
               />
             </div>
           )

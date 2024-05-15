@@ -1,10 +1,10 @@
 import { Dispatch } from "react";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import { PredictionActions, PredictionState } from "./types";
 import { onChangePredictions } from "./onChangePredictions";
 import { onAddPredictions } from "./onAddPredictions";
 import { onChangePrediction } from "./onChangePrediction";
+import { onEditGroupSwitch } from "./onEditGroupSwitch";
 
 const reducer = (
   state: PredictionState,
@@ -27,6 +27,9 @@ const reducer = (
     case "ADD_PREDICTIONS":
       return onAddPredictions(state, action.payload);
 
+    case "EDIT_GROUP_SWITCH":
+      return onEditGroupSwitch(state, action.payload);
+
     default:
       return state;
   }
@@ -37,15 +40,8 @@ interface PredictionStore {
   dispatch: Dispatch<PredictionActions>;
 }
 
-export const usePredictionStore = create<PredictionStore>()(
-  persist(
-    (set) => ({
-      state: { predictions: [] },
-      dispatch: (action: PredictionActions) =>
-        set((state) => ({ ...state, state: reducer(state.state, action) })),
-    }),
-    {
-      name: "prediction",
-    }
-  )
-);
+export const usePredictionStore = create<PredictionStore>()((set) => ({
+  state: { predictions: [], groupSwitches: {} },
+  dispatch: (action: PredictionActions) =>
+    set((state) => ({ ...state, state: reducer(state.state, action) })),
+}));

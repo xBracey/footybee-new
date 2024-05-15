@@ -8,3 +8,12 @@ export const results: Result[] = [
   { id: 5, fixtureId: 5, homeTeamScore: 3, awayTeamScore: 1 },
   { id: 6, fixtureId: 6, homeTeamScore: 1, awayTeamScore: 1 },
 ];
+
+export const resultsWithPairings: Result[] = [
+  { id: 1, fixtureId: 1, homeTeamScore: 1, awayTeamScore: 1 },
+  { id: 2, fixtureId: 2, homeTeamScore: 1, awayTeamScore: 1 },
+  { id: 3, fixtureId: 3, homeTeamScore: 1, awayTeamScore: 1 },
+  { id: 4, fixtureId: 4, homeTeamScore: 1, awayTeamScore: 1 },
+  { id: 5, fixtureId: 5, homeTeamScore: 1, awayTeamScore: 1 },
+  { id: 6, fixtureId: 6, homeTeamScore: 1, awayTeamScore: 1 },
+];

@@ -8,6 +8,8 @@ interface ILeaguePredictions {
   fixtures: Fixture[];
   predictions: Prediction[];
   onPredictionChange: (prediction: Prediction) => void;
+  groupSwitches?: number[];
+  onEditGroupSwitch: (switches: number[]) => void;
 }
 
 const LeaguePredictions = ({
@@ -16,6 +18,8 @@ const LeaguePredictions = ({
   fixtures,
   predictions,
   onPredictionChange,
+  groupSwitches = [],
+  onEditGroupSwitch,
 }: ILeaguePredictions) => {
   const onSinglePredictionChange = (
     newPrediction: Omit<Prediction, "username">
@@ -48,7 +52,14 @@ const LeaguePredictions = ({
         })}
       </div>
 
-      <LeagueTable teams={teams} fixtures={fixtures} results={predictions} />
+      <LeagueTable
+        teams={teams}
+        fixtures={fixtures}
+        results={predictions}
+        isPrediction
+        groupSwitches={groupSwitches}
+        setGroupSwitches={onEditGroupSwitch}
+      />
     </div>
   );
 };

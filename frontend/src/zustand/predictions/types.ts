@@ -24,12 +24,19 @@ export type AddPredictions = {
   payload: PredictionWithSaved[];
 };
 
+export type EditGroupSwitch = {
+  type: "EDIT_GROUP_SWITCH";
+  payload: { groupLetter: string; switches: number[] };
+};
+
 export interface PredictionState {
   predictions: (Prediction & { saved: boolean })[];
+  groupSwitches: { [groupLetter: string]: number[] };
 }
 
 export type PredictionActions =
   | SetPredictions
   | ChangePredictions
   | ChangePrediction
-  | AddPredictions;
+  | AddPredictions
+  | EditGroupSwitch;
