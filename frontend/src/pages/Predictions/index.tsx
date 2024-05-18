@@ -66,7 +66,7 @@ export const PredictionsPage = ({
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
         {Object.entries(groupFixtures).map(
           ([groupLetter, { fixtures, predictions, teams }]) => (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2" key={groupLetter}>
               <h2 className="text-center text-xl font-bold text-white">
                 Group {groupLetter}
               </h2>

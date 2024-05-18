@@ -89,9 +89,11 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
 
   return (
     <div className="relative">
-      <div className="absolute -right-2 -top-2 z-50">
-        <LeagueTableModal />
-      </div>
+      {isPrediction && (
+        <div className="absolute -right-2 -top-2 z-50">
+          <LeagueTableModal />
+        </div>
+      )}
       <table className="relative w-full overflow-hidden rounded">
         <thead>
           <tr className="bg-shamrock-400 text-sm uppercase leading-normal text-gray-600">
