@@ -31,7 +31,22 @@ const MobileItem = ({
 const MobileMenu = () => {
   const { data: user } = useGetMe();
 
-  if (!user) return null;
+  if (!user)
+    return (
+      <div
+        className={`bg-shamrock-800 absolute bottom-0 right-0 left-0 grid w-full grid-cols-2 items-center text-xs text-white md:hidden`}
+        style={{
+          paddingBottom: "calc(env(safe-area-inset-bottom, 1rem) - 1rem)",
+        }}
+      >
+        <MobileItem link="/dashboard" text="Home">
+          <Home className="h-6 w-6" />
+        </MobileItem>
+        <MobileItem link="/fixtures" text="Fixtures">
+          <Pitch className="h-6 w-6" />
+        </MobileItem>
+      </div>
+    );
 
   const { admin, username } = user;
 
@@ -39,7 +54,10 @@ const MobileMenu = () => {
     <div
       className={`grid items-center ${
         admin ? "grid-cols-5" : "grid-cols-4"
-      } bg-shamrock-800 absolute bottom-0 right-0 left-0 block w-full text-xs text-white md:hidden`}
+      } bg-shamrock-800 absolute bottom-0 right-0 left-0 w-full text-xs text-white md:hidden`}
+      style={{
+        paddingBottom: "calc(env(safe-area-inset-bottom, 1rem) - 1rem)",
+      }}
     >
       <MobileItem link="/dashboard" text="Home">
         <Home className="h-6 w-6" />
