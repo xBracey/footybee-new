@@ -52,3 +52,9 @@ export interface User {
   username: string;
   admin: boolean;
 }
+
+export interface UserGroup {
+  username: string;
+  groupLetter: string;
+  switches: number[];
+}

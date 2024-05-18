@@ -59,7 +59,7 @@ const LeagueTableModal = ({}: ILeagueTableModal) => {
 
         <p className="mt-3 text-sm">
           With the data we have, we can determine the league table for the first
-          5 tiebreakers. If there is still a tie, we will show this icon{" "}
+          6 tiebreakers. If there is still a tie, we will show this icon{" "}
           <Switch className="inline h-3.5 w-3.5" /> which will allow you to
           choose the order of the league table
         </p>

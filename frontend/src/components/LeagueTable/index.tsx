@@ -88,64 +88,65 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
   };
 
   return (
-    <table className="relative w-full overflow-hidden rounded">
-      <div className="absolute right-2 top-2">
+    <div className="relative">
+      <div className="absolute -right-2 -top-2 z-50">
         <LeagueTableModal />
       </div>
-
-      <thead>
-        <tr className="bg-shamrock-400 text-sm uppercase leading-normal text-gray-600">
-          <th className="py-3 px-4 text-left">Team</th>
-          <th className="py-3 px-4 text-center">
-            <span className="hidden sm:inline">Points</span>
-            <span className="sm:hidden">Pts</span>
-          </th>
-          <th className="py-3 px-4 text-center">
-            <span className="hidden sm:inline">Wins</span>
-            <span className="sm:hidden">W</span>
-          </th>
-          <th className="py-3 px-4 text-center">
-            <span className="hidden sm:inline">Draws</span>
-            <span className="sm:hidden">D</span>
-          </th>
-          <th className="py-3 px-4 text-center">
-            <span className="hidden sm:inline">Losses</span>
-            <span className="sm:hidden">L</span>
-          </th>
-          <th className="py-3 px-4 text-center">
-            <span className="hidden sm:inline">Goal Difference</span>
-            <span className="sm:hidden">GD</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody className="text-xs text-gray-600 md:text-sm">
-        {tableWithGroupSwitches.map((team, index) => (
-          <tr
-            key={team.id}
-            className={`${
-              index % 2 === 0 ? "bg-shamrock-200" : "bg-shamrock-50"
-            } relative`}
-          >
-            <td className="py-3 px-4">{team.name}</td>
-            <td className="py-3 px-4 text-center">{team.points}</td>
-            <td className="py-3 px-4 text-center">{team.wins}</td>
-            <td className="py-3 px-4 text-center">{team.draws}</td>
-            <td className="py-3 px-4 text-center">{team.losses}</td>
-            <td className="py-3 px-4 text-center">
-              {team.goalsFor - team.goalsAgainst}
-            </td>
-            {isPrediction && pairingIndexList.includes(index) && (
-              <button
-                className="bot-0 absolute right-5 -translate-y-1/2"
-                onClick={() => onPairingClick(index)}
-              >
-                <Switch className="h-4 w-4 rotate-180" />
-              </button>
-            )}
+      <table className="relative w-full overflow-hidden rounded">
+        <thead>
+          <tr className="bg-shamrock-400 text-sm uppercase leading-normal text-gray-600">
+            <th className="py-3 px-4 text-left">Team</th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Points</span>
+              <span className="sm:hidden">Pts</span>
+            </th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Wins</span>
+              <span className="sm:hidden">W</span>
+            </th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Draws</span>
+              <span className="sm:hidden">D</span>
+            </th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Losses</span>
+              <span className="sm:hidden">L</span>
+            </th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Goal Difference</span>
+              <span className="sm:hidden">GD</span>
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="text-xs text-gray-600 md:text-sm">
+          {tableWithGroupSwitches.map((team, index) => (
+            <tr
+              key={team.id}
+              className={`${
+                index % 2 === 0 ? "bg-shamrock-200" : "bg-shamrock-50"
+              } relative`}
+            >
+              <td className="py-3 px-4">{team.name}</td>
+              <td className="py-3 px-4 text-center">{team.points}</td>
+              <td className="py-3 px-4 text-center">{team.wins}</td>
+              <td className="py-3 px-4 text-center">{team.draws}</td>
+              <td className="py-3 px-4 text-center">{team.losses}</td>
+              <td className="py-3 px-4 text-center">
+                {team.goalsFor - team.goalsAgainst}
+              </td>
+              {isPrediction && pairingIndexList.includes(index) && (
+                <button
+                  className="bot-0 absolute right-1 -translate-y-1/2 md:right-5"
+                  onClick={() => onPairingClick(index)}
+                >
+                  <Switch className="h-4 w-4 rotate-180" />
+                </button>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

@@ -3,7 +3,9 @@ import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
 import { buildApiRoutes } from "./db/router";
 
-const server = fastify();
+const server = fastify({
+  logger: false,
+});
 
 server.register(jwt, {
   secret: "ArcticLegoHuskySquaredle",

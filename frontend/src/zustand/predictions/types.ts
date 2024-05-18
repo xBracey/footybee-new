@@ -4,6 +4,13 @@ export type PredictionWithSaved = Prediction & {
   saved: boolean;
 };
 
+export type GroupSwitches = {
+  [groupLetter: string]: {
+    switches: number[];
+    saved: boolean;
+  };
+};
+
 export type SetPredictions = {
   type: "SET_PREDICTIONS";
   payload: Prediction[];
@@ -26,12 +33,17 @@ export type AddPredictions = {
 
 export type EditGroupSwitch = {
   type: "EDIT_GROUP_SWITCH";
-  payload: { groupLetter: string; switches: number[] };
+  payload: { groupLetter: string; switches: number[]; saved: boolean };
+};
+
+export type EditGroupSwitches = {
+  type: "EDIT_GROUP_SWITCHES";
+  payload: GroupSwitches;
 };
 
 export interface PredictionState {
   predictions: (Prediction & { saved: boolean })[];
-  groupSwitches: { [groupLetter: string]: number[] };
+  groupSwitches: GroupSwitches;
 }
 
 export type PredictionActions =
@@ -39,4 +51,5 @@ export type PredictionActions =
   | ChangePredictions
   | ChangePrediction
   | AddPredictions
-  | EditGroupSwitch;
+  | EditGroupSwitch
+  | EditGroupSwitches;

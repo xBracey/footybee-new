@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "c663d256-a530-43ec-b726-45726cc878f4",
+  "id": "7dea03d0-8c73-482c-add2-4722de41c6af",
   "prevId": "d0ab0143-3a3d-4234-ac7c-b19aedab5c78",
   "tables": {
     "users": {
@@ -476,8 +476,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "userGroups": {
-      "name": "userGroups",
+    "user_groups": {
+      "name": "user_groups",
       "columns": {
         "username": {
           "name": "username",
@@ -504,9 +504,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "userGroups_username_users_username_fk": {
-          "name": "userGroups_username_users_username_fk",
-          "tableFrom": "userGroups",
+        "user_groups_username_users_username_fk": {
+          "name": "user_groups_username_users_username_fk",
+          "tableFrom": "user_groups",
           "tableTo": "users",
           "columnsFrom": [
             "username"
@@ -517,9 +517,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "userGroups_group_letter_groups_letter_fk": {
-          "name": "userGroups_group_letter_groups_letter_fk",
-          "tableFrom": "userGroups",
+        "user_groups_group_letter_groups_letter_fk": {
+          "name": "user_groups_group_letter_groups_letter_fk",
+          "tableFrom": "user_groups",
           "tableTo": "groups",
           "columnsFrom": [
             "group_letter"
@@ -531,7 +531,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "user_groups_username_group_letter_pk": {
+          "columns": [
+            "group_letter",
+            "username"
+          ],
+          "name": "user_groups_username_group_letter_pk"
+        }
+      },
       "uniqueConstraints": {}
     }
   },

@@ -3,6 +3,7 @@ import { Fixture, Prediction, Team } from "../../../../shared/types/database";
 import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
 import { Fragment } from "react";
+import { GroupSwitches } from "../../zustand/predictions/types";
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -12,7 +13,7 @@ interface PredictionsPageProps {
   onPredictionChange: (prediction: Prediction, groupLetter: string) => void;
   isSavingPrediction: boolean;
   isError: boolean;
-  groupSwitches: { [groupLetter: string]: number[] };
+  groupSwitches: GroupSwitches;
   onGroupSwitchChange: (groupLetter: string, switches: number[]) => void;
 }
 
@@ -76,7 +77,7 @@ export const PredictionsPage = ({
                 teams={teams}
                 username={username}
                 onPredictionChange={onEditPrediction(groupLetter)}
-                groupSwitches={groupSwitches[groupLetter] ?? []}
+                groupSwitches={groupSwitches[groupLetter]?.switches ?? []}
                 onEditGroupSwitch={onEditGroupSwitch(groupLetter)}
               />
             </div>

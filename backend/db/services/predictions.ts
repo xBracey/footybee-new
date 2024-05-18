@@ -1,65 +1,24 @@
 import {
-  editPrediction,
-  getPredictions,
-  insertPrediction,
+  getPredictionsByUsername,
   insertPredictions,
 } from "../repositories/predictions";
 import { InsertPrediction } from "../schema";
 import { ServiceHandler } from "./types";
 
-export const getPredictionsHandler: ServiceHandler = async (_, reply) => {
-  const predictions = await getPredictions();
+export const getPredictionsHandler: ServiceHandler = async (req, reply) => {
+  const { username } = req.params as { username: string };
+
+  const predictions = await getPredictionsByUsername(username);
 
   reply.send(predictions);
-};
-
-export const insertPredictionHandler: ServiceHandler = async (req, reply) => {
-  const { homeTeamScore, awayTeamScore } = req.body as InsertPrediction;
-
-  const { username, fixtureId } = req.params as {
-    username: string;
-    fixtureId: string;
-  };
-
-  const prediction = await insertPrediction({
-    homeTeamScore,
-    awayTeamScore,
-    username,
-    fixtureId: parseInt(fixtureId),
-  });
-
-  reply.send(prediction);
 };
 
 export const insertPredictionsHandler: ServiceHandler = async (req, reply) => {
+  const { username } = req.params as { username: string };
+
   const predictions = req.body as InsertPrediction[];
 
-  await insertPredictions(predictions);
+  await insertPredictions(username, predictions);
 
-  reply.send(predictions);
-};
-
-export const editPredictionHandler: ServiceHandler = async (req, reply) => {
-  const { homeTeamScore, awayTeamScore } = req.body as Omit<
-    InsertPrediction,
-    "username" | "fixtureId"
-  >;
-
-  const { username, fixtureId } = req.params as {
-    username: string;
-    fixtureId: string;
-  };
-
-  await editPrediction(
-    { homeTeamScore, awayTeamScore },
-    username,
-    parseInt(fixtureId)
-  );
-
-  reply.send({
-    homeTeamScore,
-    awayTeamScore,
-    username,
-    fixtureId: parseInt(fixtureId),
-  });
+  reply.send(predictions.map((prediction) => ({ ...prediction, username })));
 };

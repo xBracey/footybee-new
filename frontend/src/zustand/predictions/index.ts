@@ -5,6 +5,7 @@ import { onChangePredictions } from "./onChangePredictions";
 import { onAddPredictions } from "./onAddPredictions";
 import { onChangePrediction } from "./onChangePrediction";
 import { onEditGroupSwitch } from "./onEditGroupSwitch";
+import { onEditGroupSwitches } from "./onEditGroupSwitches";
 
 const reducer = (
   state: PredictionState,
@@ -29,6 +30,9 @@ const reducer = (
 
     case "EDIT_GROUP_SWITCH":
       return onEditGroupSwitch(state, action.payload);
+
+    case "EDIT_GROUP_SWITCHES":
+      return onEditGroupSwitches(state, action.payload);
 
     default:
       return state;

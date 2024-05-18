@@ -1,15 +1,33 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "..";
 import { InsertPrediction, predictions } from "../schema";
 
-export const getPredictions = () => db.select().from(predictions).execute();
+export const getPredictionsByUsername = (username: string) =>
+  db
+    .select()
+    .from(predictions)
+    .where(eq(predictions.username, username))
+    .execute();
 
 export const insertPrediction = (prediction: InsertPrediction) => {
   return db.insert(predictions).values(prediction).execute();
 };
 
-export const insertPredictions = (predictionsRaw: InsertPrediction[]) => {
-  return db.insert(predictions).values(predictionsRaw).execute();
+export const insertPredictions = (
+  username: string,
+  predictionsRaw: InsertPrediction[]
+) => {
+  return db
+    .insert(predictions)
+    .values(predictionsRaw.map((prediction) => ({ ...prediction, username })))
+    .onConflictDoUpdate({
+      target: [predictions.fixtureId, predictions.username],
+      set: {
+        homeTeamScore: sql`excluded.home_team_score`,
+        awayTeamScore: sql`excluded.away_team_score`,
+      },
+    })
+    .execute();
 };
 
 export const editPrediction = (

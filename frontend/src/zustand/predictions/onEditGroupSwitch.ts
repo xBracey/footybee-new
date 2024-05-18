@@ -2,8 +2,8 @@ import { PredictionState } from "./types";
 
 export const onEditGroupSwitch = (
   state: PredictionState,
-  payload: { groupLetter: string; switches: number[] }
-) => {
+  payload: { groupLetter: string; switches: number[]; saved: boolean }
+): PredictionState => {
   const lastTwoSwitches = payload.switches.slice(-2);
 
   if (lastTwoSwitches.length === 2) {
@@ -12,10 +12,10 @@ export const onEditGroupSwitch = (
         ...state,
         groupSwitches: {
           ...state.groupSwitches,
-          [payload.groupLetter]: payload.switches.slice(
-            0,
-            payload.switches.length - 2
-          ),
+          [payload.groupLetter]: {
+            switches: payload.switches.slice(0, payload.switches.length - 2),
+            saved: payload.saved,
+          },
         },
       };
     }
@@ -25,7 +25,10 @@ export const onEditGroupSwitch = (
     ...state,
     groupSwitches: {
       ...state.groupSwitches,
-      [payload.groupLetter]: payload.switches,
+      [payload.groupLetter]: {
+        switches: payload.switches,
+        saved: payload.saved,
+      },
     },
   };
 };

@@ -1,12 +1,18 @@
 import { useGetPredictions } from "../queries/useGetPredictions";
 import { useEditPredictions } from "../queries/useEditPredictions";
-import { useInitPredictions } from "../queries/useInitPredictions";
-import { Fixture, Prediction, Team } from "../../../shared/types/database";
+import {
+  Fixture,
+  Prediction,
+  Team,
+  UserGroup,
+} from "../../../shared/types/database";
 import { usePredictionStore } from "../zustand/predictions";
 import { PredictionsPage } from "../pages/Predictions";
 import Loading from "../components/Loading";
 import { useCallback, useMemo, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { useEditUserGroups } from "../queries/useEditUserGroups";
+import { useGetUserGroups } from "../queries/useGetUserGroups";
 
 interface PredictionsLayoutProps {
   username: string;
@@ -20,6 +26,7 @@ export const PredictionsLayout = ({
   fixtures,
 }: PredictionsLayoutProps) => {
   const [firstPredictionLoad, setFirstPredictionLoad] = useState(false);
+  const [firstGroupSwitchLoad, setFirstGroupSwitchLoad] = useState(false);
 
   const { state, dispatch } = usePredictionStore();
 
@@ -30,16 +37,51 @@ export const PredictionsLayout = ({
     });
   };
 
-  const { initPredictions } = useInitPredictions(
-    onInitPredictionsSuccess,
-    username
+  const { editPredictions: initPredictions } = useEditPredictions(
+    username,
+    onInitPredictionsSuccess
+  );
+
+  const onEditUserGroupsSuccess = (data: UserGroup[]) => {
+    dispatch({
+      type: "EDIT_GROUP_SWITCHES",
+      payload: Object.fromEntries(
+        data.map((userGroup) => [
+          userGroup.groupLetter,
+          {
+            switches: userGroup.switches,
+            saved: true,
+          },
+        ])
+      ),
+    });
+  };
+
+  const { editUserGroups: editGroupSwitches } = useEditUserGroups(
+    username,
+    onEditUserGroupsSuccess
+  );
+
+  const onEditGroupSwitches = useDebouncedCallback(
+    useCallback(() => {
+      const localGroupSwitches = Object.entries(state.groupSwitches)
+        .filter(([_, groupSwitch]) => groupSwitch.saved === false)
+        .map(([groupLetter, groupSwitch]) => ({
+          groupLetter,
+          switches: groupSwitch.switches,
+        }));
+
+      editGroupSwitches(localGroupSwitches);
+    }, [state.groupSwitches, editGroupSwitches]),
+    2000
   );
 
   const onEditGroupSwitch = (groupLetter: string, switches: number[]) => {
     dispatch({
       type: "EDIT_GROUP_SWITCH",
-      payload: { groupLetter, switches },
+      payload: { groupLetter, switches, saved: false },
     });
+    onEditGroupSwitches();
   };
 
   const onPredictionSuccess = (predictions: Prediction[]) => {
@@ -58,11 +100,41 @@ export const PredictionsLayout = ({
     });
 
     if (fixturesWithNoPredictions.length > 0) {
-      initPredictions(fixturesWithNoPredictions);
+      initPredictions(
+        fixturesWithNoPredictions.map((fixture) => ({
+          fixtureId: fixture.id,
+          username,
+          homeTeamScore: 0,
+          awayTeamScore: 0,
+          saved: false,
+        }))
+      );
     }
   };
 
-  useGetPredictions(onPredictionSuccess);
+  const onUserGroupsSuccess = (data: UserGroup[]) => {
+    if (firstGroupSwitchLoad) {
+      return;
+    }
+
+    setFirstGroupSwitchLoad(true);
+
+    dispatch({
+      type: "EDIT_GROUP_SWITCHES",
+      payload: Object.fromEntries(
+        data.map((userGroup) => [
+          userGroup.groupLetter,
+          {
+            switches: userGroup.switches,
+            saved: true,
+          },
+        ])
+      ),
+    });
+  };
+
+  useGetPredictions(username, onPredictionSuccess);
+  useGetUserGroups(username, onUserGroupsSuccess);
 
   const onEditPredictionsSuccess = (data: Prediction[]) => {
     dispatch({
@@ -81,9 +153,16 @@ export const PredictionsLayout = ({
       const localPredictions = state.predictions.filter(
         (prediction) => prediction.saved === false
       );
+      const localGroupSwitches = Object.entries(state.groupSwitches)
+        .filter(([_, groupSwitch]) => groupSwitch.saved === false)
+        .map(([groupLetter, groupSwitch]) => ({
+          groupLetter,
+          switches: groupSwitch.switches,
+        }));
 
       editPredictions(localPredictions);
-    }, [state.predictions, editPredictions]),
+      editGroupSwitches(localGroupSwitches);
+    }, [state.predictions, editPredictions, editGroupSwitches]),
     2000
   );
 
@@ -94,7 +173,7 @@ export const PredictionsLayout = ({
     });
     dispatch({
       type: "EDIT_GROUP_SWITCH",
-      payload: { groupLetter, switches: [] },
+      payload: { groupLetter, switches: [], saved: false },
     });
     onEditPredictions();
   };
@@ -121,9 +200,12 @@ export const PredictionsLayout = ({
       predictions={state.predictions}
       username={username}
       onPredictionChange={onPredictionChange}
-      isSavingPrediction={state.predictions.some(
-        (prediction) => prediction.saved === false
-      )}
+      isSavingPrediction={
+        state.predictions.some((prediction) => prediction.saved === false) ||
+        Object.values(state.groupSwitches).some(
+          (groupSwitch) => groupSwitch.saved === false
+        )
+      }
       isError={isError}
       groupSwitches={state.groupSwitches}
       onGroupSwitchChange={onEditGroupSwitch}
