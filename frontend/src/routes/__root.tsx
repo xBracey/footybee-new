@@ -12,6 +12,9 @@ export const Route = createRootRoute({
       <Header />
       <div
         className={`absolute inset-0 bottom-14 top-14 overflow-auto p-2 md:bottom-0 md:top-24 md:p-4`}
+        style={{
+          paddingBottom: "calc(env(safe-area-inset-bottom, 1rem) + 0.5rem)",
+        }}
       >
         <Outlet />
       </div>
