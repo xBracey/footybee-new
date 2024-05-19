@@ -9,6 +9,10 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { MantineProvider } from "@mantine/core";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+
+dayjs.extend(advancedFormat);
 
 // Create a new router instance
 const router = createRouter({ routeTree });

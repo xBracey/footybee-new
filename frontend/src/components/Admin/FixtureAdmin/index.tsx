@@ -71,6 +71,8 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
       />
       <form
         onSubmit={form.onSubmit((values) => {
+          console.log({ values });
+
           postFixture(values);
           navigate({ to: "/admin" });
         })}
@@ -110,6 +112,9 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
           required
           {...form.getInputProps("dateTime")}
           value={new Date(form.values.dateTime ?? 0)}
+          onChange={(value) =>
+            form.setValues({ ...form.values, dateTime: value?.getTime() })
+          }
         />
 
         <Button type="submit">Submit</Button>

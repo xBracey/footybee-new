@@ -1,4 +1,5 @@
 import { Fixture, Result, Team } from "../../../../shared/types/database";
+import FixtureList from "../../components/FixtureList";
 import LeagueTable from "../../components/LeagueTable";
 
 interface FixturesPageProps {
@@ -60,6 +61,13 @@ export const FixturesPage = ({
               <h2 className="text-center text-xl font-bold text-white">
                 Group {groupLetter}
               </h2>
+
+              <FixtureList
+                fixtures={fixtures}
+                teams={teams}
+                results={results}
+              />
+
               <LeagueTable
                 key={groupLetter}
                 fixtures={fixtures}

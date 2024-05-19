@@ -2,9 +2,20 @@ import { Link } from "@tanstack/react-router";
 import Logo from "../Logo";
 import LogoutButton from "../LogoutButton";
 import { useGetMe } from "../../queries/useGetMe";
+import { Fragment, useEffect, useState } from "react";
+import InstallModal from "../InstallModal";
 
 const Header = () => {
+  const [isInPwa, setIsInPwa] = useState(false);
+  const [showInstallModal, setShowInstallModal] = useState(true);
+
   const { data: user } = useGetMe();
+
+  useEffect(() => {
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setIsInPwa(true);
+    }
+  }, []);
 
   return (
     <div className="bg-shamrock-800 flex h-14 items-center gap-2 px-6 text-white md:h-24">
@@ -28,14 +39,26 @@ const Header = () => {
           </Link>
 
           {user && (
-            <Link to="/predictions" className="[&.active]:font-bold">
-              Predictions
-            </Link>
-          )}
+            <Fragment>
+              <Link to="/predictions" className="[&.active]:font-bold">
+                Predictions
+              </Link>
 
-          <LogoutButton />
+              <Link
+                to={`/profile/${user.username}`}
+                className="[&.active]:font-bold"
+              >
+                Profile
+              </Link>
+            </Fragment>
+          )}
         </div>
       </div>
+
+      <InstallModal
+        open={showInstallModal && !isInPwa}
+        setOpen={setShowInstallModal}
+      />
     </div>
   );
 };

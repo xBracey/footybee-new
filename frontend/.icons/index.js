@@ -49,6 +49,8 @@ const processFile = (file, data) =>
           .replace(/fill-opacity/g, "fillOpacity")
           .replace(/stroke-width/g, "strokeWidth")
           .replace(/enable-background/g, "enableBackground")
+          .replace(/stroke-linecap/g, "strokeLinecap")
+          .replace(/stroke-linejoin/g, "strokeLinejoin")
           .trim();
         data.icons[componentName] = { name, content };
         data.componentNames.push(componentName);
