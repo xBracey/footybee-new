@@ -4,7 +4,7 @@ import { UserGroup } from "../../../shared/types/database";
 
 interface PostUserGroupsRequest {
   username: string;
-  userGroups: Omit<UserGroup, "username">[];
+  userGroups: Omit<UserGroup, "username" | "points">[];
 }
 
 export const editUserGroups = async ({
@@ -23,7 +23,9 @@ export const useEditUserGroups = (
   username: string,
   onSuccess: (data: UserGroup[]) => void
 ) => {
-  const putUserGroups = (userGroups: Omit<UserGroup, "username">[]) => {
+  const putUserGroups = (
+    userGroups: Omit<UserGroup, "username" | "points">[]
+  ) => {
     return editUserGroups({
       username,
       userGroups,

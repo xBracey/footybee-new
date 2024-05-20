@@ -1,9 +1,22 @@
 import { Link } from "@tanstack/react-router";
 import Logo from "../Logo";
-import LogoutButton from "../LogoutButton";
 import { useGetMe } from "../../queries/useGetMe";
 import { Fragment, useEffect, useState } from "react";
 import InstallModal from "../InstallModal";
+
+const HeaderLink = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <Link to={to} className="[&.active]:font-bold [&.active]:underline">
+      {children}
+    </Link>
+  );
+};
 
 const Header = () => {
   const [isInPwa, setIsInPwa] = useState(false);
@@ -24,32 +37,16 @@ const Header = () => {
           <Logo />
         </Link>
         <div className="hidden flex-1 items-center justify-end gap-4 md:flex">
-          {user && user.admin && (
-            <Link to="/admin" className="[&.active]:font-bold">
-              Admin
-            </Link>
-          )}
+          {user && user.admin && <HeaderLink to="/admin">Admin</HeaderLink>}
 
-          <Link to="/" className="[&.active]:font-bold">
-            Home
-          </Link>
+          <HeaderLink to="/">Home</HeaderLink>
 
-          <Link to="/fixtures" className="[&.active]:font-bold">
-            Fixtures
-          </Link>
+          <HeaderLink to="/fixtures">Fixtures</HeaderLink>
 
           {user && (
             <Fragment>
-              <Link to="/predictions" className="[&.active]:font-bold">
-                Predictions
-              </Link>
-
-              <Link
-                to={`/profile/${user.username}`}
-                className="[&.active]:font-bold"
-              >
-                Profile
-              </Link>
+              <HeaderLink to="/predictions">Predictions</HeaderLink>
+              <HeaderLink to={`/profile/${user.username}`}>Profile</HeaderLink>
             </Fragment>
           )}
         </div>

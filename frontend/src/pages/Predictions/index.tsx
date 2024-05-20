@@ -4,6 +4,7 @@ import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
 import { Fragment } from "react";
 import { GroupSwitches } from "../../zustand/predictions/types";
+import Banner from "../../components/Banner";
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -59,15 +60,15 @@ export const PredictionsPage = ({
         )}
       </Dialog>
 
-      <h1 className="my-2 mb-6 text-center text-3xl font-bold text-white">
-        Fixtures
-      </h1>
+      <Banner>
+        <h2 className="text-2xl font-bold text-white">Predictions</h2>
+      </Banner>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-12">
+      <div className="mx-auto mt-6 flex w-full max-w-4xl flex-col gap-12">
         {Object.entries(groupFixtures).map(
           ([groupLetter, { fixtures, predictions, teams }]) => (
             <div className="flex flex-col gap-2" key={groupLetter}>
-              <h2 className="text-center text-xl font-bold text-white">
+              <h2 className="text-center text-2xl font-bold text-white">
                 Group {groupLetter}
               </h2>
               <LeaguePredictions

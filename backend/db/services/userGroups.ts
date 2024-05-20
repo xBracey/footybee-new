@@ -22,11 +22,17 @@ export const insertUserGroupsHandler: ServiceHandler = async (req, reply) => {
     username: string;
   };
 
-  const userGroups = req.body as Omit<UserGroup, "username">[];
+  const userGroups = req.body as Omit<UserGroup, "username" | "points">[];
 
   await insertUserGroups(
     userGroups.map((userGroup) => ({ username, ...userGroup }))
   );
 
-  reply.send(userGroups.map((userGroup) => ({ username, ...userGroup })));
+  reply.send(
+    userGroups.map((userGroup) => ({
+      ...userGroup,
+      username,
+      points: 0,
+    }))
+  );
 };

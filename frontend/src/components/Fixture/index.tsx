@@ -6,6 +6,7 @@ interface IFixture {
   homeScore?: number;
   awayScore?: number;
   dateTime: number;
+  hasDate?: boolean;
 }
 
 const Fixture = ({
@@ -14,6 +15,7 @@ const Fixture = ({
   homeScore,
   awayScore,
   dateTime,
+  hasDate = true,
 }: IFixture) => {
   return (
     <div className="flex flex-col items-center justify-between text-sm font-bold text-white">
@@ -40,9 +42,11 @@ const Fixture = ({
           className="h-7 w-7"
         />
       </div>
-      <p className="text-xs text-gray-200">
-        {dayjs.unix(dateTime).format("Do MMM HH:mm")}
-      </p>
+      {hasDate && (
+        <p className="text-xs text-gray-200">
+          {dayjs.unix(dateTime).format("Do MMM HH:mm")}
+        </p>
+      )}
     </div>
   );
 };

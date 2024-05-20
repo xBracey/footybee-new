@@ -57,4 +57,11 @@ export interface UserGroup {
   username: string;
   groupLetter: string;
   switches: number[];
+  points: number;
+}
+
+export interface UserFixture {
+  username: string;
+  fixtureId: number;
+  points: number;
 }

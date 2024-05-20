@@ -1,5 +1,6 @@
 import { Navigate } from "@tanstack/react-router";
 import Loading from "../../Loading";
+import { Box } from "@mantine/core";
 
 interface IAdminAddEdit {
   id?: string | number;
@@ -26,12 +27,12 @@ const AdminAddEdit = ({
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center p-4">
-      <div className="mx-auto w-full max-w-xl rounded-lg border border-gray-300 bg-white p-4 shadow-md">
+      <Box>
         <h1 className="mb-4 text-lg font-semibold text-gray-700">
           {id ? "Edit" : "Add"} {title}
         </h1>
         {children}
-      </div>
+      </Box>
     </div>
   );
 };

@@ -75,7 +75,7 @@ const MobileMenu = () => {
       <MobileItem link="/predictions" text="Predict">
         <Football className="h-6 w-6" />
       </MobileItem>
-      <MobileItem link={`/user/${username}`} text="Profile">
+      <MobileItem link={`/profile/${username}`} text="Profile">
         <User className="h-6 w-6" />
       </MobileItem>
     </div>

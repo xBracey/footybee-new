@@ -13,7 +13,7 @@ export const getUser = async (username?: string) => {
 };
 
 export const useGetUser = (username?: string) => {
-  const query = useQuery(["users", { username }], () => getUser(username));
+  const query = useQuery(["getUser", { username }], () => getUser(username));
 
   return query;
 };

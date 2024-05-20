@@ -6,6 +6,7 @@ import { buildFixturesRoutes } from "./fixtures";
 import { buildResultsRoutes } from "./results";
 import { buildPredictionsRoutes } from "./predictions";
 import { buildUserGroupsRoutes } from "./userGroups";
+import { buildUserFixturesRoutes } from "./userFixtures";
 
 export const buildApiRoutes: Router = (fastify, _, done) => {
   fastify.register(buildUserRoutes, { prefix: "/users" });
@@ -18,6 +19,9 @@ export const buildApiRoutes: Router = (fastify, _, done) => {
   });
   fastify.register(buildUserGroupsRoutes, {
     prefix: "/users/:username/groups",
+  });
+  fastify.register(buildUserFixturesRoutes, {
+    prefix: "/users/:username/fixtures",
   });
   done();
 };

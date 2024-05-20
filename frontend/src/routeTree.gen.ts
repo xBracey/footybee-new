@@ -22,6 +22,7 @@ const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
+const ProfileUsernameIndexLazyImport = createFileRoute('/profile/$username/')()
 const AdminEntityIndexLazyImport = createFileRoute('/admin/$entity/')()
 
 // Create/Update Routes
@@ -55,6 +56,13 @@ const AdminIndexLazyRoute = AdminIndexLazyImport.update({
   path: '/admin/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
+
+const ProfileUsernameIndexLazyRoute = ProfileUsernameIndexLazyImport.update({
+  path: '/profile/$username/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/profile/$username/index.lazy').then((d) => d.Route),
+)
 
 const AdminEntityIndexLazyRoute = AdminEntityIndexLazyImport.update({
   path: '/admin/$entity/',
@@ -95,6 +103,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEntityIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/profile/$username/': {
+      preLoaderRoute: typeof ProfileUsernameIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -108,6 +120,7 @@ export const routeTree = rootRoute.addChildren([
   PredictionsLazyRoute,
   AdminIndexLazyRoute,
   AdminEntityIndexLazyRoute,
+  ProfileUsernameIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

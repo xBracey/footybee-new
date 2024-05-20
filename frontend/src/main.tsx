@@ -11,8 +11,10 @@ import "@mantine/dates/styles.css";
 import { MantineProvider } from "@mantine/core";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import isToday from "dayjs/plugin/isToday";
 
 dayjs.extend(advancedFormat);
+dayjs.extend(isToday);
 
 // Create a new router instance
 const router = createRouter({ routeTree });
