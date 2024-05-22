@@ -1,0 +1,404 @@
+{
+  "id": "2bf8f285-7efe-44b2-a731-7ba02682021e",
+  "prevId": "1fa99c2f-1d9d-469f-8b8f-1e3828bcd60c",
+  "version": "5",
+  "dialect": "sqlite",
+  "tables": {
+    "users": {
+      "name": "users",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "admin": {
+          "name": "admin",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "columns": ["username"],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "teams": {
+      "name": "teams",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "teams_group_letter_groups_letter_fk": {
+          "name": "teams_group_letter_groups_letter_fk",
+          "tableFrom": "teams",
+          "columnsFrom": ["group_letter"],
+          "tableTo": "groups",
+          "columnsTo": ["letter"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "fixtures": {
+      "name": "fixtures",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_id": {
+          "name": "home_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_id": {
+          "name": "away_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dateTime": {
+          "name": "dateTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fixtures_group_letter_groups_letter_fk": {
+          "name": "fixtures_group_letter_groups_letter_fk",
+          "tableFrom": "fixtures",
+          "columnsFrom": ["group_letter"],
+          "tableTo": "groups",
+          "columnsTo": ["letter"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "fixtures_home_team_id_teams_id_fk": {
+          "name": "fixtures_home_team_id_teams_id_fk",
+          "tableFrom": "fixtures",
+          "columnsFrom": ["home_team_id"],
+          "tableTo": "teams",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "fixtures_away_team_id_teams_id_fk": {
+          "name": "fixtures_away_team_id_teams_id_fk",
+          "tableFrom": "fixtures",
+          "columnsFrom": ["away_team_id"],
+          "tableTo": "teams",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "results": {
+      "name": "results",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "fixture_id": {
+          "name": "fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_score": {
+          "name": "home_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_score": {
+          "name": "away_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "results_fixture_id_fixtures_id_fk": {
+          "name": "results_fixture_id_fixtures_id_fk",
+          "tableFrom": "results",
+          "columnsFrom": ["fixture_id"],
+          "tableTo": "fixtures",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "predictions": {
+      "name": "predictions",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fixture_id": {
+          "name": "fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_score": {
+          "name": "home_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_score": {
+          "name": "away_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "predictions_username_users_username_fk": {
+          "name": "predictions_username_users_username_fk",
+          "tableFrom": "predictions",
+          "columnsFrom": ["username"],
+          "tableTo": "users",
+          "columnsTo": ["username"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "predictions_fixture_id_fixtures_id_fk": {
+          "name": "predictions_fixture_id_fixtures_id_fk",
+          "tableFrom": "predictions",
+          "columnsFrom": ["fixture_id"],
+          "tableTo": "fixtures",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "predictions_username_fixture_id_pk": {
+          "columns": ["fixture_id", "username"],
+          "name": "predictions_username_fixture_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+
+    "groups": {
+      "name": "groups",
+      "columns": {
+        "letter": {
+          "name": "letter",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user_groups": {
+      "name": "user_groups",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "switches": {
+          "name": "switches",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": []
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_groups_username_users_username_fk": {
+          "name": "user_groups_username_users_username_fk",
+          "tableFrom": "user_groups",
+          "columnsFrom": ["username"],
+          "tableTo": "users",
+          "columnsTo": ["username"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "user_groups_group_letter_groups_letter_fk": {
+          "name": "user_groups_group_letter_groups_letter_fk",
+          "tableFrom": "user_groups",
+          "columnsFrom": ["group_letter"],
+          "tableTo": "groups",
+          "columnsTo": ["letter"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_groups_username_group_letter_pk": {
+          "columns": ["group_letter", "username"],
+          "name": "user_groups_username_group_letter_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "user_fixtures": {
+      "name": "user_fixtures",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fixture_id": {
+          "name": "fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_fixtures_username_users_username_fk": {
+          "name": "user_fixtures_username_users_username_fk",
+          "tableFrom": "user_fixtures",
+          "columnsFrom": ["username"],
+          "tableTo": "users",
+          "columnsTo": ["username"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "user_fixtures_fixture_id_fixtures_id_fk": {
+          "name": "user_fixtures_fixture_id_fixtures_id_fk",
+          "tableFrom": "user_fixtures",
+          "columnsFrom": ["fixture_id"],
+          "tableTo": "fixtures",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_fixtures_username_fixture_id_pk": {
+          "columns": ["fixture_id", "username"],
+          "name": "user_fixtures_username_fixture_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

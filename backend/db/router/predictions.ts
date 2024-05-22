@@ -5,7 +5,7 @@ import {
 } from "../services/predictions";
 
 export const buildPredictionsRoutes: Router = (fastify, _, done) => {
-  fastify.get("/", getPredictionsHandler);
-  fastify.post("/", insertPredictionsHandler);
+  fastify.get("/:username", getPredictionsHandler);
+  fastify.post("/", insertPredictionsHandler(fastify));
   done();
 };

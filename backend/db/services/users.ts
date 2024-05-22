@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { editUser, getUser, getUsers, insertUser } from "../repositories/users";
 import { ServiceHandler } from "./types";
 import bcrypt from "bcrypt";
+import { tokenToUser } from "./utils";
 
 export const getUserHandler: ServiceHandler = async (request, reply) => {
   const { username } = request.params as { username: string };
@@ -28,24 +29,9 @@ export const getUsersHandler: ServiceHandler = async (request, reply) => {
 
 export const getMeHandler: (server: FastifyInstance) => ServiceHandler =
   (server) => async (request, reply) => {
-    const token = request.headers.authorization?.split(" ")[1];
-
-    if (!token) {
-      reply.status(401).send({ error: "Unauthorized" });
-      return;
-    }
-
-    const verified = server.jwt.verify(token);
-
-    if (!verified) {
-      reply.status(401).send({ error: "Unauthorized" });
-      return;
-    }
-
-    const userDecoded = server.jwt.decode(token) as { username: string };
+    const userDecoded = await tokenToUser(server, request, reply);
 
     if (!userDecoded) {
-      reply.status(404).send({ error: "User not found" });
       return;
     }
 

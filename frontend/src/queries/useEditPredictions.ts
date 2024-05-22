@@ -1,31 +1,34 @@
 import { useMutation } from "react-query";
 import { apiRequest } from "./utils";
 import { Prediction } from "../../../shared/types/database";
+import { useUserStore } from "../zustand/user";
 
 interface PostPredictionsRequest {
-  username: string;
+  token: string;
   predictions: Omit<Prediction, "username">[];
 }
 
 export const editPredictions = async ({
-  username,
+  token,
   predictions,
 }: PostPredictionsRequest) => {
-  const resp = await apiRequest<Prediction[]>(`/predictions/${username}`, {
+  const resp = await apiRequest<Prediction[]>(`/predictions`, {
     method: "POST",
     data: predictions,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return resp;
 };
 
-export const useEditPredictions = (
-  username: string,
-  onSuccess: (data: Prediction[]) => void
-) => {
+export const useEditPredictions = (onSuccess: (data: Prediction[]) => void) => {
+  const { token } = useUserStore();
+
   const putPrediction = (predictions: Omit<Prediction, "username">[]) => {
     return editPredictions({
-      username,
+      token,
       predictions,
     });
   };

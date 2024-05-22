@@ -3,7 +3,7 @@ import { apiRequest } from "./utils";
 import { UserFixture } from "../../../shared/types/database";
 
 export const getUserFixtures = async (username: string) => {
-  return apiRequest<UserFixture[]>(`/users/${username}/fixtures`, {
+  return apiRequest<UserFixture[]>(`/users/fixtures/${username}`, {
     method: "GET",
   });
 };

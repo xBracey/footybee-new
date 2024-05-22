@@ -65,3 +65,15 @@ export interface UserFixture {
   fixtureId: number;
   points: number;
 }
+
+export interface League {
+  id: number;
+  name: string;
+  admin: boolean;
+}
+
+export interface LeagueWithPassword {
+  id: string;
+  name: string;
+  password: string;
+}

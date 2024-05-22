@@ -1,9 +1,10 @@
-import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
+import { text, sqliteTable } from "drizzle-orm/sqlite-core";
 import { users } from "./users";
 
 export const leagues = sqliteTable("leagues", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id").primaryKey(),
   name: text("name"),
+  password: text("password"),
   creatorUsername: text("creator_username").references(() => users.username),
 });
 

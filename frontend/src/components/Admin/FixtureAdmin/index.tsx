@@ -71,8 +71,6 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
       />
       <form
         onSubmit={form.onSubmit((values) => {
-          console.log({ values });
-
           postFixture(values);
           navigate({ to: "/admin" });
         })}

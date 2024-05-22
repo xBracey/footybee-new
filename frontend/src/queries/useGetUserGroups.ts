@@ -3,7 +3,7 @@ import { apiRequest } from "./utils";
 import { UserGroup } from "../../../shared/types/database";
 
 export const getUserGroups = async (username: string) => {
-  return apiRequest<UserGroup[]>(`/users/${username}/groups`, {
+  return apiRequest<UserGroup[]>(`/users/groups/${username}`, {
     method: "GET",
   });
 };

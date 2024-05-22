@@ -71,6 +71,20 @@
       "when": 1716143399599,
       "tag": "0009_zippy_revanche",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1716365445042,
+      "tag": "0010_wealthy_mindworm",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1716365571607,
+      "tag": "0011_orange_sebastian_shaw",
+      "breakpoints": true
     }
   ]
 }

@@ -1,17 +1,18 @@
 import { useMutation } from "react-query";
 import { apiRequest } from "./utils";
 import { UserGroup } from "../../../shared/types/database";
+import { useUserStore } from "../zustand/user";
 
 interface PostUserGroupsRequest {
-  username: string;
+  token: string;
   userGroups: Omit<UserGroup, "username" | "points">[];
 }
 
 export const editUserGroups = async ({
-  username,
+  token,
   userGroups,
 }: PostUserGroupsRequest) => {
-  const resp = await apiRequest<UserGroup[]>(`/users/${username}/groups`, {
+  const resp = await apiRequest<UserGroup[]>(`/users/groups`, {
     method: "POST",
     data: userGroups,
   });
@@ -19,15 +20,14 @@ export const editUserGroups = async ({
   return resp;
 };
 
-export const useEditUserGroups = (
-  username: string,
-  onSuccess: (data: UserGroup[]) => void
-) => {
+export const useEditUserGroups = (onSuccess: (data: UserGroup[]) => void) => {
+  const { token } = useUserStore();
+
   const putUserGroups = (
     userGroups: Omit<UserGroup, "username" | "points">[]
   ) => {
     return editUserGroups({
-      username,
+      token,
       userGroups,
     });
   };

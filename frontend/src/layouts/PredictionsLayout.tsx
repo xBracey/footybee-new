@@ -38,7 +38,6 @@ export const PredictionsLayout = ({
   };
 
   const { editPredictions: initPredictions } = useEditPredictions(
-    username,
     onInitPredictionsSuccess
   );
 
@@ -58,7 +57,6 @@ export const PredictionsLayout = ({
   };
 
   const { editUserGroups: editGroupSwitches } = useEditUserGroups(
-    username,
     onEditUserGroupsSuccess
   );
 
@@ -144,7 +142,6 @@ export const PredictionsLayout = ({
   };
 
   const { editPredictions, isError } = useEditPredictions(
-    username,
     onEditPredictionsSuccess
   );
 
