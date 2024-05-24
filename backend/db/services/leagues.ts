@@ -2,12 +2,14 @@ import { FastifyInstance } from "fastify";
 import { ServiceHandler } from "./types";
 import { tokenToUser } from "./utils";
 import {
+  getLeague,
   getLeagueByPassword,
   getUserLeagues,
   insertLeague,
 } from "../repositories/leagues";
 import { getLeagueUsers, insertUserLeague } from "../repositories/userLeagues";
 import { getAllUsersPoints } from "../repositories/points";
+import { InsertLeague, League } from "../schema";
 
 export const addLeagueHandler: (server: FastifyInstance) => ServiceHandler =
   (server) => async (req, reply) => {

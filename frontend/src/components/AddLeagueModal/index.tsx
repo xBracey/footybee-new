@@ -63,8 +63,8 @@ const AddLeagueModal = ({
         </form>
       </Modal>
 
-      <Button className="mt-4" onClick={() => setOpened(true)}>
-        Add League
+      <Button className="mt-4" onClick={() => setOpened(true)} size="lg">
+        Add New League
       </Button>
     </div>
   );

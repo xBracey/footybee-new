@@ -8,6 +8,7 @@ import { useGetFixtures } from "../queries/useGetFixtures";
 import { useGetResults } from "../queries/useGetResults";
 import { useGetUserLeagues } from "../queries/useGetUserLeagues";
 import UserLeagues from "../components/UserLeagues";
+import Box from "../components/Box";
 
 const Dashboard = () => {
   const { token } = useUserStore();
@@ -28,6 +29,10 @@ const Dashboard = () => {
   return (
     <div>
       <TodaysMatches teams={teams} fixtures={fixtures} results={results} />
+
+      <Box className="mx-auto mt-2 max-w-xl border-b-4 border-white p-1 text-center text-xl font-bold text-gray-800 md:text-2xl">
+        {user.username}'s Leagues
+      </Box>
 
       <div className="flex flex-col items-center justify-center">
         <div className="mx-auto w-full max-w-3xl">

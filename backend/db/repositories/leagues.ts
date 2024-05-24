@@ -1,20 +1,21 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "..";
 import { leagues, userLeagues } from "../schema";
-import bcrypt from "bcrypt";
 
-const saltRounds = 10;
-
-export const getLeague = (id: string) =>
-  db.select().from(leagues).where(eq(leagues.id, id)).execute();
+export const getLeague = async (id: string) => {
+  const resp = await db
+    .select()
+    .from(leagues)
+    .where(eq(leagues.id, id))
+    .execute();
+  return resp.length ? resp[0] : null;
+};
 
 export const getLeagueByPassword = async (id: string, password: string) => {
-  const hashedpassword = await bcrypt.hash(password, saltRounds);
-
   return db
     .select()
     .from(leagues)
-    .where(and(eq(leagues.id, id), eq(leagues.password, hashedpassword)))
+    .where(and(eq(leagues.id, id), eq(leagues.password, password)))
     .execute();
 };
 
@@ -34,13 +35,5 @@ export const insertLeague = async (league: {
   password: string;
   creatorUsername: string;
 }) => {
-  const hashedpassword = await bcrypt.hash(league.password, saltRounds);
-
-  return db
-    .insert(leagues)
-    .values({
-      ...league,
-      password: hashedpassword,
-    })
-    .execute();
+  return db.insert(leagues).values(league).execute();
 };

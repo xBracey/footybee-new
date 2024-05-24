@@ -6,7 +6,7 @@ interface IBox {
 const Box = ({ children, className }: IBox) => {
   return (
     <div
-      className={`mx-auto w-full max-w-xl rounded-lg border border-gray-300 bg-white p-4 shadow-md ${className}`}
+      className={`mx-auto w-full rounded-lg border border-gray-300 bg-white p-4 shadow-md ${className}`}
     >
       {children}
     </div>

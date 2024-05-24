@@ -4,6 +4,7 @@ import { useAddLeague } from "../../queries/useAddLeague";
 import AddLeagueModal from "../AddLeagueModal";
 import { Link } from "@tanstack/react-router";
 import Box from "../Box";
+import LeaguePreview from "../LeaguePreview";
 
 interface IUserLeagues {
   user: User;
@@ -20,28 +21,37 @@ const UserLeagues = ({ user, leagues }: IUserLeagues) => {
     useAddLeague(onAddLeagueSuccess);
 
   return (
-    <Box className="relative my-4 text-center">
-      <h1 className="text-xl">{user.username} Leagues</h1>
-
+    <div className="relative my-2 w-full max-w-3xl text-center">
       {leagues.length === 0 && (
-        <p className="mt-4">You are not a member of any leagues</p>
+        <Box>
+          <p className="p-2">You are not a member of any leagues</p>
+
+          <AddLeagueModal
+            addLeague={addLeague}
+            isLoading={isAddingLeague}
+            opened={addLeagueModalOpened}
+            setOpened={setAddLeagueModalOpened}
+          />
+        </Box>
       )}
 
-      {leagues.map((league) => (
-        <Link to={`/league/${league.id}`} key={league.id}>
-          <div className="bg-picton-500 hover:bg-picton-600 my-4 flex items-center justify-center rounded-md p-4 text-white transition-all duration-200">
-            {league.name}
-          </div>
-        </Link>
-      ))}
+      <div className="grid grid-cols-1 gap-4 p-2 md:grid-cols-2 md:p-4">
+        {leagues.map((league) => (
+          <Link to={`/league/${league.id}`} key={league.id}>
+            <LeaguePreview league={league} username={user.username} />
+          </Link>
+        ))}
+      </div>
 
-      <AddLeagueModal
-        addLeague={addLeague}
-        isLoading={isAddingLeague}
-        opened={addLeagueModalOpened}
-        setOpened={setAddLeagueModalOpened}
-      />
-    </Box>
+      {leagues.length > 0 && (
+        <AddLeagueModal
+          addLeague={addLeague}
+          isLoading={isAddingLeague}
+          opened={addLeagueModalOpened}
+          setOpened={setAddLeagueModalOpened}
+        />
+      )}
+    </div>
   );
 };
 

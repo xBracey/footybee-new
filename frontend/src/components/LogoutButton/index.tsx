@@ -1,17 +1,25 @@
+import { Button } from "@mantine/core";
 import { useUserStore } from "../../zustand/user";
+import { useNavigate } from "@tanstack/react-router";
 
-const LogoutButton = () => {
-  const { token, setToken } = useUserStore();
+const LogoutButton = ({ className }: { className?: string }) => {
+  const navigate = useNavigate();
+  const { token } = useUserStore();
 
   const onHandleLogout = () => {
-    setToken("");
+    navigate({ to: "/logout" });
   };
 
   if (token)
     return (
-      <button type="button" onClick={onHandleLogout}>
+      <Button
+        type="button"
+        onClick={onHandleLogout}
+        color="red"
+        className={className}
+      >
         Logout
-      </button>
+      </Button>
     );
 
   return null;

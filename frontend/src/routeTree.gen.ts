@@ -17,12 +17,15 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const PredictionsLazyImport = createFileRoute('/predictions')()
+const LogoutLazyImport = createFileRoute('/logout')()
 const LoginLazyImport = createFileRoute('/login')()
+const LeaderboardLazyImport = createFileRoute('/leaderboard')()
 const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
 const ProfileUsernameIndexLazyImport = createFileRoute('/profile/$username/')()
+const LeagueLeagueIdIndexLazyImport = createFileRoute('/league/$leagueId/')()
 const AdminEntityIndexLazyImport = createFileRoute('/admin/$entity/')()
 
 // Create/Update Routes
@@ -32,10 +35,20 @@ const PredictionsLazyRoute = PredictionsLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/predictions.lazy').then((d) => d.Route))
 
+const LogoutLazyRoute = LogoutLazyImport.update({
+  path: '/logout',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/logout.lazy').then((d) => d.Route))
+
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const LeaderboardLazyRoute = LeaderboardLazyImport.update({
+  path: '/leaderboard',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/leaderboard.lazy').then((d) => d.Route))
 
 const FixturesLazyRoute = FixturesLazyImport.update({
   path: '/fixtures',
@@ -64,6 +77,13 @@ const ProfileUsernameIndexLazyRoute = ProfileUsernameIndexLazyImport.update({
   import('./routes/profile/$username/index.lazy').then((d) => d.Route),
 )
 
+const LeagueLeagueIdIndexLazyRoute = LeagueLeagueIdIndexLazyImport.update({
+  path: '/league/$leagueId/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/league/$leagueId/index.lazy').then((d) => d.Route),
+)
+
 const AdminEntityIndexLazyRoute = AdminEntityIndexLazyImport.update({
   path: '/admin/$entity/',
   getParentRoute: () => rootRoute,
@@ -87,8 +107,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FixturesLazyImport
       parentRoute: typeof rootRoute
     }
+    '/leaderboard': {
+      preLoaderRoute: typeof LeaderboardLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       preLoaderRoute: typeof LoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/logout': {
+      preLoaderRoute: typeof LogoutLazyImport
       parentRoute: typeof rootRoute
     }
     '/predictions': {
@@ -101,6 +129,10 @@ declare module '@tanstack/react-router' {
     }
     '/admin/$entity/': {
       preLoaderRoute: typeof AdminEntityIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/league/$leagueId/': {
+      preLoaderRoute: typeof LeagueLeagueIdIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/profile/$username/': {
@@ -116,10 +148,13 @@ export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   DashboardLazyRoute,
   FixturesLazyRoute,
+  LeaderboardLazyRoute,
   LoginLazyRoute,
+  LogoutLazyRoute,
   PredictionsLazyRoute,
   AdminIndexLazyRoute,
   AdminEntityIndexLazyRoute,
+  LeagueLeagueIdIndexLazyRoute,
   ProfileUsernameIndexLazyRoute,
 ])
 

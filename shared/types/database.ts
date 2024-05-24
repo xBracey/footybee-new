@@ -68,8 +68,14 @@ export interface UserFixture {
 
 export interface League {
   id: string;
-  name: string;
+  name: string | null;
   admin: boolean;
+  user_points: number;
+  ranking: {
+    username: string | null;
+    points: number;
+  }[];
+  user_position: number;
 }
 
 export interface LeagueWithPassword {

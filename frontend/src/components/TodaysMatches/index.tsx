@@ -20,7 +20,7 @@ const TodaysMatches = ({ teams, fixtures, results }: ITodaysMatches) => {
   );
 
   return (
-    <Banner>
+    <Banner className="bg-pine-green-800 p-6 md:mb-4">
       <h2 className="text-2xl font-bold text-white">Today's Matches</h2>
       <div className="w-full">
         {todaysFixtures.length > 0 ? (
