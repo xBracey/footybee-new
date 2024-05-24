@@ -6,7 +6,8 @@ import {
   getUserLeagues,
   insertLeague,
 } from "../repositories/leagues";
-import { insertUserLeague } from "../repositories/userLeagues";
+import { getLeagueUsers, insertUserLeague } from "../repositories/userLeagues";
+import { getAllUsersPoints } from "../repositories/points";
 
 export const addLeagueHandler: (server: FastifyInstance) => ServiceHandler =
   (server) => async (req, reply) => {
@@ -71,13 +72,47 @@ export const getUserLeaguesHandler: (
     return;
   }
 
-  const leagues = await getUserLeagues(userDecoded.username);
+  const userPointsPromise = getAllUsersPoints();
+  const leaguesPromise = getUserLeagues(userDecoded.username);
 
-  reply.send(
-    leagues.map((league) => ({
+  const [userPoints, leagues] = await Promise.all([
+    userPointsPromise,
+    leaguesPromise,
+  ]);
+
+  const leaguesWithPointsPromise = leagues.map(async (league) => {
+    const leagueUsers = await getLeagueUsers(league.leagues.id);
+
+    const ranking = leagueUsers
+      .map((user) => ({
+        username: user.username,
+        points:
+          userPoints.find((u) => u.username === user.username)?.points || 0,
+      }))
+      .sort((a, b) => b.points - a.points);
+
+    return {
       id: league.leagues.id,
       name: league.leagues.name,
       admin: league.leagues.creatorUsername === userDecoded.username,
-    }))
-  );
+      user_points:
+        userPoints.find((u) => u.username === userDecoded.username)?.points ||
+        0,
+      ranking,
+      user_position:
+        ranking.findIndex((user) => user.username === userDecoded.username) + 1,
+    };
+  });
+
+  const leaguesWithPoints = await Promise.all(leaguesWithPointsPromise);
+
+  reply.send(leaguesWithPoints);
+};
+
+export const getGlobalLeaderboardHandler: ServiceHandler = async (_, reply) => {
+  const userPoints = await getAllUsersPoints();
+
+  const ranking = userPoints.sort((a, b) => b.points - a.points);
+
+  reply.send(ranking);
 };

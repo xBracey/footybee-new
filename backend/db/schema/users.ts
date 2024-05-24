@@ -1,9 +1,18 @@
 import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
+import { players } from "./players";
+import { teams } from "./teams";
 
 export const users = sqliteTable("users", {
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   admin: integer("admin").notNull().default(0),
+  topScorerPlayerId: integer("top_scorer_player_id").references(
+    () => players.id
+  ),
+  tournamentWinnerId: integer("tournament_winner_id").references(
+    () => teams.id
+  ),
+  points: integer("points").notNull().default(0),
 });
 
 export type User = typeof users.$inferSelect;

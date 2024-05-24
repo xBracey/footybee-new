@@ -67,7 +67,7 @@ export interface UserFixture {
 }
 
 export interface League {
-  id: number;
+  id: string;
   name: string;
   admin: boolean;
 }

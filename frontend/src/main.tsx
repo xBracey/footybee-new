@@ -8,7 +8,7 @@ import { routeTree } from "./routeTree.gen";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import { MantineProvider } from "@mantine/core";
+import { createTheme, MantineProvider } from "@mantine/core";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import isToday from "dayjs/plugin/isToday";
@@ -36,9 +36,27 @@ const updateSW = registerSW({
   },
 });
 
+const theme = createTheme({
+  colors: {
+    blue: [
+      "#f3f7fc",
+      "#e5eff9",
+      "#c5def2",
+      "#92c3e7",
+      "#59a5d8",
+      "#3389c4",
+      "#236da6",
+      "#1d5787",
+      "#1c4b70",
+      "#1c405e",
+      "#13293e",
+    ],
+  },
+});
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>

@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "..";
-import { InsertLeague, leagues, userLeagues } from "../schema";
+import { leagues, userLeagues } from "../schema";
 import bcrypt from "bcrypt";
 
 const saltRounds = 10;

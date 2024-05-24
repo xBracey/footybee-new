@@ -10,7 +10,7 @@ const PredictionButton = ({
   disabled,
 }: IPredictionButton) => (
   <button
-    className="bg-supernova-400 hover:bg-supernova-500 rounded px-2 py-1 text-gray-800 transition-all disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+    className="bg-picton-400 hover:bg-picton-500 disabled:bg-picton-400 rounded px-2 py-1 text-gray-800 transition-all disabled:cursor-not-allowed disabled:opacity-40"
     onClick={onClick}
     disabled={disabled}
   >
