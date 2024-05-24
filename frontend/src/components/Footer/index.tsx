@@ -49,18 +49,29 @@ const Footer = () => {
 
   if (!user)
     return (
-      <div
-        className={`bg-shamrock-800 absolute bottom-0 right-0 left-0 grid w-full grid-cols-2 items-center text-xs text-white md:hidden`}
-        style={{
-          paddingBottom: "calc(env(safe-area-inset-bottom, 1rem) - 1rem)",
-        }}
-      >
-        <MobileItem link="/dashboard" text="Home">
-          <Home className="h-6 w-6" />
-        </MobileItem>
-        <MobileItem link="/fixtures" text="Fixtures">
-          <Pitch className="h-6 w-6" />
-        </MobileItem>
+      <div>
+        <div
+          className={`bg-shamrock-800 absolute bottom-0 right-0 left-0 grid w-full grid-cols-2 items-center text-xs text-white md:hidden`}
+          style={{
+            paddingBottom: "calc(env(safe-area-inset-bottom, 1rem) - 1rem)",
+          }}
+        >
+          <MobileItem link="/dashboard" text="Home">
+            <Home className="h-6 w-6" />
+          </MobileItem>
+          <MobileItem link="/fixtures" text="Fixtures">
+            <Pitch className="h-6 w-6" />
+          </MobileItem>
+        </div>
+
+        <div className="bg-shamrock-950 absolute bottom-0 right-0 left-0 z-50 hidden h-12 w-full items-center text-xs text-white md:flex">
+          <div className="mx-auto flex w-full max-w-xl items-center justify-between">
+            <DesktopItem link="/dashboard">Home</DesktopItem>
+            <DesktopItem link="/about">Rules</DesktopItem>
+            <DesktopItem link="/about">About</DesktopItem>
+            <DesktopItem link="/leaderboard">Global Leaderboard</DesktopItem>
+          </div>
+        </div>
       </div>
     );
 
