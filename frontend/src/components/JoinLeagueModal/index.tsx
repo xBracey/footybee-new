@@ -8,29 +8,24 @@ import {
 import { LeagueWithPassword } from "../../../../shared/types/database";
 import { useForm } from "@mantine/form";
 
-interface IAddLeagueModal {
-  addLeague: (league: LeagueWithPassword) => void;
+interface IJoinLeagueModal {
+  joinLeague: (league: Omit<LeagueWithPassword, "name">) => void;
   isLoading: boolean;
   opened: boolean;
   setOpened: (opened: boolean) => void;
 }
 
-const AddLeagueModal = ({
-  addLeague,
+const JoinLeagueModal = ({
+  joinLeague,
   isLoading,
   opened,
   setOpened,
-}: IAddLeagueModal) => {
-  const form = useForm<LeagueWithPassword>({
+}: IJoinLeagueModal) => {
+  const form = useForm<Omit<LeagueWithPassword, "name">>({
     mode: "controlled",
-    initialValues: {
-      id: "",
-      name: "",
-      password: "",
-    },
+    initialValues: { id: "", password: "" },
     validate: (values) => ({
       id: values.id ? undefined : "ID is required",
-      name: values.name ? undefined : "Name is required",
       password: values.password ? undefined : "Password is required",
     }),
   });
@@ -40,17 +35,16 @@ const AddLeagueModal = ({
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Add New League"
+        title="Join Existing League"
       >
         <LoadingOverlay visible={isLoading} />
 
         <form
           onSubmit={form.onSubmit((values) => {
-            addLeague(values);
+            joinLeague(values);
           })}
           className="flex flex-col gap-4"
         >
-          <TextInput id="name" label="Name" {...form.getInputProps("name")} />
           <TextInput id="id" label="ID" {...form.getInputProps("id")} />
           <PasswordInput
             id="password"
@@ -58,7 +52,7 @@ const AddLeagueModal = ({
             {...form.getInputProps("password")}
           />
 
-          <Button type="submit">Add League</Button>
+          <Button type="submit">Join League</Button>
         </form>
       </Modal>
 
@@ -66,12 +60,12 @@ const AddLeagueModal = ({
         className="mt-4"
         onClick={() => setOpened(true)}
         size="lg"
-        color="green"
+        color="blue"
       >
-        Add New League
+        Join Existing League
       </Button>
     </div>
   );
 };
 
-export default AddLeagueModal;
+export default JoinLeagueModal;

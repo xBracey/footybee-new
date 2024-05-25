@@ -27,22 +27,22 @@ const LeaguePreview = ({ league, username }: ILeaguePreview) => {
     } else if (userIndex === league.ranking.length - 1) {
       return [
         league.ranking[userIndex - 2]
-          ? { ...league.ranking[userIndex - 2], position: userIndex - 2 }
+          ? { ...league.ranking[userIndex - 2], position: userIndex - 1 }
           : null,
         league.ranking[userIndex - 1]
-          ? { ...league.ranking[userIndex - 1], position: userIndex - 1 }
+          ? { ...league.ranking[userIndex - 1], position: userIndex }
           : null,
-        { ...league.ranking[userIndex], position: userIndex },
+        { ...league.ranking[userIndex], position: userIndex + 1 },
       ].filter((user) => !!user);
     }
 
     return [
       league.ranking[userIndex - 1]
-        ? { ...league.ranking[userIndex - 1], position: userIndex - 1 }
+        ? { ...league.ranking[userIndex - 1], position: userIndex }
         : null,
-      { ...league.ranking[userIndex], position: userIndex },
+      { ...league.ranking[userIndex], position: userIndex + 1 },
       league.ranking[userIndex + 1]
-        ? { ...league.ranking[userIndex + 1], position: userIndex + 1 }
+        ? { ...league.ranking[userIndex + 1], position: userIndex + 2 }
         : null,
     ].filter((user) => !!user);
   }, [league.ranking, username]);
@@ -51,7 +51,7 @@ const LeaguePreview = ({ league, username }: ILeaguePreview) => {
     <Box className="transform transition-all hover:scale-105">
       <h2 className="mb-2 text-xl font-bold text-gray-700">{league.name}</h2>
 
-      <LeagueRankings users={userWithinTwoPlaces} />
+      <LeagueRankings users={userWithinTwoPlaces} isPreview />
     </Box>
   );
 };

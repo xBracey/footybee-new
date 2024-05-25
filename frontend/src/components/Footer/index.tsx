@@ -37,7 +37,7 @@ const DesktopItem = ({
   link: string;
 }) => (
   <Link
-    className="hover:text-shamrock-300 transition-colors duration-200"
+    className="hover:text-shamrock-300 p-2 transition-colors duration-200"
     to={link}
   >
     {children}
@@ -67,7 +67,7 @@ const Footer = () => {
         <div className="bg-shamrock-950 absolute bottom-0 right-0 left-0 z-50 hidden h-12 w-full items-center text-xs text-white md:flex">
           <div className="mx-auto flex w-full max-w-xl items-center justify-between">
             <DesktopItem link="/dashboard">Home</DesktopItem>
-            <DesktopItem link="/about">Rules</DesktopItem>
+            <DesktopItem link="/rules">Rules</DesktopItem>
             <DesktopItem link="/about">About</DesktopItem>
             <DesktopItem link="/leaderboard">Global Leaderboard</DesktopItem>
           </div>
@@ -111,7 +111,7 @@ const Footer = () => {
       <div className="bg-shamrock-950 absolute bottom-0 right-0 left-0 z-50 hidden h-12 w-full items-center text-xs text-white md:flex">
         <div className="mx-auto flex w-full max-w-xl items-center justify-between">
           <DesktopItem link="/dashboard">Home</DesktopItem>
-          <DesktopItem link="/about">Rules</DesktopItem>
+          <DesktopItem link="/rules">Rules</DesktopItem>
           <DesktopItem link="/about">About</DesktopItem>
           <DesktopItem link="/leaderboard">Global Leaderboard</DesktopItem>
           <DesktopItem link="/logout">Logout</DesktopItem>

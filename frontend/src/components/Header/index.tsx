@@ -18,7 +18,7 @@ const HeaderLink = ({
     <button onClick={closeMenu}>
       <Link
         to={to}
-        className="[&.active]:font-bold [&.active]:underline hover:text-shamrock-300 text-xl transition-colors duration-200 md:text-base"
+        className="[&.active]:font-bold [&.active]:underline hover:text-shamrock-300 p-2 text-xl transition-colors duration-200 md:text-base"
       >
         {children}
       </Link>
@@ -86,7 +86,7 @@ const Header = () => {
         <div
           className={`bg-shamrock-800 fixed top-14 left-0 bottom-0 z-50 w-screen ${
             menuOpened ? "left-[0vw]" : "left-[100vw]"
-          } flex flex-col items-center gap-8 p-4 transition-all duration-500 md:hidden`}
+          } flex flex-col items-center gap-8 p-2 transition-all duration-500 md:hidden`}
         >
           <HeaderLink to="/dashboard" closeMenu={closeMenu}>
             Home

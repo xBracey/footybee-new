@@ -16,12 +16,14 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const RulesLazyImport = createFileRoute('/rules')()
 const PredictionsLazyImport = createFileRoute('/predictions')()
 const LogoutLazyImport = createFileRoute('/logout')()
 const LoginLazyImport = createFileRoute('/login')()
 const LeaderboardLazyImport = createFileRoute('/leaderboard')()
 const FixturesLazyImport = createFileRoute('/fixtures')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
+const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
 const ProfileUsernameIndexLazyImport = createFileRoute('/profile/$username/')()
@@ -29,6 +31,11 @@ const LeagueLeagueIdIndexLazyImport = createFileRoute('/league/$leagueId/')()
 const AdminEntityIndexLazyImport = createFileRoute('/admin/$entity/')()
 
 // Create/Update Routes
+
+const RulesLazyRoute = RulesLazyImport.update({
+  path: '/rules',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/rules.lazy').then((d) => d.Route))
 
 const PredictionsLazyRoute = PredictionsLazyImport.update({
   path: '/predictions',
@@ -59,6 +66,11 @@ const DashboardLazyRoute = DashboardLazyImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
+
+const AboutLazyRoute = AboutLazyImport.update({
+  path: '/about',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -99,6 +111,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      preLoaderRoute: typeof AboutLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard': {
       preLoaderRoute: typeof DashboardLazyImport
       parentRoute: typeof rootRoute
@@ -121,6 +137,10 @@ declare module '@tanstack/react-router' {
     }
     '/predictions': {
       preLoaderRoute: typeof PredictionsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/rules': {
+      preLoaderRoute: typeof RulesLazyImport
       parentRoute: typeof rootRoute
     }
     '/admin/': {
@@ -146,12 +166,14 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
+  AboutLazyRoute,
   DashboardLazyRoute,
   FixturesLazyRoute,
   LeaderboardLazyRoute,
   LoginLazyRoute,
   LogoutLazyRoute,
   PredictionsLazyRoute,
+  RulesLazyRoute,
   AdminIndexLazyRoute,
   AdminEntityIndexLazyRoute,
   LeagueLeagueIdIndexLazyRoute,

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import React from "react";
 
 interface ILeagueRankings {
   users: {
@@ -7,9 +8,16 @@ interface ILeagueRankings {
     position: number;
   }[];
   currentUsername?: string;
+  isPreview?: boolean;
 }
 
-const LeagueRankings = ({ users, currentUsername }: ILeagueRankings) => {
+const LeagueRankings = ({
+  users,
+  currentUsername,
+  isPreview,
+}: ILeagueRankings) => {
+  const UserComponentWrap = isPreview ? React.Fragment : Link;
+
   return (
     <div className="flex flex-col overflow-hidden rounded-md text-center text-sm">
       <div className="bg-shamrock-400 flex flex-1 py-3 px-4 font-bold uppercase leading-normal">
@@ -24,7 +32,7 @@ const LeagueRankings = ({ users, currentUsername }: ILeagueRankings) => {
         </h3>
       </div>
       {users.map((user, index) => (
-        <Link to={`/profile/${user.username}`}>
+        <UserComponentWrap to={`/profile/${user.username}`}>
           <div
             key={user.username}
             className={`${
@@ -32,16 +40,24 @@ const LeagueRankings = ({ users, currentUsername }: ILeagueRankings) => {
                 ? "bg-picton-500"
                 : index % 2 === 0
                 ? "bg-shamrock-200"
-                : "bg-shamrock-50"
-            }  flex flex-1 py-3 px-4 ${
+                : "bg-shamrock-100"
+            } ${
               currentUsername === user.username ? "text-white" : "text-gray-600"
-            } `}
+            } ${
+              !isPreview
+                ? currentUsername === user.username
+                  ? "hover:bg-picton-600"
+                  : index % 2 === 0
+                  ? "hover:bg-shamrock-300"
+                  : "hover:bg-shamrock-200"
+                : ""
+            }  flex flex-1 py-3 px-4 transition-all`}
           >
             <p className="w-16 md:w-20">{user.position}</p>
             <p className="flex-1">{user.username}</p>
             <p className="w-16 md:w-20">{user.points}</p>
           </div>
-        </Link>
+        </UserComponentWrap>
       ))}
     </div>
   );
