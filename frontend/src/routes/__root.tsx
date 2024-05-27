@@ -2,6 +2,7 @@ import { createRootRoute, Outlet } from "@tanstack/react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PullToRefresh from "react-simple-pull-to-refresh";
+import { Arrow } from "../components/Icons/Icons";
 
 export const Route = createRootRoute({
   component: () => (
@@ -12,15 +13,14 @@ export const Route = createRootRoute({
         })
       }
       backgroundColor="#0C5941"
-      className="text-white"
       pullingContent={
-        <div className="lds-ellipsis">
-          <div></div>
-          <div></div>
-          <div></div>
+        <div className="flex items-center justify-center gap-2 p-4">
+          <Arrow className="h-8 w-8 rotate-180 text-white" />
+          <p className="text-lg text-white">Pull to refresh</p>
         </div>
       }
-      pullDownThreshold={200}
+      pullDownThreshold={140}
+      maxPullDownDistance={180}
     >
       <div
         className="bg-shamrock-500 relative overflow-auto text-gray-900"
