@@ -3,6 +3,7 @@ import { useGetMe } from "../../../queries/useGetMe";
 import TeamAdmin from "../../../components/Admin/TeamAdmin";
 import FixtureAdmin from "../../../components/Admin/FixtureAdmin";
 import UserAdmin from "../../../components/Admin/UserAdmin";
+import PlayerAdmin from "../../../components/Admin/PlayerAdmin";
 import Loading from "../../../components/Loading";
 import { z } from "zod";
 
@@ -26,6 +27,8 @@ const Admin = () => {
       return <FixtureAdmin id={id as number} />;
     case "users":
       return <UserAdmin username={id as string} />;
+    case "players":
+      return <PlayerAdmin id={id as number} />;
   }
 
   return <Navigate to="/" />;

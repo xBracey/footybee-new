@@ -16,10 +16,12 @@ export const getMe = async (token: string) => {
   });
 };
 
-export const useGetMe = () => {
+export const useGetMe = (onSuccess?: (data: User) => void) => {
   const { token } = useUserStore();
 
-  const query = useQuery(["getMe", { token }], () => getMe(token));
+  const query = useQuery(["getMe", { token }], () => getMe(token), {
+    onSuccess,
+  });
 
   return query;
 };

@@ -16,7 +16,7 @@ export const addEditTeam = async ({ team, id }: PostTeamRequest) => {
     return resp;
   } catch (error) {
     console.log(error);
-    return { error: "Fixture could not be posted" };
+    return { error: "Team could not be posted" };
   }
 };
 

@@ -6,6 +6,7 @@ import { onAddPredictions } from "./onAddPredictions";
 import { onChangePrediction } from "./onChangePrediction";
 import { onEditGroupSwitch } from "./onEditGroupSwitch";
 import { onEditGroupSwitches } from "./onEditGroupSwitches";
+import { onEditBonuses } from "./onEditBonuses";
 
 const reducer = (
   state: PredictionState,
@@ -34,6 +35,9 @@ const reducer = (
     case "EDIT_GROUP_SWITCHES":
       return onEditGroupSwitches(state, action.payload);
 
+    case "EDIT_BONUSES":
+      return onEditBonuses(state, action.payload);
+
     default:
       return state;
   }
@@ -45,7 +49,7 @@ interface PredictionStore {
 }
 
 export const usePredictionStore = create<PredictionStore>()((set) => ({
-  state: { predictions: [], groupSwitches: {} },
+  state: { predictions: [], groupSwitches: {}, bonuses: { saved: true } },
   dispatch: (action: PredictionActions) =>
     set((state) => ({ ...state, state: reducer(state.state, action) })),
 }));

@@ -48,9 +48,17 @@ export interface Team {
   name: string;
 }
 
+export interface Player {
+  id: number;
+  name: string;
+  teamId: number;
+}
+
 export interface User {
   username: string;
   admin: boolean;
+  bonusPlayerId: number | null;
+  bonusTeamId: number | null;
 }
 
 export interface UserGroup {

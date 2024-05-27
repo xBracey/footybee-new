@@ -1,5 +1,11 @@
 import { FastifyInstance } from "fastify";
-import { editUser, getUser, getUsers, insertUser } from "../repositories/users";
+import {
+  editUser,
+  editUserBonuses,
+  getUser,
+  getUsers,
+  insertUser,
+} from "../repositories/users";
 import { ServiceHandler } from "./types";
 import bcrypt from "bcrypt";
 import { tokenToUser } from "./utils";
@@ -13,7 +19,12 @@ export const getUserHandler: ServiceHandler = async (request, reply) => {
     return;
   }
 
-  reply.send({ username: user.username, admin: !!user.admin });
+  reply.send({
+    username: user.username,
+    admin: !!user.admin,
+    bonusPlayerId: user.bonusPlayerId,
+    bonusTeamId: user.bonusTeamId,
+  });
 };
 
 export const getUsersHandler: ServiceHandler = async (request, reply) => {
@@ -22,6 +33,8 @@ export const getUsersHandler: ServiceHandler = async (request, reply) => {
   const usersWithoutPassword = users.map((user) => ({
     username: user.username,
     admin: !!user.admin,
+    bonusPlayerId: user.bonusPlayerId,
+    bonusTeamId: user.bonusTeamId,
   }));
 
   reply.send(usersWithoutPassword);
@@ -42,7 +55,12 @@ export const getMeHandler: (server: FastifyInstance) => ServiceHandler =
       return;
     }
 
-    reply.send({ username: user.username, admin: !!user.admin });
+    reply.send({
+      username: user.username,
+      admin: !!user.admin,
+      bonusPlayerId: user.bonusPlayerId,
+      bonusTeamId: user.bonusTeamId,
+    });
   };
 
 export const registerUserHandler: (server: FastifyInstance) => ServiceHandler =
@@ -93,3 +111,21 @@ export const editUserHandler: ServiceHandler = async (request, reply) => {
 
   reply.send({ username, admin });
 };
+
+export const editMyBonuses: (server: FastifyInstance) => ServiceHandler =
+  (server) => async (request, reply) => {
+    const userDecoded = await tokenToUser(server, request, reply);
+
+    if (!userDecoded) {
+      return;
+    }
+
+    const { bonusPlayerId, bonusTeamId } = request.body as {
+      bonusPlayerId: number;
+      bonusTeamId: number;
+    };
+
+    await editUserBonuses(userDecoded.username, bonusPlayerId, bonusTeamId);
+
+    reply.send({ bonusPlayerId, bonusTeamId });
+  };

@@ -1,10 +1,16 @@
 import { Dialog, Loader } from "@mantine/core";
-import { Fixture, Prediction, Team } from "../../../../shared/types/database";
+import {
+  Fixture,
+  Player,
+  Prediction,
+  Team,
+} from "../../../../shared/types/database";
 import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
 import { Fragment } from "react";
 import { GroupSwitches } from "../../zustand/predictions/types";
 import Banner from "../../components/Banner";
+import UserBonuses from "../../components/UserBonuses";
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -16,6 +22,9 @@ interface PredictionsPageProps {
   isError: boolean;
   groupSwitches: GroupSwitches;
   onGroupSwitchChange: (groupLetter: string, switches: number[]) => void;
+  onEditBonusPlayer: (playerId: number) => void;
+  onEditBonusTeam: (teamId: number) => void;
+  players: Player[];
 }
 
 export const PredictionsPage = ({
@@ -28,6 +37,9 @@ export const PredictionsPage = ({
   isError,
   groupSwitches,
   onGroupSwitchChange,
+  onEditBonusPlayer,
+  onEditBonusTeam,
+  players,
 }: PredictionsPageProps) => {
   const groupFixtures = usePredictions(teams, fixtures, predictions);
 
@@ -63,6 +75,13 @@ export const PredictionsPage = ({
       <Banner>
         <h2 className="text-2xl font-bold text-white">Predictions</h2>
       </Banner>
+
+      <UserBonuses
+        onEditBonusPlayer={onEditBonusPlayer}
+        onEditBonusTeam={onEditBonusTeam}
+        players={players}
+        teams={teams}
+      />
 
       <div className="mx-auto mt-6 flex w-full max-w-4xl flex-col gap-12">
         {Object.entries(groupFixtures).map(

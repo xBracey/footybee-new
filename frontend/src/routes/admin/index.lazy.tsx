@@ -7,10 +7,12 @@ import AdminEntity from "../../components/Admin/AdminEntity";
 import { useMemo } from "react";
 import dayjs from "dayjs";
 import Loading from "../../components/Loading";
+import { useGetPlayers } from "../../queries/useGetPlayers";
 
 const Admin = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
   const { data: teams } = useGetTeams();
+  const { data: players } = useGetPlayers();
   const { data: fixtures } = useGetFixtures();
   const { data: users } = useGetUsers();
 
@@ -53,6 +55,11 @@ const Admin = () => {
     console.log(`Deleting fixture ${fixtureId}`);
   };
 
+  const onPlayerDelete = (playerId: string | number) => {
+    // TODO: Delete player
+    console.log(`Deleting player ${playerId}`);
+  };
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-4">
@@ -61,6 +68,13 @@ const Admin = () => {
           entities={fixuresWithNames}
           path="fixtures"
           onDelete={onFixtureDelete}
+        />
+
+        <AdminEntity
+          name="Players"
+          entities={players}
+          path="players"
+          onDelete={onPlayerDelete}
         />
 
         <AdminEntity

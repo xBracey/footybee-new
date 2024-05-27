@@ -41,9 +41,23 @@ export type EditGroupSwitches = {
   payload: GroupSwitches;
 };
 
+export type EditBonuses = {
+  type: "EDIT_BONUSES";
+  payload: {
+    playerId?: number;
+    teamId?: number;
+    saved: boolean;
+  };
+};
+
 export interface PredictionState {
   predictions: (Prediction & { saved: boolean })[];
   groupSwitches: GroupSwitches;
+  bonuses: {
+    playerId?: number;
+    teamId?: number;
+    saved: boolean;
+  };
 }
 
 export type PredictionActions =
@@ -52,4 +66,5 @@ export type PredictionActions =
   | ChangePrediction
   | AddPredictions
   | EditGroupSwitch
-  | EditGroupSwitches;
+  | EditGroupSwitches
+  | EditBonuses;
