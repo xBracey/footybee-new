@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.lds-ellipsis div {
+  background-color: white !important;
+}
