@@ -13,6 +13,14 @@ export const Route = createRootRoute({
       }
       backgroundColor="#0C5941"
       className="text-white"
+      pullingContent={
+        <div className="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      }
+      pullDownThreshold={200}
     >
       <div
         className="bg-shamrock-500 relative overflow-auto text-gray-900"
