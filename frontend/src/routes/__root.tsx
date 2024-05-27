@@ -19,8 +19,8 @@ export const Route = createRootRoute({
           <p className="text-lg text-white">Pull to refresh</p>
         </div>
       }
-      pullDownThreshold={140}
-      maxPullDownDistance={180}
+      pullDownThreshold={180}
+      maxPullDownDistance={220}
     >
       <div
         className="bg-shamrock-500 relative overflow-auto text-gray-900"
