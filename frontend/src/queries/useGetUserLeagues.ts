@@ -12,10 +12,10 @@ export const getUserLeagues = async (token: string) => {
   });
 };
 
-export const useGetUserLeagues = () => {
+export const useGetUserLeagues = (timestamp: number) => {
   const { token } = useUserStore();
 
-  const query = useQuery(["getUserLeagues", token], () =>
+  const query = useQuery(["getUserLeagues", token, timestamp], () =>
     getUserLeagues(token)
   );
 

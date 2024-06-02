@@ -11,14 +11,16 @@ import { useJoinLeague } from "../../queries/useJoinLeague";
 interface IUserLeagues {
   user: User;
   leagues: League[];
+  setLeagueTimestamp: (timestamp: number) => void;
 }
 
-const UserLeagues = ({ user, leagues }: IUserLeagues) => {
+const UserLeagues = ({ user, leagues, setLeagueTimestamp }: IUserLeagues) => {
   const [addLeagueModalOpened, setAddLeagueModalOpened] = useState(false);
   const [joinLeagueModalOpened, setJoinLeagueModalOpened] = useState(false);
 
   const onAddLeagueSuccess = () => {
     setAddLeagueModalOpened(false);
+    setLeagueTimestamp(Date.now());
   };
 
   const { addLeague, isLoading: isAddingLeague } =
@@ -26,6 +28,7 @@ const UserLeagues = ({ user, leagues }: IUserLeagues) => {
 
   const onJoinLeagueSuccess = () => {
     setJoinLeagueModalOpened(false);
+    setLeagueTimestamp(Date.now());
   };
 
   const { joinLeague, isLoading: isJoiningLeague } =

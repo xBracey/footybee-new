@@ -9,14 +9,16 @@ import { useGetResults } from "../queries/useGetResults";
 import { useGetUserLeagues } from "../queries/useGetUserLeagues";
 import UserLeagues from "../components/UserLeagues";
 import Box from "../components/Box";
+import { useState } from "react";
 
 const Dashboard = () => {
+  const [leagueTimestamp, setLeagueTimestamp] = useState(Date.now());
   const { token } = useUserStore();
   const { data: user } = useGetMe();
   const { data: teams } = useGetTeams();
   const { data: fixtures } = useGetFixtures();
   const { data: results } = useGetResults();
-  const { data: leagues } = useGetUserLeagues();
+  const { data: leagues } = useGetUserLeagues(leagueTimestamp);
 
   if (!token) {
     return <Navigate to="/login" from="/dashboard" />;
@@ -36,7 +38,11 @@ const Dashboard = () => {
 
       <div className="flex flex-col items-center justify-center">
         <div className="mx-auto w-full max-w-3xl">
-          <UserLeagues user={user} leagues={leagues} />
+          <UserLeagues
+            user={user}
+            leagues={leagues}
+            setLeagueTimestamp={setLeagueTimestamp}
+          />
         </div>
       </div>
     </div>

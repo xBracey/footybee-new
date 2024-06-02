@@ -43,7 +43,7 @@ const Fixture = ({
         />
       </div>
       {hasDate && (
-        <p className="text-xs text-gray-200">
+        <p className="text-sm text-gray-200">
           {dayjs.unix(dateTime / 1000).format("Do MMM HH:mm")}
         </p>
       )}

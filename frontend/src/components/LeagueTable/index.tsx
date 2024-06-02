@@ -120,7 +120,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
             </th>
           </tr>
         </thead>
-        <tbody className="text-xs text-gray-600 md:text-sm">
+        <tbody className="text-sm text-gray-600 md:text-sm">
           {tableWithGroupSwitches.map((team, index) => (
             <tr
               key={team.id}
@@ -141,7 +141,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
                   className="bot-0 absolute right-1 -translate-y-1/2 md:right-5"
                   onClick={() => onPairingClick(index)}
                 >
-                  <Switch className="h-4 w-4 rotate-180" />
+                  <Switch className="h-5 w-5 rotate-180" />
                 </button>
               )}
             </tr>

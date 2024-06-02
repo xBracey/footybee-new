@@ -26,7 +26,7 @@ const HeaderLink = ({
   );
 };
 
-const Header = () => {
+const Header = ({ scrollToTop }: { scrollToTop: () => void }) => {
   const [isInPwa, setIsInPwa] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(true);
   const [menuOpened, setMenuOpened] = useState(false);
@@ -35,6 +35,7 @@ const Header = () => {
 
   const closeMenu = () => {
     setMenuOpened(false);
+    scrollToTop();
   };
 
   useEffect(() => {
@@ -100,9 +101,13 @@ const Header = () => {
           <HeaderLink to="/leaderboard" closeMenu={closeMenu}>
             Global Leaderboard
           </HeaderLink>
-          {user && (
+          {user ? (
             <HeaderLink to="/logout" closeMenu={closeMenu}>
               Logout
+            </HeaderLink>
+          ) : (
+            <HeaderLink to="/login" closeMenu={closeMenu}>
+              Login
             </HeaderLink>
           )}
         </div>

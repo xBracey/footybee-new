@@ -20,7 +20,7 @@ const LeagueTableModal = ({}: ILeagueTableModal) => {
           If two or more teams are equal on points on completion of the group
           matches, the following tie-breaking criteria are applied
         </p>
-        <ol className="ml-4 flex list-decimal flex-col gap-1 text-xs">
+        <ol className="ml-4 flex list-decimal flex-col gap-1 text-sm">
           <li>
             Higher number of points obtained in the matches played between the
             teams in question
