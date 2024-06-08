@@ -7,6 +7,8 @@ import { InsertPrediction } from "../schema";
 import { ServiceHandler } from "./types";
 import { tokenToUser } from "./utils";
 
+const predictionLockTime = 1718474400000; // 2024-06-15 20:00:00
+
 export const getPredictionsHandler: ServiceHandler = async (req, reply) => {
   const { username } = req.params as { username: string };
 
@@ -21,6 +23,11 @@ export const insertPredictionsHandler: (
   const userDecoded = await tokenToUser(server, req, reply);
 
   if (!userDecoded) {
+    return;
+  }
+
+  if (Date.now() > predictionLockTime) {
+    reply.status(403).send({ error: "Predictions are locked" });
     return;
   }
 

@@ -7,10 +7,12 @@ import {
 } from "../../../../shared/types/database";
 import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { GroupSwitches } from "../../zustand/predictions/types";
 import Banner from "../../components/Banner";
 import UserBonuses from "../../components/UserBonuses";
+
+const predictionLockTime = 1718474400000; // 2024-06-15 20:00:00
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -41,6 +43,8 @@ export const PredictionsPage = ({
   onEditBonusTeam,
   players,
 }: PredictionsPageProps) => {
+  const [currentTime, setCurrentTime] = useState(Date.now());
+
   const groupFixtures = usePredictions(teams, fixtures, predictions);
 
   const onEditGroupSwitch = (groupLetter: string) => (switches: number[]) => {
@@ -51,6 +55,15 @@ export const PredictionsPage = ({
     (groupLetter: string) => (prediction: Prediction) => {
       onPredictionChange(prediction, groupLetter);
     };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const isPredictionLocked = currentTime > predictionLockTime;
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -81,6 +94,7 @@ export const PredictionsPage = ({
         onEditBonusTeam={onEditBonusTeam}
         players={players}
         teams={teams}
+        isPredictionLocked={isPredictionLocked}
       />
 
       <div className="mx-auto mt-6 flex w-full max-w-4xl flex-col gap-12">
@@ -99,6 +113,7 @@ export const PredictionsPage = ({
                 onPredictionChange={onEditPrediction(groupLetter)}
                 groupSwitches={groupSwitches[groupLetter]?.switches ?? []}
                 onEditGroupSwitch={onEditGroupSwitch(groupLetter)}
+                isPredictionLocked={isPredictionLocked}
               />
             </div>
           )
