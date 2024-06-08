@@ -5,7 +5,6 @@ import Loading from "../components/Loading";
 import TodaysMatches from "../components/TodaysMatches";
 import { useGetTeams } from "../queries/useGetTeams";
 import { useGetFixtures } from "../queries/useGetFixtures";
-import { useGetResults } from "../queries/useGetResults";
 import { useGetUserLeagues } from "../queries/useGetUserLeagues";
 import UserLeagues from "../components/UserLeagues";
 import Box from "../components/Box";
@@ -17,7 +16,6 @@ const Dashboard = () => {
   const { data: user } = useGetMe();
   const { data: teams } = useGetTeams();
   const { data: fixtures } = useGetFixtures();
-  const { data: results } = useGetResults();
   const { data: leagues } = useGetUserLeagues(leagueTimestamp);
 
   if (!token) {
@@ -30,7 +28,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <TodaysMatches teams={teams} fixtures={fixtures} results={results} />
+      <TodaysMatches teams={teams} fixtures={fixtures} />
 
       <Box className="mx-auto mt-2 max-w-xl border-b-4 border-white p-1 text-center text-xl font-bold text-gray-800 md:text-2xl">
         {user.username}'s Leagues

@@ -1,4 +1,4 @@
-import { Fixture, LeagueTeam, Result, Team } from "../types/database";
+import { Fixture, LeagueTeam, Team } from "../types/database";
 import { calculateGroup, getGroupMatches } from "./calculateGroup";
 import { compareTeams } from "./compareTeams";
 
@@ -14,10 +14,9 @@ export interface RawPairing {
 
 export const calculateTable = (
   fixtures: Fixture[],
-  results: Omit<Result, "id">[],
   teamsArray: Team[]
 ): TablePairings => {
-  const groupMatches = getGroupMatches(fixtures, results, teamsArray);
+  const groupMatches = getGroupMatches(fixtures, teamsArray);
   const teams = calculateGroup(groupMatches, teamsArray);
 
   let firstTable: LeagueTeam[] = Object.values(teams).sort(

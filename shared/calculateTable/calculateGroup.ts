@@ -1,10 +1,4 @@
-import {
-  Fixture,
-  GroupMatch,
-  LeagueTeam,
-  Result,
-  Team,
-} from "../types/database";
+import { Fixture, GroupMatch, LeagueTeam, Team } from "../types/database";
 
 const defaultTeam = (team: { id: number; name: string }): LeagueTeam => ({
   id: team.id,
@@ -59,22 +53,17 @@ export const calculateMatch = (match: GroupMatch, teams: ILeagueTeams) => {
 
 export const getGroupMatches = (
   fixtures: Fixture[],
-  results: Omit<Result, "id">[],
   teamsArray: Team[]
 ): GroupMatch[] => {
   return fixtures
     .map((fixture) => {
-      const result = results.find((r) => r.fixtureId === fixture.id);
-
-      if (!result) return;
-
       return {
         id: fixture.id,
         homeTeam: teamsArray.find((team) => team.id === fixture.homeTeamId)!,
         awayTeam: teamsArray.find((team) => team.id === fixture.awayTeamId)!,
         groupLetter: fixture.groupLetter,
-        homeGoals: result.homeTeamScore,
-        awayGoals: result.awayTeamScore,
+        homeGoals: fixture.homeTeamScore,
+        awayGoals: fixture.awayTeamScore,
       };
     })
     .filter((match) => !!match);

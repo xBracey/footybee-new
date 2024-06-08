@@ -7,6 +7,7 @@ interface IFixture {
   awayScore?: number;
   dateTime: number;
   hasDate?: boolean;
+  isAdmin?: boolean;
 }
 
 const Fixture = ({
@@ -16,6 +17,7 @@ const Fixture = ({
   awayScore,
   dateTime,
   hasDate = true,
+  isAdmin = false,
 }: IFixture) => {
   return (
     <div className="flex flex-col items-center justify-between text-sm font-bold text-white">

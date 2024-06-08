@@ -7,6 +7,8 @@ export const fixtures: Fixture[] = [
     awayTeamId: 2,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 0,
+    awayTeamScore: 0,
   },
   {
     id: 2,
@@ -14,6 +16,8 @@ export const fixtures: Fixture[] = [
     awayTeamId: 4,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 1,
+    awayTeamScore: 0,
   },
   {
     id: 3,
@@ -21,6 +25,8 @@ export const fixtures: Fixture[] = [
     awayTeamId: 3,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 0,
+    awayTeamScore: 2,
   },
   {
     id: 4,
@@ -28,6 +34,8 @@ export const fixtures: Fixture[] = [
     awayTeamId: 1,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 1,
+    awayTeamScore: 1,
   },
   {
     id: 5,
@@ -35,6 +43,8 @@ export const fixtures: Fixture[] = [
     awayTeamId: 3,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 0,
+    awayTeamScore: 2,
   },
   {
     id: 6,
@@ -42,5 +52,7 @@ export const fixtures: Fixture[] = [
     awayTeamId: 4,
     dateTime: 1630512000000,
     groupLetter: "A",
+    homeTeamScore: 1,
+    awayTeamScore: 0,
   },
 ];

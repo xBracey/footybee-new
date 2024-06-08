@@ -1,25 +1,14 @@
-import { Fragment, useMemo } from "react";
-import {
-  Fixture,
-  Result,
-  Team,
-  UserFixture,
-} from "../../../../shared/types/database";
+import { useMemo } from "react";
+import { Fixture, Team, UserFixture } from "../../../../shared/types/database";
 import FixtureComponent from "../Fixture";
 
 interface IFixturePoints {
   teams: Team[];
   fixtures: Fixture[];
-  results: Result[];
   userFixtures: UserFixture[];
 }
 
-const FixturePoints = ({
-  teams,
-  fixtures,
-  results,
-  userFixtures,
-}: IFixturePoints) => {
+const FixturePoints = ({ teams, fixtures, userFixtures }: IFixturePoints) => {
   const fixturesWithPoints = useMemo(() => {
     return fixtures.map((fixture) => {
       const homeTeam = teams.find(
@@ -28,20 +17,19 @@ const FixturePoints = ({
       const awayTeam = teams.find(
         (team) => team.id === fixture.awayTeamId
       )?.name;
-      const result = results.find((result) => result.fixtureId === fixture.id);
       const userFixture = userFixtures.find(
         (userFixture) => userFixture.fixtureId === fixture.id
       );
       return {
         homeTeam,
         awayTeam,
-        homeScore: result?.homeTeamScore,
-        awayScore: result?.awayTeamScore,
+        homeScore: fixture.homeTeamScore,
+        awayScore: fixture.awayTeamScore,
         dateTime: fixture.dateTime,
         points: userFixture?.points,
       };
     });
-  }, [fixtures, teams, results, userFixtures]);
+  }, [fixtures, teams, userFixtures]);
 
   return (
     <div className="[&>*:nth-child(odd)]:bg-shamrock-700 [&>*:nth-child(even)]:bg-pine-green-700 mx-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-md">

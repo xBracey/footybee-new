@@ -1,10 +1,5 @@
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
-import {
-  Fixture,
-  LeagueTeam,
-  Result,
-  Team,
-} from "../../../../shared/types/database";
+import { Fixture, LeagueTeam, Team } from "../../../../shared/types/database";
 import { Switch } from "../Icons/Icons";
 import LeagueTableModal from "../LeagueTableModal";
 import { useCalculateTeamStats } from "./utils";
@@ -27,7 +22,6 @@ const switchTableRows = (table: LeagueTeam[], pairingClick: number) => {
 interface LeagueTableProps {
   teams: Team[];
   fixtures: Fixture[];
-  results: Omit<Result, "id">[];
   isPrediction?: boolean;
   groupSwitches?: number[];
   setGroupSwitches?: Dispatch<SetStateAction<number[]>>;
@@ -36,12 +30,11 @@ interface LeagueTableProps {
 const LeagueTable: React.FC<LeagueTableProps> = ({
   teams,
   fixtures,
-  results,
   isPrediction = false,
   groupSwitches = [],
   setGroupSwitches,
 }) => {
-  const teamStats = useCalculateTeamStats(fixtures, results, teams);
+  const teamStats = useCalculateTeamStats(fixtures, teams);
   const { table, pairings } = teamStats;
 
   const pairingIndexList = useMemo(() => {
@@ -98,10 +91,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
         <thead>
           <tr className="bg-shamrock-400 text-sm uppercase leading-normal text-gray-600">
             <th className="py-3 px-4 text-left">Team</th>
-            <th className="py-3 px-4 text-center">
-              <span className="hidden sm:inline">Points</span>
-              <span className="sm:hidden">Pts</span>
-            </th>
+
             <th className="py-3 px-4 text-center">
               <span className="hidden sm:inline">Wins</span>
               <span className="sm:hidden">W</span>
@@ -118,6 +108,10 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
               <span className="hidden sm:inline">Goal Difference</span>
               <span className="sm:hidden">GD</span>
             </th>
+            <th className="py-3 px-4 text-center">
+              <span className="hidden sm:inline">Points</span>
+              <span className="sm:hidden">Pts</span>
+            </th>
           </tr>
         </thead>
         <tbody className="text-sm text-gray-600 md:text-sm">
@@ -129,13 +123,13 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
               } relative`}
             >
               <td className="py-3 px-4">{team.name}</td>
-              <td className="py-3 px-4 text-center">{team.points}</td>
               <td className="py-3 px-4 text-center">{team.wins}</td>
               <td className="py-3 px-4 text-center">{team.draws}</td>
               <td className="py-3 px-4 text-center">{team.losses}</td>
               <td className="py-3 px-4 text-center">
                 {team.goalsFor - team.goalsAgainst}
               </td>
+              <td className="py-3 px-4 text-center">{team.points}</td>
               {isPrediction && pairingIndexList.includes(index) && (
                 <button
                   className="bot-0 absolute right-1 -translate-y-1/2 md:right-5"

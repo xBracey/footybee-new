@@ -8,6 +8,8 @@ export const fixtures = sqliteTable("fixtures", {
   homeTeamId: integer("home_team_id").references(() => teams.id),
   awayTeamId: integer("away_team_id").references(() => teams.id),
   dateTime: integer("dateTime"),
+  homeTeamScore: integer("home_team_score"),
+  awayTeamScore: integer("away_team_score"),
 });
 
 export type Fixture = typeof fixtures.$inferSelect;

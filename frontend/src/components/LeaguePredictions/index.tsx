@@ -30,6 +30,15 @@ const LeaguePredictions = ({
     onPredictionChange({ ...newPrediction, username });
   };
 
+  const fixturesWithPredictions: Fixture[] = fixtures.map((fixture) => {
+    const prediction = predictions.find((p) => p.fixtureId === fixture.id);
+    return {
+      ...fixture,
+      homeTeamScore: prediction?.homeTeamScore,
+      awayTeamScore: prediction?.awayTeamScore,
+    };
+  });
+
   return (
     <div className="relative">
       <div
@@ -64,8 +73,7 @@ const LeaguePredictions = ({
 
         <LeagueTable
           teams={teams}
-          fixtures={fixtures}
-          results={predictions}
+          fixtures={fixturesWithPredictions}
           isPrediction
           groupSwitches={groupSwitches}
           setGroupSwitches={onEditGroupSwitch}

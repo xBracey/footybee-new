@@ -1,7 +1,6 @@
 import { Story } from "@ladle/react";
 import LeaguePredictions from ".";
 import { fixtures } from "../../fixtures/fixtures";
-import { resultsWithPairings } from "../../fixtures/results";
 import { teams } from "../../fixtures/teams";
 import { useState } from "react";
 import { Prediction } from "../../../../shared/types/database";
@@ -10,8 +9,9 @@ export const LeaguePredictionsStory: Story = () => {
   const [groupSwitches, setGroupSwitches] = useState<number[]>([]);
 
   const [predictions, setPredictions] = useState<Prediction[]>(
-    resultsWithPairings.map((result) => ({
-      ...result,
+    fixtures.map((fixture) => ({
+      ...fixture,
+      fixtureId: fixture.id,
       username: "xBracey",
     }))
   );
@@ -32,6 +32,7 @@ export const LeaguePredictionsStory: Story = () => {
       onPredictionChange={onPredictionChange}
       groupSwitches={groupSwitches}
       onEditGroupSwitch={setGroupSwitches}
+      isPredictionLocked={false}
     />
   );
 };

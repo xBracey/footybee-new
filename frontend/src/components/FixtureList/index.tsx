@@ -1,14 +1,13 @@
 import { useMemo } from "react";
-import { Fixture, Result, Team } from "../../../../shared/types/database";
+import { Fixture, Team } from "../../../../shared/types/database";
 import FixtureComponent from "../Fixture";
 
 interface IFixtureList {
   teams: Team[];
   fixtures: Fixture[];
-  results: Result[];
 }
 
-const FixtureList = ({ teams, fixtures, results }: IFixtureList) => {
+const FixtureList = ({ teams, fixtures }: IFixtureList) => {
   const fixturesWithTeams = useMemo(() => {
     const data = [...fixtures].map((fixture) => {
       const homeTeam = teams.find(
@@ -17,19 +16,18 @@ const FixtureList = ({ teams, fixtures, results }: IFixtureList) => {
       const awayTeam = teams.find(
         (team) => team.id === fixture.awayTeamId
       )?.name;
-      const result = results.find((result) => result.fixtureId === fixture.id);
       return {
         dateTime: fixture.dateTime,
         homeTeam,
         awayTeam,
-        homeScore: result?.homeTeamScore,
-        awayScore: result?.awayTeamScore,
+        homeScore: fixture.homeTeamScore,
+        awayScore: fixture.awayTeamScore,
       };
     });
 
     const dataSorted = data.sort((a, b) => a.dateTime - b.dateTime);
     return dataSorted;
-  }, [fixtures, teams, results]);
+  }, [fixtures, teams]);
 
   return (
     <div className="flex flex-wrap items-center justify-center">

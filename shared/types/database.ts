@@ -26,17 +26,12 @@ export interface Fixture {
   homeTeamId: number;
   awayTeamId: number;
   dateTime: number;
-}
-
-export interface Prediction {
-  username: string;
-  fixtureId: number;
   homeTeamScore: number;
   awayTeamScore: number;
 }
 
-export interface Result {
-  id: number;
+export interface Prediction {
+  username: string;
   fixtureId: number;
   homeTeamScore: number;
   awayTeamScore: number;

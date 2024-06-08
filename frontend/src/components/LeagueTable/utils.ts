@@ -1,4 +1,4 @@
-import { Fixture, Result, Team } from "../../../../shared/types/database";
+import { Fixture, Team } from "../../../../shared/types/database";
 import {
   calculateTable,
   TablePairings,
@@ -6,10 +6,9 @@ import {
 
 export const useCalculateTeamStats = (
   fixtures: Fixture[],
-  results: Omit<Result, "id">[],
   teams: Team[]
 ): TablePairings => {
-  const table = calculateTable(fixtures, results, teams);
+  const table = calculateTable(fixtures, teams);
 
   return table;
 };

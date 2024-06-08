@@ -5,7 +5,7 @@ import { useGetTeams } from "../../../queries/useGetTeams";
 import { useForm } from "@mantine/form";
 import { useGetGroups } from "../../../queries/useGetGroups";
 import { usePostFixture } from "../../../queries/usePostFixture";
-import { Button, LoadingOverlay, Select } from "@mantine/core";
+import { Button, LoadingOverlay, NumberInput, Select } from "@mantine/core";
 import { Fixture } from "../../../../../shared/types/database";
 import { DateTimePicker } from "@mantine/dates";
 import { useNavigate } from "@tanstack/react-router";
@@ -28,6 +28,8 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
       homeTeamId: undefined,
       awayTeamId: undefined,
       dateTime: undefined,
+      homeTeamScore: undefined,
+      awayTeamScore: undefined,
     },
     validate: (values) => ({
       groupLetter: values.groupLetter ? undefined : "Group is required",
@@ -113,6 +115,18 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
           onChange={(value) =>
             form.setValues({ ...form.values, dateTime: value?.getTime() })
           }
+        />
+
+        <NumberInput
+          id="homeTeamScore"
+          label="Home Team Score"
+          {...form.getInputProps("homeTeamScore")}
+        />
+
+        <NumberInput
+          id="awayTeamScore"
+          label="Away Team Score"
+          {...form.getInputProps("awayTeamScore")}
         />
 
         <Button type="submit">Submit</Button>
