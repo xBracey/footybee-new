@@ -6,6 +6,6 @@ import {
 
 export const buildUserGroupsRoutes: Router = (fastify, _, done) => {
   fastify.get("/:username", getUserGroupsByUsernameHandler);
-  fastify.post("/", insertUserGroupsHandler);
+  fastify.post("/", insertUserGroupsHandler(fastify));
   done();
 };

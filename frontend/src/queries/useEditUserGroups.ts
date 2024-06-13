@@ -15,6 +15,9 @@ export const editUserGroups = async ({
   const resp = await apiRequest<UserGroup[]>(`/users/groups`, {
     method: "POST",
     data: userGroups,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return resp;

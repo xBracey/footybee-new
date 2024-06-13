@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { League } from "../../../../shared/types/database";
 import Box from "../Box";
 import LeagueRankings from "../LeagueRankings";
+import { Button } from "@mantine/core";
 
 interface ILeaguePreview {
   league: League;
@@ -52,6 +53,8 @@ const LeaguePreview = ({ league, username }: ILeaguePreview) => {
       <h2 className="mb-2 text-xl font-bold text-gray-700">{league.name}</h2>
 
       <LeagueRankings users={userWithinTwoPlaces} isPreview />
+
+      <Button className="mt-4">View full league</Button>
     </Box>
   );
 };
