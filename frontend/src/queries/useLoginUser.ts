@@ -16,8 +16,8 @@ export const loginUser = async ({ username, password }: LoginRequest) => {
     const resp = await apiRequest<LoginResponse>("/users/login", {
       method: "POST",
       data: {
-        username,
-        password,
+        username: username.trim(),
+        password: password.trim(),
       },
     });
     return resp;
