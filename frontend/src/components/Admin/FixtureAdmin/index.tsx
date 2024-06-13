@@ -46,6 +46,8 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
         homeTeamId: fixture.homeTeamId,
         awayTeamId: fixture.awayTeamId,
         dateTime: fixture.dateTime,
+        homeTeamScore: fixture.homeTeamScore,
+        awayTeamScore: fixture.awayTeamScore,
       });
     }
   }, [fixture]);
