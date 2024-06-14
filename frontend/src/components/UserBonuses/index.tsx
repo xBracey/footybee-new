@@ -57,7 +57,7 @@ const UserBonuses = ({
         </div>
       </div>
 
-      <PredictionLock isLocked={isPredictionLocked} />
+      <PredictionLock isLocked />
     </div>
   );
 };

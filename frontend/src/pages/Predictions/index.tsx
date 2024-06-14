@@ -63,7 +63,7 @@ export const PredictionsPage = ({
     return () => clearInterval(interval);
   }, []);
 
-  const isPredictionLocked = currentTime > predictionLockTime;
+  const isPredictionLocked = currentTime > predictionLockTime || true;
 
   return (
     <div className="flex flex-col items-center justify-center">

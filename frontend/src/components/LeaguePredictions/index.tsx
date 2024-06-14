@@ -80,7 +80,7 @@ const LeaguePredictions = ({
         />
       </div>
 
-      <PredictionLock isLocked={isPredictionLocked} />
+      <PredictionLock isLocked />
     </div>
   );
 };

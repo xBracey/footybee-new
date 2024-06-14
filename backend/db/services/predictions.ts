@@ -26,16 +26,16 @@ export const insertPredictionsHandler: (
     return;
   }
 
-  if (Date.now() > predictionLockTime) {
+  if (Date.now() > predictionLockTime || true) {
     reply.status(403).send({ error: "Predictions are locked" });
     return;
   }
 
-  const { username } = userDecoded;
+  // const { username } = userDecoded;
 
-  const predictions = req.body as InsertPrediction[];
+  // const predictions = req.body as InsertPrediction[];
 
-  await insertPredictions(username, predictions);
+  // await insertPredictions(username, predictions);
 
-  reply.send(predictions.map((prediction) => ({ ...prediction, username })));
+  // reply.send(predictions.map((prediction) => ({ ...prediction, username })));
 };
