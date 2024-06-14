@@ -74,6 +74,10 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
     return newTable;
   }, [pairingIndexList, groupSwitches, table]);
 
+  if (teams.map((team) => team.name).includes("Spain")) {
+    console.log({ tableWithGroupSwitches, table });
+  }
+
   const onPairingClick = (pairingListIdx: number) => {
     if (!setGroupSwitches) return;
 

@@ -10,5 +10,9 @@ export const useCalculateTeamStats = (
 ): TablePairings => {
   const table = calculateTable(fixtures, teams);
 
-  return table;
+  const uniqueTable = table.table.filter(
+    (team, index) => table.table.map((t) => t.name).indexOf(team.name) === index
+  );
+
+  return { table: [...uniqueTable], pairings: [...table.pairings] };
 };
