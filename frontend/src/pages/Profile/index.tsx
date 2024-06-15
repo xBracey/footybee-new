@@ -5,6 +5,7 @@ import {
   UserGroup,
   Team,
   Fixture,
+  Prediction,
 } from "../../../../shared/types/database";
 import Banner from "../../components/Banner";
 import FixturePoints from "../../components/FixturePoints";
@@ -16,6 +17,7 @@ interface ProfilePageProps {
   userGroups: UserGroup[];
   teams: Team[];
   fixtures: Fixture[];
+  predictions: Prediction[];
   isCurrentUser: boolean;
 }
 
@@ -25,6 +27,7 @@ export const ProfilePage = ({
   userGroups,
   teams,
   fixtures,
+  predictions,
   isCurrentUser,
 }: ProfilePageProps) => {
   const totalPoints = useMemo(() => {
@@ -53,6 +56,7 @@ export const ProfilePage = ({
         fixtures={fixtures}
         teams={teams}
         userFixtures={userFixtures}
+        predictions={predictions}
       />
     </div>
   );

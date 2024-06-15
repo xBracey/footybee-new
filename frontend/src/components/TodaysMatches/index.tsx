@@ -20,15 +20,17 @@ const TodaysMatches = ({ teams, fixtures }: ITodaysMatches) => {
 
   return (
     <Banner className="bg-pine-green-800 p-6 md:mb-4">
-      <h2 className="text-2xl font-bold text-white">Today's Matches</h2>
-      <div className="w-full">
-        {todaysFixtures.length > 0 ? (
-          <FixtureList fixtures={todaysFixtures} teams={teams} />
-        ) : (
-          <p className="mt-2 text-center text-xl text-white">
-            No matches today
-          </p>
-        )}
+      <div className="flex w-full flex-col items-center md:max-w-xl lg:max-w-4xl">
+        <h2 className="text-2xl font-bold text-white">Today's Matches</h2>
+        <div className="my-2 w-full flex-1">
+          {todaysFixtures.length > 0 ? (
+            <FixtureList fixtures={todaysFixtures} teams={teams} />
+          ) : (
+            <p className="mt-2 text-center text-xl text-white">
+              No matches today
+            </p>
+          )}
+        </div>
       </div>
     </Banner>
   );

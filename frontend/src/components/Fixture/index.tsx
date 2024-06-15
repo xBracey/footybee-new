@@ -7,7 +7,7 @@ interface IFixture {
   awayScore?: number;
   dateTime: number;
   hasDate?: boolean;
-  isAdmin?: boolean;
+  isProfilePage?: boolean;
 }
 
 const Fixture = ({
@@ -17,7 +17,7 @@ const Fixture = ({
   awayScore,
   dateTime,
   hasDate = true,
-  isAdmin = false,
+  isProfilePage,
 }: IFixture) => {
   return (
     <div className="flex flex-col items-center justify-between text-sm font-bold text-white">
@@ -27,7 +27,7 @@ const Fixture = ({
           alt={homeTeam}
           className="h-7 w-7"
         />
-        <p>{homeTeam}</p>
+        <p>{isProfilePage ? homeTeam.slice(0, 3).toUpperCase() : homeTeam}</p>
         {homeScore !== undefined && awayScore !== undefined ? (
           <>
             <p>{homeScore}</p>
@@ -37,7 +37,7 @@ const Fixture = ({
         ) : (
           <p>vs</p>
         )}
-        <p>{awayTeam}</p>
+        <p>{isProfilePage ? awayTeam.slice(0, 3).toUpperCase() : awayTeam}</p>
         <img
           src={`/flags/${awayTeam}.png`}
           alt={awayTeam}
