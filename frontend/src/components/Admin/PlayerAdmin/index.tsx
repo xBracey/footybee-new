@@ -5,7 +5,13 @@ import { useForm } from "@mantine/form";
 import { Player } from "../../../../../shared/types/database";
 import { useEffect } from "react";
 import { usePostPlayer } from "../../../queries/usePostPlayer";
-import { Button, LoadingOverlay, Select, TextInput } from "@mantine/core";
+import {
+  Button,
+  LoadingOverlay,
+  NumberInput,
+  Select,
+  TextInput,
+} from "@mantine/core";
 import { useGetTeams } from "../../../queries/useGetTeams";
 
 interface IPlayerAdmin {
@@ -24,10 +30,12 @@ const PlayerAdmin = ({ id }: IPlayerAdmin) => {
     initialValues: {
       teamId: undefined,
       name: undefined,
+      goals: undefined,
     },
     validate: (values) => ({
       teamId: values.teamId ? undefined : "Team is required",
       name: values.name ? undefined : "Name is required",
+      goals: values.goals ? undefined : "Goals is required",
     }),
   });
 
@@ -36,6 +44,7 @@ const PlayerAdmin = ({ id }: IPlayerAdmin) => {
       form.setValues({
         teamId: parseInt(`${player.teamId}`),
         name: player.name,
+        goals: player.goals,
       });
     }
   }, [player]);
@@ -67,6 +76,12 @@ const PlayerAdmin = ({ id }: IPlayerAdmin) => {
         />
 
         <TextInput id="name" label="Name" {...form.getInputProps("name")} />
+
+        <NumberInput
+          id="goals"
+          label="Goals"
+          {...form.getInputProps("goals")}
+        />
 
         <Button type="submit">Submit</Button>
       </form>

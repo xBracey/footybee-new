@@ -20,22 +20,24 @@ export const getPlayerHandler: ServiceHandler = async (request, reply) => {
 };
 
 export const insertPlayersHandler: ServiceHandler = async (request, reply) => {
-  const { name, teamId } = request.body as {
+  const { name, teamId, goals } = request.body as {
     name: string;
     teamId: number;
+    goals: number;
   };
 
-  await insertPlayer({ name, teamId });
+  await insertPlayer({ name, teamId, goals });
 };
 
 export const editPlayerHandler: ServiceHandler = async (request, reply) => {
   const { id } = request.params as { id: string };
-  const { name, teamId } = request.body as {
+  const { name, teamId, goals } = request.body as {
     name: string;
     teamId: number;
+    goals: number;
   };
 
-  await editPlayer(parseInt(id), { name, teamId });
+  await editPlayer(parseInt(id), { name, teamId, goals });
 
-  reply.send({ name, teamId });
+  reply.send({ name, teamId, goals });
 };

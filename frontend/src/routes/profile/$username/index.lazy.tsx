@@ -8,6 +8,7 @@ import { useGetFixtures } from "../../../queries/useGetFixtures";
 import { ProfilePage } from "../../../pages/Profile";
 import { useGetMe } from "../../../queries/useGetMe";
 import { useGetPredictions } from "../../../queries/useGetPredictions";
+import { useGetPlayers } from "../../../queries/useGetPlayers";
 
 const Profile = () => {
   const { username } = Route.useParams();
@@ -21,6 +22,7 @@ const Profile = () => {
   const { data: fixtures, isLoading: fixturesIsLoading } = useGetFixtures();
   const { data: predictions, isLoading: predictionsIsLoading } =
     useGetPredictions(username);
+  const { data: players, isLoading: playersIsLoading } = useGetPlayers();
 
   if (userIsLoading) {
     return <Loading />;
@@ -35,7 +37,8 @@ const Profile = () => {
     userGroupsIsLoading ||
     teamsIsLoading ||
     fixturesIsLoading ||
-    predictionsIsLoading
+    predictionsIsLoading ||
+    playersIsLoading
   ) {
     return <Loading />;
   }
@@ -48,6 +51,7 @@ const Profile = () => {
       teams={teams}
       fixtures={fixtures}
       predictions={predictions}
+      players={players}
       isCurrentUser={me && me.username === username}
     />
   );

@@ -47,6 +47,7 @@ export interface Player {
   id: number;
   name: string;
   teamId: number;
+  goals: number;
 }
 
 export interface User {

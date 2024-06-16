@@ -8,7 +8,7 @@ import {
   insertLeague,
 } from "../repositories/leagues";
 import { getLeagueUsers, insertUserLeague } from "../repositories/userLeagues";
-import { getAllUsersPoints } from "../repositories/points";
+import { getAllUsersPoints } from "../points/getPoints";
 import { InsertLeague, League } from "../schema";
 
 export const addLeagueHandler: (server: FastifyInstance) => ServiceHandler =

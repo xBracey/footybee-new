@@ -8,7 +8,6 @@ export const users = sqliteTable("users", {
   admin: integer("admin").notNull().default(0),
   bonusPlayerId: integer("bonus_player_id").references(() => players.id),
   bonusTeamId: integer("bonus_team_id").references(() => teams.id),
-  points: integer("points").notNull().default(0),
 });
 
 export type User = typeof users.$inferSelect;
