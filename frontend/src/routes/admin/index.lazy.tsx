@@ -8,12 +8,14 @@ import { useMemo } from "react";
 import dayjs from "dayjs";
 import Loading from "../../components/Loading";
 import { useGetPlayers } from "../../queries/useGetPlayers";
+import { useGetRoundFixtures } from "../../queries/useGetRoundFixtures";
 
 const Admin = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
   const { data: teams } = useGetTeams();
   const { data: players } = useGetPlayers();
   const { data: fixtures } = useGetFixtures();
+  const { data: roundFixtures } = useGetRoundFixtures();
   const { data: users } = useGetUsers();
 
   const fixuresWithNames = useMemo(() => {
@@ -31,6 +33,26 @@ const Admin = () => {
       };
     });
   }, [fixtures, teams]);
+
+  const roundFixturesWithNames = useMemo(() => {
+    return roundFixtures.map((roundFixture) => {
+      const homeTeam = teams.find(
+        (team) => team.id === roundFixture.homeTeamId
+      );
+      const awayTeam = teams.find(
+        (team) => team.id === roundFixture.awayTeamId
+      );
+
+      return {
+        id: roundFixture.id,
+        name: roundFixture.homeTeamId
+          ? `${homeTeam?.name} vs ${awayTeam?.name} @ ${dayjs(
+              roundFixture.dateTime
+            ).format("D MMM HH:mm")}`
+          : "TBD",
+      };
+    });
+  }, [roundFixtures]);
 
   if (userIsLoading) {
     return <Loading />;
@@ -60,6 +82,11 @@ const Admin = () => {
     console.log(`Deleting player ${playerId}`);
   };
 
+  const onRoundFixtureDelete = (roundFixtureId: string | number) => {
+    // TODO: Delete round fixture
+    console.log(`Deleting round fixture ${roundFixtureId}`);
+  };
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-4">
@@ -68,6 +95,13 @@ const Admin = () => {
           entities={fixuresWithNames}
           path="fixtures"
           onDelete={onFixtureDelete}
+        />
+
+        <AdminEntity
+          name="Round Fixtures"
+          entities={roundFixturesWithNames}
+          path="round-fixtures"
+          onDelete={onRoundFixtureDelete}
         />
 
         <AdminEntity

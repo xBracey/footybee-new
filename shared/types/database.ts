@@ -30,6 +30,17 @@ export interface Fixture {
   awayTeamScore: number;
 }
 
+export interface RoundFixture {
+  id: number;
+  round: string;
+  homeTeamId: number;
+  awayTeamId: number;
+  dateTime: number;
+  homeTeamScore: number;
+  awayTeamScore: number;
+  order: number;
+}
+
 export interface Prediction {
   username: string;
   fixtureId: number;

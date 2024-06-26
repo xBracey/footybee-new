@@ -8,6 +8,8 @@ import { buildUserGroupsRoutes } from "./userGroups";
 import { buildUserFixturesRoutes } from "./userFixtures";
 import { buildLeaguesRoutes } from "./leagues";
 import { buildPlayersRoutes } from "./players";
+import { buildRoundFixturesRoutes } from "./roundFixtures";
+import { buildRoundsRoutes } from "./rounds";
 
 export const buildApiRoutes: Router = (fastify, _, done) => {
   fastify.register(buildUserRoutes, { prefix: "/users" });
@@ -25,5 +27,7 @@ export const buildApiRoutes: Router = (fastify, _, done) => {
     prefix: "/users/fixtures/:username",
   });
   fastify.register(buildLeaguesRoutes, { prefix: "/leagues" });
+  fastify.register(buildRoundsRoutes, { prefix: "/rounds" });
+  fastify.register(buildRoundFixturesRoutes, { prefix: "/round-fixtures" });
   done();
 };

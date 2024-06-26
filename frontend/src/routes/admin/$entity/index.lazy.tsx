@@ -6,6 +6,7 @@ import UserAdmin from "../../../components/Admin/UserAdmin";
 import PlayerAdmin from "../../../components/Admin/PlayerAdmin";
 import Loading from "../../../components/Loading";
 import { z } from "zod";
+import RoundFixtureAdmin from "../../../components/Admin/RoundFixtureAdmin";
 
 const Admin = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
@@ -25,6 +26,8 @@ const Admin = () => {
       return <TeamAdmin id={id as number} />;
     case "fixtures":
       return <FixtureAdmin id={id as number} />;
+    case "round-fixtures":
+      return <RoundFixtureAdmin id={id as number} />;
     case "users":
       return <UserAdmin username={id as string} />;
     case "players":
