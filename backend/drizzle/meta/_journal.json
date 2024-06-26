@@ -169,6 +169,20 @@
       "when": 1719388415084,
       "tag": "0023_real_winter_soldier",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1719429228742,
+      "tag": "0024_shallow_unus",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1719430264640,
+      "tag": "0025_nasty_havok",
+      "breakpoints": true
     }
   ]
 }

@@ -1,3 +1,10 @@
+export const rounds = [
+  "Round of 16",
+  "Quarter-finals",
+  "Semi-finals",
+  "Finals",
+];
+
 export interface LeagueTeam {
   id: number;
   name: string;
@@ -97,4 +104,10 @@ export interface LeagueWithPassword {
   id: string;
   name: string;
   password: string;
+}
+
+export interface UserTeam {
+  username: string;
+  teamId: number;
+  roundPredictions: string;
 }

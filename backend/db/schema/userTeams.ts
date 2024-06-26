@@ -14,6 +14,7 @@ export const userTeams = sqliteTable(
     username: text("username").references(() => users.username),
     teamId: integer("team_id").references(() => teams.id),
     roundPredictions: text("round_predictions").references(() => rounds.round),
+    points: integer("points").default(0),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.username, table.teamId] }),

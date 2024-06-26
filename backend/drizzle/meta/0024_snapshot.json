@@ -1,0 +1,916 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "cc09cf63-93b2-4b48-9dcc-9ae280d1bf97",
+  "prevId": "e49b4a24-cb50-4117-9483-84708980f061",
+  "tables": {
+    "users": {
+      "name": "users",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "admin": {
+          "name": "admin",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "bonus_player_id": {
+          "name": "bonus_player_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bonus_team_id": {
+          "name": "bonus_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "users_bonus_player_id_players_id_fk": {
+          "name": "users_bonus_player_id_players_id_fk",
+          "tableFrom": "users",
+          "tableTo": "players",
+          "columnsFrom": [
+            "bonus_player_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_bonus_team_id_teams_id_fk": {
+          "name": "users_bonus_team_id_teams_id_fk",
+          "tableFrom": "users",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "bonus_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "teams": {
+      "name": "teams",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "round_exit": {
+          "name": "round_exit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'Group Stages'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "teams_group_letter_groups_letter_fk": {
+          "name": "teams_group_letter_groups_letter_fk",
+          "tableFrom": "teams",
+          "tableTo": "groups",
+          "columnsFrom": [
+            "group_letter"
+          ],
+          "columnsTo": [
+            "letter"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "teams_round_exit_rounds_round_fk": {
+          "name": "teams_round_exit_rounds_round_fk",
+          "tableFrom": "teams",
+          "tableTo": "rounds",
+          "columnsFrom": [
+            "round_exit"
+          ],
+          "columnsTo": [
+            "round"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "fixtures": {
+      "name": "fixtures",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_id": {
+          "name": "home_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_id": {
+          "name": "away_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dateTime": {
+          "name": "dateTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_score": {
+          "name": "home_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_score": {
+          "name": "away_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "fixtures_group_letter_groups_letter_fk": {
+          "name": "fixtures_group_letter_groups_letter_fk",
+          "tableFrom": "fixtures",
+          "tableTo": "groups",
+          "columnsFrom": [
+            "group_letter"
+          ],
+          "columnsTo": [
+            "letter"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fixtures_home_team_id_teams_id_fk": {
+          "name": "fixtures_home_team_id_teams_id_fk",
+          "tableFrom": "fixtures",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "home_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "fixtures_away_team_id_teams_id_fk": {
+          "name": "fixtures_away_team_id_teams_id_fk",
+          "tableFrom": "fixtures",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "away_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "leagues": {
+      "name": "leagues",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "creator_username": {
+          "name": "creator_username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "leagues_creator_username_users_username_fk": {
+          "name": "leagues_creator_username_users_username_fk",
+          "tableFrom": "leagues",
+          "tableTo": "users",
+          "columnsFrom": [
+            "creator_username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "predictions": {
+      "name": "predictions",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fixture_id": {
+          "name": "fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_score": {
+          "name": "home_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_score": {
+          "name": "away_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "predictions_username_users_username_fk": {
+          "name": "predictions_username_users_username_fk",
+          "tableFrom": "predictions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "predictions_fixture_id_fixtures_id_fk": {
+          "name": "predictions_fixture_id_fixtures_id_fk",
+          "tableFrom": "predictions",
+          "tableTo": "fixtures",
+          "columnsFrom": [
+            "fixture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "predictions_username_fixture_id_pk": {
+          "columns": [
+            "fixture_id",
+            "username"
+          ],
+          "name": "predictions_username_fixture_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "user_leagues": {
+      "name": "user_leagues",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "league_id": {
+          "name": "league_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_leagues_username_users_username_fk": {
+          "name": "user_leagues_username_users_username_fk",
+          "tableFrom": "user_leagues",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_leagues_league_id_leagues_id_fk": {
+          "name": "user_leagues_league_id_leagues_id_fk",
+          "tableFrom": "user_leagues",
+          "tableTo": "leagues",
+          "columnsFrom": [
+            "league_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_leagues_username_league_id_pk": {
+          "columns": [
+            "league_id",
+            "username"
+          ],
+          "name": "user_leagues_username_league_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "groups": {
+      "name": "groups",
+      "columns": {
+        "letter": {
+          "name": "letter",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user_groups": {
+      "name": "user_groups",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "group_letter": {
+          "name": "group_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "switches": {
+          "name": "switches",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": []
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_groups_username_users_username_fk": {
+          "name": "user_groups_username_users_username_fk",
+          "tableFrom": "user_groups",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_groups_group_letter_groups_letter_fk": {
+          "name": "user_groups_group_letter_groups_letter_fk",
+          "tableFrom": "user_groups",
+          "tableTo": "groups",
+          "columnsFrom": [
+            "group_letter"
+          ],
+          "columnsTo": [
+            "letter"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_groups_username_group_letter_pk": {
+          "columns": [
+            "group_letter",
+            "username"
+          ],
+          "name": "user_groups_username_group_letter_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "user_fixtures": {
+      "name": "user_fixtures",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fixture_id": {
+          "name": "fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_fixtures_username_users_username_fk": {
+          "name": "user_fixtures_username_users_username_fk",
+          "tableFrom": "user_fixtures",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_fixtures_fixture_id_fixtures_id_fk": {
+          "name": "user_fixtures_fixture_id_fixtures_id_fk",
+          "tableFrom": "user_fixtures",
+          "tableTo": "fixtures",
+          "columnsFrom": [
+            "fixture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_fixtures_username_fixture_id_pk": {
+          "columns": [
+            "fixture_id",
+            "username"
+          ],
+          "name": "user_fixtures_username_fixture_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "players": {
+      "name": "players",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "goals": {
+          "name": "goals",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "players_team_id_teams_id_fk": {
+          "name": "players_team_id_teams_id_fk",
+          "tableFrom": "players",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "rounds": {
+      "name": "rounds",
+      "columns": {
+        "round": {
+          "name": "round",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "roundFixtures": {
+      "name": "roundFixtures",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "round": {
+          "name": "round",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_id": {
+          "name": "home_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_id": {
+          "name": "away_team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dateTime": {
+          "name": "dateTime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "home_team_score": {
+          "name": "home_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "away_team_score": {
+          "name": "away_team_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "roundFixtures_round_rounds_round_fk": {
+          "name": "roundFixtures_round_rounds_round_fk",
+          "tableFrom": "roundFixtures",
+          "tableTo": "rounds",
+          "columnsFrom": [
+            "round"
+          ],
+          "columnsTo": [
+            "round"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "roundFixtures_home_team_id_teams_id_fk": {
+          "name": "roundFixtures_home_team_id_teams_id_fk",
+          "tableFrom": "roundFixtures",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "home_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "roundFixtures_away_team_id_teams_id_fk": {
+          "name": "roundFixtures_away_team_id_teams_id_fk",
+          "tableFrom": "roundFixtures",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "away_team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user_round_fixtures": {
+      "name": "user_round_fixtures",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "round_fixture_id": {
+          "name": "round_fixture_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_round_fixtures_username_users_username_fk": {
+          "name": "user_round_fixtures_username_users_username_fk",
+          "tableFrom": "user_round_fixtures",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_round_fixtures_round_fixture_id_roundFixtures_id_fk": {
+          "name": "user_round_fixtures_round_fixture_id_roundFixtures_id_fk",
+          "tableFrom": "user_round_fixtures",
+          "tableTo": "roundFixtures",
+          "columnsFrom": [
+            "round_fixture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_round_fixtures_username_round_fixture_id_pk": {
+          "columns": [
+            "round_fixture_id",
+            "username"
+          ],
+          "name": "user_round_fixtures_username_round_fixture_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "user_teams": {
+      "name": "user_teams",
+      "columns": {
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "round_predictions": {
+          "name": "round_predictions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_teams_username_users_username_fk": {
+          "name": "user_teams_username_users_username_fk",
+          "tableFrom": "user_teams",
+          "tableTo": "users",
+          "columnsFrom": [
+            "username"
+          ],
+          "columnsTo": [
+            "username"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_teams_team_id_teams_id_fk": {
+          "name": "user_teams_team_id_teams_id_fk",
+          "tableFrom": "user_teams",
+          "tableTo": "teams",
+          "columnsFrom": [
+            "team_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_teams_round_predictions_rounds_round_fk": {
+          "name": "user_teams_round_predictions_rounds_round_fk",
+          "tableFrom": "user_teams",
+          "tableTo": "rounds",
+          "columnsFrom": [
+            "round_predictions"
+          ],
+          "columnsTo": [
+            "round"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_teams_username_team_id_pk": {
+          "columns": [
+            "team_id",
+            "username"
+          ],
+          "name": "user_teams_username_team_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

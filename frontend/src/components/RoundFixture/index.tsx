@@ -4,6 +4,7 @@ interface IRoundFixture {
   onHomeClick: () => void;
   onAwayClick: () => void;
   selected?: "home" | "away";
+  disabled?: boolean;
 }
 
 const RoundFixtureTeam = ({
@@ -21,13 +22,17 @@ const RoundFixtureTeam = ({
     onClick={onClick}
     className={`${
       selected
-        ? "bg-shamrock-600 hover:bg-shamrock-700"
+        ? "bg-shamrock-700 hover:bg-shamrock-800"
         : hasNotBeenSelected
         ? "hover:bg-azure-800"
-        : "bg-red-600 hover:bg-red-700"
-    } flex flex-1 items-center gap-1.5 p-4 px-6 duration-500`}
+        : "bg-red-700 hover:bg-red-800"
+    } flex flex-1 items-center justify-center gap-1.5 p-4 px-6 duration-500`}
   >
-    <img src={`/flags/${team}.png`} alt={team} className="h-7 w-7" />
+    {team === "TBC" ? (
+      <div className="h-7 w-7 rounded-full bg-gray-300" />
+    ) : (
+      <img src={`/flags/${team}.png`} alt={team} className="h-7 w-7" />
+    )}
     <p>{team}</p>
   </button>
 );
@@ -38,11 +43,16 @@ const RoundFixture = ({
   onHomeClick,
   onAwayClick,
   selected,
+  disabled,
 }: IRoundFixture) => {
   return (
-    <div className="flex">
-      <div className="bg-azure-500 relative flex flex-col items-center justify-between overflow-hidden rounded-lg text-sm font-bold text-white">
-        <div className="relative flex items-center">
+    <div
+      className={`flex ${
+        disabled ? "pointer-events-none opacity-50" : ""
+      } w-full`}
+    >
+      <div className="bg-azure-600 relative flex w-full flex-col items-center justify-between overflow-hidden rounded-lg text-sm font-bold text-white">
+        <div className="relative flex w-full items-center">
           <RoundFixtureTeam
             team={homeTeam}
             onClick={onHomeClick}
