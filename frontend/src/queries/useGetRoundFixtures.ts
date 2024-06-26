@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { apiRequest } from "./utils";
-import { Fixture } from "../../../shared/types/database";
+import { RoundFixture } from "../../../shared/types/database";
 
 export const getRoundFixtures = async () => {
-  return apiRequest<Fixture[]>(`/round-fixtures`, {
+  return apiRequest<RoundFixture[]>(`/round-fixtures`, {
     method: "GET",
   });
 };

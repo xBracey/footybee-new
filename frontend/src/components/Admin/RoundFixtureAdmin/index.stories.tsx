@@ -1,6 +1,6 @@
 import { Story } from "@ladle/react";
 import FixtureAdmin from ".";
 
-export const FixtureAdminStory: Story = () => <FixtureAdmin />;
+export const RoundFixtureAdminStory: Story = () => <FixtureAdmin />;
 
-FixtureAdminStory.storyName = "FixtureAdmin";
+RoundFixtureAdminStory.storyName = "RoundFixtureAdmin";

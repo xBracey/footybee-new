@@ -13,3 +13,11 @@ export const useNavigate = () => {
 
   return navigate;
 };
+
+export const useRouterState = () => {
+  return {
+    location: {
+      pathname: "/",
+    },
+  };
+};

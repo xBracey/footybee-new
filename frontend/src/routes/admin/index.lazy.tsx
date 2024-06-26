@@ -18,6 +18,8 @@ const Admin = () => {
   const { data: roundFixtures } = useGetRoundFixtures();
   const { data: users } = useGetUsers();
 
+  console.log(roundFixtures);
+
   const fixuresWithNames = useMemo(() => {
     return fixtures.map((fixture) => {
       const homeTeam = teams.find((team) => team.id === fixture.homeTeamId);

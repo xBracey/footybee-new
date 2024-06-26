@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const RulesLazyImport = createFileRoute('/rules')()
+const RoundPredictionsLazyImport = createFileRoute('/round-predictions')()
 const PredictionsLazyImport = createFileRoute('/predictions')()
 const LogoutLazyImport = createFileRoute('/logout')()
 const LoginLazyImport = createFileRoute('/login')()
@@ -36,6 +37,13 @@ const RulesLazyRoute = RulesLazyImport.update({
   path: '/rules',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/rules.lazy').then((d) => d.Route))
+
+const RoundPredictionsLazyRoute = RoundPredictionsLazyImport.update({
+  path: '/round-predictions',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/round-predictions.lazy').then((d) => d.Route),
+)
 
 const PredictionsLazyRoute = PredictionsLazyImport.update({
   path: '/predictions',
@@ -139,6 +147,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PredictionsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/round-predictions': {
+      preLoaderRoute: typeof RoundPredictionsLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/rules': {
       preLoaderRoute: typeof RulesLazyImport
       parentRoute: typeof rootRoute
@@ -173,6 +185,7 @@ export const routeTree = rootRoute.addChildren([
   LoginLazyRoute,
   LogoutLazyRoute,
   PredictionsLazyRoute,
+  RoundPredictionsLazyRoute,
   RulesLazyRoute,
   AdminIndexLazyRoute,
   AdminEntityIndexLazyRoute,
