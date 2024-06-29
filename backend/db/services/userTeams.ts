@@ -28,19 +28,22 @@ export const insertUserTeamsHandler: (
     return;
   }
 
-  const { username } = userDecoded;
+  reply.status(403).send({ error: "Predictions are locked" });
+  return;
 
-  const userTeams = req.body as Omit<UserTeam, "username" | "points">[];
+  // const { username } = userDecoded;
 
-  await insertUserTeams(
-    userTeams.map((userTeam) => ({ username, ...userTeam }))
-  );
+  // const userTeams = req.body as Omit<UserTeam, "username" | "points">[];
 
-  reply.send(
-    userTeams.map((userTeam) => ({
-      ...userTeam,
-      username,
-      points: 0,
-    }))
-  );
+  // await insertUserTeams(
+  //   userTeams.map((userTeam) => ({ username, ...userTeam }))
+  // );
+
+  // reply.send(
+  //   userTeams.map((userTeam) => ({
+  //     ...userTeam,
+  //     username,
+  //     points: 0,
+  //   }))
+  // );
 };
