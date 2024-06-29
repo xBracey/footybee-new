@@ -10,6 +10,7 @@ import { useEditUserTeams } from "../queries/useEditUserTeams";
 import { useGetUserTeams } from "../queries/useGetUserTeams";
 import { CheckIcon, Dialog } from "@mantine/core";
 import { useState } from "react";
+import PredictionLock from "../components/PredictionLock";
 
 const RoundPredictionsRoute = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
@@ -60,27 +61,38 @@ const RoundPredictionsRoute = () => {
             (p.awayTeamId === t.id && p.winner === "home")
         )?.round ?? "Winner",
       teamId: t.id,
+      points: 0,
     }));
 
     editUserTeams(userTeams);
   };
 
-  return (
-    <div>
-      <Dialog opened={savedDialog}>
-        <p className="text-shamrock-700 flex items-center pl-2 text-center text-lg">
-          <CheckIcon className="mr-4 h-4 w-4" />
-          Predictions saved successfully!
-        </p>
-      </Dialog>
+  const isPredictionLocked = true;
 
-      <RoundPredictions
-        teams={teams}
-        roundFixtures={roundFixtures}
-        onSubmit={onSubmit}
-        isLoading={editUserTeamsIsLoading}
-        userTeams={userTeams}
-      />
+  return (
+    <div className={`relative`}>
+      <PredictionLock isLocked={isPredictionLocked} />
+
+      <div
+        className={`relative ${
+          isPredictionLocked ? "pointer-events-none opacity-70" : ""
+        }`}
+      >
+        <Dialog opened={savedDialog}>
+          <p className="text-shamrock-700 flex items-center pl-2 text-center text-lg">
+            <CheckIcon className="mr-4 h-4 w-4" />
+            Predictions saved successfully!
+          </p>
+        </Dialog>
+
+        <RoundPredictions
+          teams={teams}
+          roundFixtures={roundFixtures}
+          onSubmit={onSubmit}
+          isLoading={editUserTeamsIsLoading}
+          userTeams={userTeams}
+        />
+      </div>
     </div>
   );
 };
