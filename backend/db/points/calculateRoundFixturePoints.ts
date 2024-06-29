@@ -16,7 +16,9 @@ const calculateSingleRoundFixturePoints = (
   userTeam: InsertUserTeam,
   fixture: InsertRoundFixture
 ): number => {
-  console.log({ userTeam, fixture });
+  if (userTeam.username === "xBracey") {
+    console.log({ userTeam, fixture });
+  }
 
   if (!userTeam.teamId || !fixture.round || !userTeam.roundPredictions) {
     return 0;
