@@ -1,6 +1,7 @@
-import { eq, sql } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 import { db } from "..";
-import { InsertRoundFixture, roundFixtures } from "../schema";
+import { InsertRoundFixture, roundFixtures, userTeams } from "../schema";
+import { calculateRoundFixturePoints } from "../points/calculateRoundFixturePoints";
 
 export const getRoundFixtures = () => db.select().from(roundFixtures).execute();
 
@@ -19,13 +20,36 @@ export const insertRoundFixture = (roundfixture: InsertRoundFixture) => {
 
 export const editRoundFixture = async (
   id: number,
-  roundfixture: InsertRoundFixture
+  roundFixture: InsertRoundFixture
 ) => {
   await db
     .update(roundFixtures)
-    .set(roundfixture)
+    .set(roundFixture)
     .where(eq(roundFixtures.id, id))
     .execute();
 
-  // Add points for team
+  const userTeamsData = await db
+    .select()
+    .from(userTeams)
+    .where(
+      or(
+        eq(userTeams.teamId, roundFixture.homeTeamId!),
+        eq(userTeams.teamId, roundFixture.awayTeamId!)
+      )
+    )
+    .execute();
+
+  const newPoints = calculateRoundFixturePoints(
+    { ...roundFixture, id },
+    userTeamsData
+  );
+
+  await db
+    .insert(userTeams)
+    .values(newPoints)
+    .onConflictDoUpdate({
+      target: [userTeams.username, userTeams.teamId],
+      set: { points: sql`excluded.points` },
+    })
+    .execute();
 };

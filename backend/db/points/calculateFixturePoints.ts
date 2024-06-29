@@ -1,4 +1,4 @@
-import { InsertFixture, InsertUserFixture, Prediction } from "../schema";
+import { InsertFixture, Prediction } from "../schema";
 
 const calculateSingleFixturePoints = (
   prediction: Prediction,

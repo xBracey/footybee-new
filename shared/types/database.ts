@@ -45,6 +45,10 @@ export interface RoundFixture {
   dateTime: number;
   homeTeamScore: number;
   awayTeamScore: number;
+  homeTeamExtraTimeScore?: number;
+  awayTeamExtraTimeScore?: number;
+  homeTeamPenaltiesScore?: number;
+  awayTeamPenaltiesScore?: number;
   order: number;
 }
 
@@ -110,4 +114,5 @@ export interface UserTeam {
   username: string;
   teamId: number;
   roundPredictions: string;
+  points: number;
 }

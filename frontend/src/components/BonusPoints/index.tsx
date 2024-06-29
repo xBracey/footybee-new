@@ -1,10 +1,15 @@
 import { useMemo } from "react";
-import { Fixture, Player, Team, User } from "../../../../shared/types/database";
+import { Player, Team, User } from "../../../../shared/types/database";
 import { getTeamWins } from "../../../../shared/getTeamWins";
 
 interface IBonusPoints {
   user: User;
-  fixtures: Fixture[];
+  fixtures: {
+    homeTeamId: number | null;
+    awayTeamId: number | null;
+    homeTeamScore: number | null;
+    awayTeamScore: number | null;
+  }[];
   teams: Team[];
   players: Player[];
 }

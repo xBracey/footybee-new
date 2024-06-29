@@ -1,6 +1,14 @@
 import { eq } from "drizzle-orm";
 import { db } from "..";
-import { fixtures, players, userFixtures, userGroups, users } from "../schema";
+import {
+  fixtures,
+  players,
+  roundFixtures,
+  userFixtures,
+  userGroups,
+  users,
+  userTeams,
+} from "../schema";
 import { getTeamWins } from "../../../shared/getTeamWins";
 
 export const getAllUsersPoints = async () => {
@@ -16,17 +24,33 @@ export const getAllUsersPoints = async () => {
     .leftJoin(userGroups, eq(users.username, userGroups.username))
     .execute();
 
+  const userTeamsPromise = db
+    .select()
+    .from(users)
+    .leftJoin(userTeams, eq(users.username, userTeams.username))
+    .execute();
+
   const playersPromise = db.select().from(players).execute();
 
   const fixturesPromise = db.select().from(fixtures).execute();
 
-  const [userFixturesResult, userGroupsResult, fixturesResult, playersResult] =
-    await Promise.all([
-      userFixturesPromise,
-      userGroupsPromise,
-      fixturesPromise,
-      playersPromise,
-    ]);
+  const roundFixturesPromise = db.select().from(roundFixtures).execute();
+
+  const [
+    userFixturesResult,
+    userGroupsResult,
+    fixturesResult,
+    roundFixturesResult,
+    playersResult,
+    userTeamsResult,
+  ] = await Promise.all([
+    userFixturesPromise,
+    userGroupsPromise,
+    fixturesPromise,
+    roundFixturesPromise,
+    playersPromise,
+    userTeamsPromise,
+  ]);
 
   const allTeamIds = [
     ...new Set(
@@ -39,7 +63,10 @@ export const getAllUsersPoints = async () => {
 
   const teamsWins = Object.fromEntries(
     // @ts-ignore
-    allTeamIds.map((teamId) => [teamId, getTeamWins(teamId, fixturesResult)])
+    allTeamIds.map((teamId) => [
+      teamId,
+      getTeamWins(teamId, [...fixturesResult, ...roundFixturesResult]),
+    ])
   );
 
   const usersObject = userFixturesResult
@@ -64,10 +91,18 @@ export const getAllUsersPoints = async () => {
     const userGroupsPoints = userGroupsResult
       .filter((u) => u.users.username === user.username)
       .reduce((acc, u) => acc + (u.user_groups?.points || 0), 0);
+    const userTeamsPoints = userTeamsResult
+      .filter((u) => u.users.username === user.username)
+      .reduce((acc, u) => acc + (u.user_teams?.points || 0), 0);
 
     return {
       ...user,
-      points: playerPoints + teamPoints + userFixturesPoints + userGroupsPoints,
+      points:
+        playerPoints +
+        teamPoints +
+        userFixturesPoints +
+        userGroupsPoints +
+        userTeamsPoints,
     };
   });
 

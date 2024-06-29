@@ -7,19 +7,24 @@ import {
   Fixture,
   Prediction,
   Player,
+  RoundFixture,
+  UserTeam,
 } from "../../../../shared/types/database";
 import Banner from "../../components/Banner";
 import FixturePoints from "../../components/FixturePoints";
 import LogoutButton from "../../components/LogoutButton";
 import { getTeamWins } from "../../../../shared/getTeamWins";
 import BonusPoints from "../../components/BonusPoints";
+import TeamPoints from "../../components/TeamPoints";
 
 interface ProfilePageProps {
   user: User;
   userFixtures: UserFixture[];
   userGroups: UserGroup[];
+  userTeams: UserTeam[];
   teams: Team[];
   fixtures: Fixture[];
+  roundFixtures: RoundFixture[];
   players: Player[];
   predictions: Prediction[];
   isCurrentUser: boolean;
@@ -29,14 +34,19 @@ export const ProfilePage = ({
   user,
   userFixtures,
   userGroups,
+  userTeams,
   teams,
   fixtures,
+  roundFixtures,
   players,
   predictions,
   isCurrentUser,
 }: ProfilePageProps) => {
   const totalPoints = useMemo(() => {
-    const teamWins = getTeamWins(user.bonusTeamId, fixtures);
+    const teamWins = getTeamWins(user.bonusTeamId, [
+      ...fixtures,
+      ...roundFixtures,
+    ]);
     const playerGoals = players.find(
       (player) => player.id === user.bonusPlayerId
     )?.goals;
@@ -67,10 +77,17 @@ export const ProfilePage = ({
 
       <BonusPoints
         user={user}
-        fixtures={fixtures}
+        fixtures={[...fixtures, ...roundFixtures]}
         teams={teams}
         players={players}
       />
+
+      {/* TODO: Uncomment this when we have the team points working */}
+      {/* <TeamPoints
+        teams={teams}
+        roundFixtures={roundFixtures}
+        userTeams={userTeams}
+      /> */}
 
       <FixturePoints
         fixtures={fixtures}

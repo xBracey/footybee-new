@@ -1,6 +1,14 @@
-import { Fixture } from "./types/database";
+import { Fixture, RoundFixture } from "./types/database";
 
-export const getTeamWins = (teamId: number, teamFixtures: Fixture[]) => {
+export const getTeamWins = (
+  teamId: number,
+  teamFixtures: {
+    homeTeamId: number | null;
+    awayTeamId: number | null;
+    homeTeamScore: number | null;
+    awayTeamScore: number | null;
+  }[]
+) => {
   const wins = teamFixtures.filter(
     (fixture) =>
       fixture.homeTeamScore !== null &&

@@ -10,6 +10,10 @@ export const roundFixtures = sqliteTable("roundFixtures", {
   dateTime: integer("dateTime"),
   homeTeamScore: integer("home_team_score"),
   awayTeamScore: integer("away_team_score"),
+  homeTeamExtraTimeScore: integer("home_team_extra_time_score"),
+  awayTeamExtraTimeScore: integer("away_team_extra_time_score"),
+  homeTeamPenaltiesScore: integer("home_team_penalties_score"),
+  awayTeamPenaltiesScore: integer("away_team_penalties_score"),
   order: integer("order"),
 });
 

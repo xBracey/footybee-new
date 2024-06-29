@@ -138,8 +138,10 @@ const FixturePoints = ({
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col gap-4 overflow-hidden rounded-md">
-      <FixtureTable fixtures={fixturesPlayed} />
-      <FixtureTable fixtures={fixturesNotPlayed} />
+      {fixturesPlayed.length > 0 && <FixtureTable fixtures={fixturesPlayed} />}
+      {fixturesNotPlayed.length > 0 && (
+        <FixtureTable fixtures={fixturesNotPlayed} />
+      )}
     </div>
   );
 };
