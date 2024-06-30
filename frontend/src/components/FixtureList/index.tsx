@@ -22,6 +22,22 @@ const FixtureList = ({ teams, fixtures }: IFixtureList) => {
         awayTeam,
         homeScore: fixture.homeTeamScore,
         awayScore: fixture.awayTeamScore,
+        homeTeamExtraTimeScore:
+          "homeTeamExtraTimeScore" in fixture
+            ? fixture.homeTeamExtraTimeScore
+            : undefined,
+        awayTeamExtraTimeScore:
+          "awayTeamExtraTimeScore" in fixture
+            ? fixture.awayTeamExtraTimeScore
+            : undefined,
+        homeTeamPenaltiesScore:
+          "homeTeamPenaltiesScore" in fixture
+            ? fixture.homeTeamPenaltiesScore
+            : undefined,
+        awayTeamPenaltiesScore:
+          "awayTeamPenaltiesScore" in fixture
+            ? fixture.awayTeamPenaltiesScore
+            : undefined,
       };
     });
 
@@ -39,6 +55,10 @@ const FixtureList = ({ teams, fixtures }: IFixtureList) => {
             awayTeam={fixture.awayTeam}
             homeScore={fixture.homeScore}
             awayScore={fixture.awayScore}
+            homeTeamExtraTimeScore={fixture.homeTeamExtraTimeScore}
+            awayTeamExtraTimeScore={fixture.awayTeamExtraTimeScore}
+            homeTeamPenaltiesScore={fixture.homeTeamPenaltiesScore}
+            awayTeamPenaltiesScore={fixture.awayTeamPenaltiesScore}
             dateTime={fixture.dateTime}
           />
         </div>
