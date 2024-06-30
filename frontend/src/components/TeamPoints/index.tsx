@@ -46,7 +46,7 @@ const TeamTable = ({ teams }: { teams: TeamsWithPoints[] }) => (
               <img
                 src={`/flags/${team.team.name}.png`}
                 alt={team.team.name}
-                className="h-7 w-6"
+                className="h-7 w-7"
               />
 
               <p className="text-white">{team.team.name}</p>
