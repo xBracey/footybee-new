@@ -31,6 +31,10 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
       dateTime: undefined,
       homeTeamScore: undefined,
       awayTeamScore: undefined,
+      homeTeamExtraTimeScore: undefined,
+      awayTeamExtraTimeScore: undefined,
+      homeTeamPenaltiesScore: undefined,
+      awayTeamPenaltiesScore: undefined,
       order: undefined,
     },
     validate: (values) => ({
@@ -50,6 +54,10 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
         dateTime: roundFixture.dateTime,
         homeTeamScore: roundFixture.homeTeamScore,
         awayTeamScore: roundFixture.awayTeamScore,
+        homeTeamExtraTimeScore: roundFixture.homeTeamExtraTimeScore,
+        awayTeamExtraTimeScore: roundFixture.awayTeamExtraTimeScore,
+        homeTeamPenaltiesScore: roundFixture.homeTeamPenaltiesScore,
+        awayTeamPenaltiesScore: roundFixture.awayTeamPenaltiesScore,
         order: roundFixture.order,
       });
     }
@@ -63,8 +71,6 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
       value: team.id.toString(),
     }));
   }, [teams, form.values.round]);
-
-  console.log(form.values, teamsOptions);
 
   return (
     <AdminAddEdit
@@ -134,6 +140,30 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
           id="awayTeamScore"
           label="Away Team Score"
           {...form.getInputProps("awayTeamScore")}
+        />
+
+        <NumberInput
+          id="homeTeamExtraTimeScore"
+          label="Home Team Extra Time Score"
+          {...form.getInputProps("homeTeamExtraTimeScore")}
+        />
+
+        <NumberInput
+          id="awayTeamExtraTimeScore"
+          label="Away Team Extra Time Score"
+          {...form.getInputProps("awayTeamExtraTimeScore")}
+        />
+
+        <NumberInput
+          id="homeTeamPenaltiesScore"
+          label="Home Team Penalties Score"
+          {...form.getInputProps("homeTeamPenaltiesScore")}
+        />
+
+        <NumberInput
+          id="awayTeamPenaltiesScore"
+          label="Away Team Penalties Score"
+          {...form.getInputProps("awayTeamPenaltiesScore")}
         />
 
         <NumberInput
