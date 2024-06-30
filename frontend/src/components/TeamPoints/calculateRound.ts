@@ -10,6 +10,10 @@ export const calculateRound = (
       roundFixture.homeTeamId === teamId || roundFixture.awayTeamId === teamId
   );
 
+  if (roundFixturesForTeam.length === 0) {
+    return false;
+  }
+
   const roundFixturesWithWins = roundFixturesForTeam.filter((roundFixture) =>
     calculateIfTeamWon(teamId, roundFixture)
   );
@@ -19,5 +23,14 @@ export const calculateRound = (
     return round;
   }, "");
 
-  return highestRoundWin;
+  if (!highestRoundWin) {
+    return "Round of 16";
+  }
+
+  const highestRoundWinIndex = rounds.findIndex(
+    (round) => round === highestRoundWin
+  );
+  const nextRound = rounds[highestRoundWinIndex + 1];
+
+  return nextRound;
 };

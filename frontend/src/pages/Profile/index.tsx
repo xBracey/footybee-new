@@ -51,6 +51,10 @@ export const ProfilePage = ({
       (player) => player.id === user.bonusPlayerId
     )?.goals;
 
+    const teamPoints = userTeams.reduce((acc, team) => {
+      return acc + team.points;
+    }, 0);
+
     const bonusPoints = teamWins * 10 + (playerGoals ?? 0) * 10;
 
     const fixturePoints = userFixtures.reduce((acc, fixture) => {
@@ -60,8 +64,8 @@ export const ProfilePage = ({
       return acc + group.points;
     }, 0);
 
-    return bonusPoints + fixturePoints + groupPoints;
-  }, [userFixtures, userGroups]);
+    return bonusPoints + fixturePoints + groupPoints + teamPoints;
+  }, [userFixtures, userGroups, userTeams, players]);
 
   return (
     <div>
@@ -82,12 +86,11 @@ export const ProfilePage = ({
         players={players}
       />
 
-      {/* TODO: Uncomment this when we have the team points working */}
-      {/* <TeamPoints
+      <TeamPoints
         teams={teams}
         roundFixtures={roundFixtures}
         userTeams={userTeams}
-      /> */}
+      />
 
       <FixturePoints
         fixtures={fixtures}

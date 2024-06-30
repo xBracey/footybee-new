@@ -25,10 +25,7 @@ const TeamTable = ({ teams }: { teams: TeamsWithPoints[] }) => (
       <div className="flex-1">
         <p className="text-white">Team</p>
       </div>
-      <div className="w-40">
-        <p className="text-white">Round</p>
-      </div>
-      <div className="w-40">
+      <div className="w-32 text-center">
         <p className="text-white">Prediction</p>
       </div>
       <div className="flex w-10 justify-end">
@@ -44,21 +41,21 @@ const TeamTable = ({ teams }: { teams: TeamsWithPoints[] }) => (
             team.prediction === team.round ? "bg-green-700" : ""
           }`}
         >
-          <div className="flex flex-1 items-center justify-center gap-2">
-            <img
-              src={`/flags/${team.team.name}.png`}
-              alt={team.team.name}
-              className="h-7 w-7"
-            />
+          <div className="flex flex-1 flex-col items-center justify-center gap-1">
+            <div className="flex items-center gap-2">
+              <img
+                src={`/flags/${team.team.name}.png`}
+                alt={team.team.name}
+                className="h-7 w-6"
+              />
 
-            <p className="text-white">{team.team.name}</p>
+              <p className="text-white">{team.team.name}</p>
+            </div>
+
+            <p className="text-sm font-bold text-gray-200">{team.round}</p>
           </div>
 
-          <div className="flex w-40 items-center justify-end text-sm">
-            <p className="text-white">{team.round}</p>
-          </div>
-
-          <div className="flex w-40 items-center justify-end text-sm">
+          <div className="flex w-32 items-center justify-center text-sm">
             <p className="text-white">{team.prediction}</p>
           </div>
 
@@ -73,23 +70,25 @@ const TeamTable = ({ teams }: { teams: TeamsWithPoints[] }) => (
 
 const TeamPoints = ({ teams, userTeams, roundFixtures }: IFixturePoints) => {
   const teamsWithPoints = useMemo(() => {
-    return teams.map((team) => {
-      const round = calculateRound(team.id, roundFixtures);
-      const userTeam = userTeams.find(
-        (userTeam) => userTeam.teamId === team.id
-      );
-      const prediction = userTeam?.roundPredictions ?? "N/A";
-      return {
-        team: team,
-        round: round,
-        prediction: prediction,
-        points: userTeam?.points ?? 0,
-      };
-    });
+    return teams
+      .filter((team) => calculateRound(team.id, roundFixtures))
+      .map((team) => {
+        const round = calculateRound(team.id, roundFixtures);
+        const userTeam = userTeams.find(
+          (userTeam) => userTeam.teamId === team.id
+        );
+        const prediction = userTeam?.roundPredictions ?? "N/A";
+        return {
+          team: team,
+          round: round ? round : "Round of 16",
+          prediction: prediction,
+          points: userTeam?.points ?? 0,
+        };
+      });
   }, [teams, userTeams, roundFixtures]);
 
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col gap-4 overflow-hidden rounded-md">
+    <div className="mx-auto mb-4 flex w-full max-w-xl flex-col gap-4 overflow-hidden rounded-md">
       <TeamTable teams={teamsWithPoints} />
     </div>
   );

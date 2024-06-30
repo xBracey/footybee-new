@@ -42,7 +42,11 @@ export const editRoundFixture = async (
   const newPoints = calculateRoundFixturePoints(
     { ...roundFixture, id },
     userTeamsData
-  );
+  ).filter((point) => point.points !== false) as {
+    username: string;
+    teamId: number;
+    points: number;
+  }[];
 
   await db
     .insert(userTeams)

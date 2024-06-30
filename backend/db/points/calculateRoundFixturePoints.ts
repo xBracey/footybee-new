@@ -15,7 +15,7 @@ const roundPoints: Record<string, number> = {
 const calculateSingleRoundFixturePoints = (
   userTeam: InsertUserTeam,
   fixture: InsertRoundFixture
-): number => {
+): number | false => {
   if (userTeam.username === "xBracey") {
     console.log({ userTeam, fixture });
   }
@@ -27,7 +27,7 @@ const calculateSingleRoundFixturePoints = (
   const didTeamWin = calculateIfTeamWon(userTeam.teamId, fixture);
 
   if (!didTeamWin) {
-    return 0;
+    return false;
   }
 
   const currentRoundIndex = roundsWithWinners.findIndex(

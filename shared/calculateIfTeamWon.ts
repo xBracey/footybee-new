@@ -1,7 +1,14 @@
 import { RoundFixture } from "./types/database";
 
+export const isNullOrUndefined = <T>(
+  value?: T | null
+): value is null | undefined => value === null || value === undefined;
+
 export const calculateIfTeamWon = (teamId: number, fixture: RoundFixture) => {
-  if (!fixture.homeTeamScore || !fixture.awayTeamScore) {
+  if (
+    isNullOrUndefined(fixture.homeTeamScore) ||
+    isNullOrUndefined(fixture.awayTeamScore)
+  ) {
     return false;
   }
 
@@ -11,16 +18,16 @@ export const calculateIfTeamWon = (teamId: number, fixture: RoundFixture) => {
     }
 
     if (
-      fixture.homeTeamExtraTimeScore &&
-      fixture.awayTeamExtraTimeScore &&
+      !isNullOrUndefined(fixture.homeTeamExtraTimeScore) &&
+      !isNullOrUndefined(fixture.awayTeamExtraTimeScore) &&
       fixture.homeTeamExtraTimeScore > fixture.awayTeamExtraTimeScore
     ) {
       return true;
     }
 
     if (
-      fixture.homeTeamPenaltiesScore &&
-      fixture.awayTeamPenaltiesScore &&
+      !isNullOrUndefined(fixture.homeTeamPenaltiesScore) &&
+      !isNullOrUndefined(fixture.awayTeamPenaltiesScore) &&
       fixture.homeTeamPenaltiesScore > fixture.awayTeamPenaltiesScore
     ) {
       return true;
@@ -31,16 +38,16 @@ export const calculateIfTeamWon = (teamId: number, fixture: RoundFixture) => {
     }
 
     if (
-      fixture.awayTeamExtraTimeScore &&
-      fixture.homeTeamExtraTimeScore &&
+      !isNullOrUndefined(fixture.awayTeamExtraTimeScore) &&
+      !isNullOrUndefined(fixture.homeTeamExtraTimeScore) &&
       fixture.awayTeamExtraTimeScore > fixture.homeTeamExtraTimeScore
     ) {
       return true;
     }
 
     if (
-      fixture.awayTeamPenaltiesScore &&
-      fixture.homeTeamPenaltiesScore &&
+      !isNullOrUndefined(fixture.awayTeamPenaltiesScore) &&
+      !isNullOrUndefined(fixture.homeTeamPenaltiesScore) &&
       fixture.awayTeamPenaltiesScore > fixture.homeTeamPenaltiesScore
     ) {
       return true;

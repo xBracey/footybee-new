@@ -4,7 +4,7 @@ import jwt from "@fastify/jwt";
 import { buildApiRoutes } from "./db/router";
 
 const server = fastify({
-  logger: true,
+  logger: false,
 });
 
 server.register(jwt, {

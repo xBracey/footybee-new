@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { Fixture, Team } from "../../../../shared/types/database";
+import { Fixture, RoundFixture, Team } from "../../../../shared/types/database";
 import FixtureComponent from "../Fixture";
 
 interface IFixtureList {
   teams: Team[];
-  fixtures: Fixture[];
+  fixtures: (Fixture | RoundFixture)[];
 }
 
 const FixtureList = ({ teams, fixtures }: IFixtureList) => {
