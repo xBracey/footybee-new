@@ -100,7 +100,7 @@ const Footer = () => {
         <MobileItem link="/fixtures" text="Fixtures">
           <Pitch className="h-6 w-6" />
         </MobileItem>
-        <MobileItem link="/round-predictions" text="Predict">
+        <MobileItem link="/predictions" text="Predict">
           <Football className="h-6 w-6" />
         </MobileItem>
         <MobileItem link={`/profile/${username}`} text="Profile">

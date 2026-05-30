@@ -1,3 +1,5 @@
+import { Flag } from "../Flag";
+
 interface IRoundFixture {
   homeTeam: string;
   awayTeam: string;
@@ -31,7 +33,7 @@ const RoundFixtureTeam = ({
     {team === "TBC" ? (
       <div className="h-7 w-7 rounded-full bg-gray-300" />
     ) : (
-      <img src={`/flags/${team}.png`} alt={team} className="h-7 w-7" />
+      <Flag team={team} className="h-7 w-7" />
     )}
     <p>{team}</p>
   </button>

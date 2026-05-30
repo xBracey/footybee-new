@@ -63,7 +63,7 @@ export const PredictionsPage = ({
     return () => clearInterval(interval);
   }, []);
 
-  const isPredictionLocked = currentTime > predictionLockTime || true;
+  const isPredictionLocked = false;
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -98,8 +98,10 @@ export const PredictionsPage = ({
       />
 
       <div className="mx-auto mt-6 flex w-full max-w-4xl flex-col gap-12">
-        {Object.entries(groupFixtures).map(
-          ([groupLetter, { fixtures, predictions, teams }]) => (
+        {Object.entries(groupFixtures)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(
+            ([groupLetter, { fixtures, predictions, teams }]) => (
             <div className="flex flex-col gap-2" key={groupLetter}>
               <h2 className="text-center text-2xl font-bold text-white">
                 Group {groupLetter}

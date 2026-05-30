@@ -5,6 +5,7 @@ import {
   UserTeam,
 } from "../../../../shared/types/database";
 import { calculateRound } from "./calculateRound";
+import { Flag } from "../Flag";
 
 interface TeamsWithPoints {
   team: Team;
@@ -43,11 +44,7 @@ const TeamTable = ({ teams }: { teams: TeamsWithPoints[] }) => (
         >
           <div className="flex flex-1 flex-col items-center justify-center gap-1">
             <div className="flex items-center gap-2">
-              <img
-                src={`/flags/${team.team.name}.png`}
-                alt={team.team.name}
-                className="h-7 w-7"
-              />
+              <Flag team={team.team} className="h-7 w-7" />
 
               <p className="text-white">{team.team.name}</p>
             </div>

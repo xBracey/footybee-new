@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { isNullOrUndefined } from "../../utils/isNullOrUndefined";
+import { Flag } from "../Flag";
 
 interface IFixture {
   homeTeam: string;
@@ -32,56 +33,47 @@ const Fixture = ({
     !isNullOrUndefined(homeTeamExtraTimeScore) &&
     !isNullOrUndefined(awayTeamExtraTimeScore);
 
-  console.log({
-    homeTeam,
-    awayTeam,
-    homeScore,
-    awayScore,
-    homeTeamExtraTimeScore,
-    awayTeamExtraTimeScore,
-    homeTeamPenaltiesScore,
-    awayTeamPenaltiesScore,
-    dateTime,
-  });
   return (
-    <div className="flex flex-col items-center justify-between text-sm font-bold text-white">
-      <div className="flex items-center gap-1.5">
-        <img
-          src={`/flags/${homeTeam}.png`}
-          alt={homeTeam}
-          className="h-7 w-7"
-        />
-        <p>{isProfilePage ? homeTeam.slice(0, 3).toUpperCase() : homeTeam}</p>
-        {homeScore !== undefined && awayScore !== undefined ? (
-          <div
-            className={`flex flex-col items-center justify-center ${
-              isExtraTime ? "pt-4" : ""
-            }`}
-          >
-            <div className="flex items-center justify-center">
-              <p>
-                {homeScore +
-                  (homeTeamExtraTimeScore ?? 0) +
-                  (homeTeamPenaltiesScore ?? 0)}
-              </p>
-              <p>-</p>
-              <p>
-                {awayScore +
-                  (awayTeamExtraTimeScore ?? 0) +
-                  (awayTeamPenaltiesScore ?? 0)}
-              </p>
+    <div className="flex h-full flex-col items-center justify-between text-sm font-bold text-white">
+      <div className="flex h-12 w-full items-center gap-1.5 text-center text-xs">
+        <div className="flex flex-1 items-center gap-1.5 text-center">
+          <Flag team={homeTeam} className="h-7 w-7" />
+          <p className="flex-1">
+            {isProfilePage ? homeTeam.slice(0, 3).toUpperCase() : homeTeam}
+          </p>
+        </div>
+        <div className="w-6">
+          {homeScore !== undefined && awayScore !== undefined ? (
+            <div
+              className={`flex flex-col items-center justify-center ${
+                isExtraTime ? "pt-4" : ""
+              }`}
+            >
+              <div className="flex items-center justify-center">
+                <p>
+                  {homeScore +
+                    (homeTeamExtraTimeScore ?? 0) +
+                    (homeTeamPenaltiesScore ?? 0)}
+                </p>
+                <p>-</p>
+                <p>
+                  {awayScore +
+                    (awayTeamExtraTimeScore ?? 0) +
+                    (awayTeamPenaltiesScore ?? 0)}
+                </p>
+              </div>
+              {isExtraTime && <p className="text-xs">AET</p>}
             </div>
-            {isExtraTime && <p className="text-xs">AET</p>}
-          </div>
-        ) : (
-          <p>vs</p>
-        )}
-        <p>{isProfilePage ? awayTeam.slice(0, 3).toUpperCase() : awayTeam}</p>
-        <img
-          src={`/flags/${awayTeam}.png`}
-          alt={awayTeam}
-          className="h-7 w-7"
-        />
+          ) : (
+            <p>vs</p>
+          )}
+        </div>
+        <div className="flex flex-1 items-center gap-1.5 text-center">
+          <p className="flex-1">
+            {isProfilePage ? awayTeam.slice(0, 3).toUpperCase() : awayTeam}
+          </p>
+          <Flag team={awayTeam} className="h-7 w-7" />
+        </div>
       </div>
       {hasDate && (
         <p className="text-sm text-gray-200">

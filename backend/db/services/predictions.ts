@@ -14,7 +14,12 @@ export const getPredictionsHandler: ServiceHandler = async (req, reply) => {
 
   const predictions = await getPredictionsByUsername(username);
 
-  reply.send(predictions);
+  reply.send(
+    predictions.map((p) => ({
+      ...p,
+      fixtureId: parseInt(p.fixtureId?.toString() ?? "0"),
+    }))
+  );
 };
 
 export const insertPredictionsHandler: (
@@ -26,16 +31,16 @@ export const insertPredictionsHandler: (
     return;
   }
 
-  if (Date.now() > predictionLockTime || true) {
-    reply.status(403).send({ error: "Predictions are locked" });
-    return;
-  }
+  // if (Date.now() > predictionLockTime || true) {
+  //   reply.status(403).send({ error: "Predictions are locked" });
+  //   return;
+  // }
 
-  // const { username } = userDecoded;
+  const { username } = userDecoded;
 
-  // const predictions = req.body as InsertPrediction[];
+  const predictions = req.body as InsertPrediction[];
 
-  // await insertPredictions(username, predictions);
+  await insertPredictions(username, predictions);
 
-  // reply.send(predictions.map((prediction) => ({ ...prediction, username })));
+  reply.send(predictions.map((prediction) => ({ ...prediction, username })));
 };

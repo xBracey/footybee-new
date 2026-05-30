@@ -41,8 +41,10 @@ export const FixturesPage = ({ fixtures, teams }: FixturesPageProps) => {
       </Banner>
 
       <div className="mx-auto mt-6 flex w-full max-w-4xl flex-col gap-12">
-        {Object.entries(groupFixtures).map(
-          ([groupLetter, { fixtures, teams }]) => (
+        {Object.entries(groupFixtures)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(
+            ([groupLetter, { fixtures, teams }]) => (
             <div className="flex flex-col gap-4">
               <h2 className="text-center text-2xl font-bold text-white">
                 Group {groupLetter}

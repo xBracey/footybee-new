@@ -1,0 +1,242 @@
+[
+  {
+    "teamId": 208,
+    "teamName": "Switzerland",
+    "filename": "switzerland.png"
+  },
+  {
+    "teamId": 211,
+    "teamName": "Croatia",
+    "filename": "croatia.png"
+  },
+  {
+    "teamId": 214,
+    "teamName": "Ghana",
+    "filename": "ghana.png"
+  },
+  {
+    "teamId": 215,
+    "teamName": "Egypt",
+    "filename": "egypt.png"
+  },
+  {
+    "teamId": 1427,
+    "teamName": "Qatar",
+    "filename": "qatar.png"
+  },
+  {
+    "teamId": 1432,
+    "teamName": "Saudi Arabia",
+    "filename": "saudi_arabia.png"
+  },
+  {
+    "teamId": 1434,
+    "teamName": "Uruguay",
+    "filename": "uruguay.png"
+  },
+  {
+    "teamId": 1435,
+    "teamName": "Morocco",
+    "filename": "morocco.png"
+  },
+  {
+    "teamId": 1436,
+    "teamName": "Iran",
+    "filename": "iran.png"
+  },
+  {
+    "teamId": 1437,
+    "teamName": "Portugal",
+    "filename": "portugal.png"
+  },
+  {
+    "teamId": 1438,
+    "teamName": "Spain",
+    "filename": "spain.png"
+  },
+  {
+    "teamId": 1439,
+    "teamName": "France",
+    "filename": "france.png"
+  },
+  {
+    "teamId": 1440,
+    "teamName": "Australia",
+    "filename": "australia.png"
+  },
+  {
+    "teamId": 1443,
+    "teamName": "Argentina",
+    "filename": "argentina.png"
+  },
+  {
+    "teamId": 1448,
+    "teamName": "Brazil",
+    "filename": "brazil.png"
+  },
+  {
+    "teamId": 1449,
+    "teamName": "Germany",
+    "filename": "germany.png"
+  },
+  {
+    "teamId": 1450,
+    "teamName": "Mexico",
+    "filename": "mexico.png"
+  },
+  {
+    "teamId": 1451,
+    "teamName": "Sweden",
+    "filename": "sweden.png"
+  },
+  {
+    "teamId": 1452,
+    "teamName": "South Korea",
+    "filename": "south_korea.png"
+  },
+  {
+    "teamId": 1453,
+    "teamName": "Belgium",
+    "filename": "belgium.png"
+  },
+  {
+    "teamId": 1454,
+    "teamName": "Panama",
+    "filename": "panama.png"
+  },
+  {
+    "teamId": 1455,
+    "teamName": "Tunisia",
+    "filename": "tunisia.png"
+  },
+  {
+    "teamId": 1456,
+    "teamName": "England",
+    "filename": "england.png"
+  },
+  {
+    "teamId": 1457,
+    "teamName": "Colombia",
+    "filename": "colombia.png"
+  },
+  {
+    "teamId": 1458,
+    "teamName": "Japan",
+    "filename": "japan.png"
+  },
+  {
+    "teamId": 1460,
+    "teamName": "Senegal",
+    "filename": "senegal.png"
+  },
+  {
+    "teamId": 1528,
+    "teamName": "Algeria",
+    "filename": "algeria.png"
+  },
+  {
+    "teamId": 1608,
+    "teamName": "Cape Verde",
+    "filename": "cape_verde.png"
+  },
+  {
+    "teamId": 1628,
+    "teamName": "Ivory Coast",
+    "filename": "ivory_coast.png"
+  },
+  {
+    "teamId": 1649,
+    "teamName": "Netherlands",
+    "filename": "netherlands.png"
+  },
+  {
+    "teamId": 1674,
+    "teamName": "Canada",
+    "filename": "canada.png"
+  },
+  {
+    "teamId": 1715,
+    "teamName": "Iraq",
+    "filename": "iraq.png"
+  },
+  {
+    "teamId": 1722,
+    "teamName": "Czech Republic",
+    "filename": "czech_republic.png"
+  },
+  {
+    "teamId": 1741,
+    "teamName": "Scotland",
+    "filename": "scotland.png"
+  },
+  {
+    "teamId": 1744,
+    "teamName": "Turkey",
+    "filename": "turkey.png"
+  },
+  {
+    "teamId": 1776,
+    "teamName": "Uzbekistan",
+    "filename": "uzbekistan.png"
+  },
+  {
+    "teamId": 1790,
+    "teamName": "Jordan",
+    "filename": "jordan.png"
+  },
+  {
+    "teamId": 1847,
+    "teamName": "Ecuador",
+    "filename": "ecuador.png"
+  },
+  {
+    "teamId": 1849,
+    "teamName": "USA",
+    "filename": "usa.png"
+  },
+  {
+    "teamId": 2677,
+    "teamName": "Norway",
+    "filename": "norway.png"
+  },
+  {
+    "teamId": 2684,
+    "teamName": "Austria",
+    "filename": "austria.png"
+  },
+  {
+    "teamId": 2686,
+    "teamName": "Bosnia and Herzegovina",
+    "filename": "bosnia_and_herzegovina.png"
+  },
+  {
+    "teamId": 2732,
+    "teamName": "Curacao",
+    "filename": "curacao.png"
+  },
+  {
+    "teamId": 2752,
+    "teamName": "DR Congo",
+    "filename": "dr_congo.png"
+  },
+  {
+    "teamId": 2767,
+    "teamName": "South Africa",
+    "filename": "south_africa.png"
+  },
+  {
+    "teamId": 2777,
+    "teamName": "Haiti",
+    "filename": "haiti.png"
+  },
+  {
+    "teamId": 4040,
+    "teamName": "Paraguay",
+    "filename": "paraguay.png"
+  },
+  {
+    "teamId": 5345,
+    "teamName": "New Zealand",
+    "filename": "new_zealand.png"
+  }
+]

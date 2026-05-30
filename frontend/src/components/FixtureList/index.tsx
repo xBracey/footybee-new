@@ -46,22 +46,20 @@ const FixtureList = ({ teams, fixtures }: IFixtureList) => {
   }, [fixtures, teams]);
 
   return (
-    <div className="flex flex-wrap items-center justify-center">
+    <div className="grid w-full grid-cols-1 gap-6 p-2 md:grid-cols-2 lg:grid-cols-3">
       {fixturesWithTeams.map((fixture) => (
-        <div className="w-full p-2 md:w-1/2 lg:w-1/3">
-          <FixtureComponent
-            key={`${fixture.homeTeam}-${fixture.awayTeam}`}
-            homeTeam={fixture.homeTeam}
-            awayTeam={fixture.awayTeam}
-            homeScore={fixture.homeScore}
-            awayScore={fixture.awayScore}
-            homeTeamExtraTimeScore={fixture.homeTeamExtraTimeScore}
-            awayTeamExtraTimeScore={fixture.awayTeamExtraTimeScore}
-            homeTeamPenaltiesScore={fixture.homeTeamPenaltiesScore}
-            awayTeamPenaltiesScore={fixture.awayTeamPenaltiesScore}
-            dateTime={fixture.dateTime}
-          />
-        </div>
+        <FixtureComponent
+          key={`${fixture.homeTeam}-${fixture.awayTeam}`}
+          homeTeam={fixture.homeTeam}
+          awayTeam={fixture.awayTeam}
+          homeScore={fixture.homeScore}
+          awayScore={fixture.awayScore}
+          homeTeamExtraTimeScore={fixture.homeTeamExtraTimeScore}
+          awayTeamExtraTimeScore={fixture.awayTeamExtraTimeScore}
+          homeTeamPenaltiesScore={fixture.homeTeamPenaltiesScore}
+          awayTeamPenaltiesScore={fixture.awayTeamPenaltiesScore}
+          dateTime={fixture.dateTime}
+        />
       ))}
     </div>
   );

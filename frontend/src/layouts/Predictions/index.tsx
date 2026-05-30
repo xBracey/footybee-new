@@ -51,6 +51,8 @@ export const PredictionsLayout = ({
     return state.predictions.length === fixtures.length;
   }, [state.predictions, fixtures]);
 
+  console.log(state.predictions, hasAllPredictions, fixtures);
+
   if (!teams || !fixtures || !state.predictions || !hasAllPredictions) {
     return (
       <div className="flex w-full items-center justify-center">

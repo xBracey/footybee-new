@@ -31,7 +31,7 @@ const TeamPrediction = ({
   incrementScore,
   decrementScore,
 }: ITeamPrediction) => (
-  <div className="text-shamrock-950 flex flex-col items-center">
+  <div className="text-shamrock-950 flex flex-1 flex-col items-center text-center">
     <span className="text-lg font-bold">{teamName}</span>
     <div className="flex items-center gap-5">
       <PredictionButton onClick={decrementScore} disabled={score === 0}>

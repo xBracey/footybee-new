@@ -1,0 +1,23 @@
+{
+  "name": "footybee-data",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Data fetching scripts for Live Score API",
+  "scripts": {
+    "fetch-teams": "npx ts-node fetch-teams.ts",
+    "fetch-fixtures": "npx ts-node fetch-fixtures.ts",
+    "fetch-squads": "npx ts-node fetch-squads.ts",
+    "download-flags": "npx ts-node download-flags.ts",
+    "fetch-all": "npx ts-node fetch-all.ts",
+    "fetch:teams": "npx ts-node fetch-teams.ts",
+    "fetch:fixtures": "npx ts-node fetch-fixtures.ts",
+    "fetch:squads": "npx ts-node fetch-squads.ts",
+    "fetch:flags": "npx ts-node download-flags.ts",
+    "fetch:all": "npx ts-node fetch-all.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

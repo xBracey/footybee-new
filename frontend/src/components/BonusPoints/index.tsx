@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Player, Team, User } from "../../../../shared/types/database";
 import { getTeamWins } from "../../../../shared/getTeamWins";
+import { Flag } from "../Flag";
 
 interface IBonusPoints {
   user: User;
@@ -38,11 +39,7 @@ const BonusPoints = ({ user, fixtures, teams, players }: IBonusPoints) => {
       {team && (
         <div className="bg-pine-green-700 flex items-center justify-center gap-2 rounded-md p-4">
           <div className="flex items-center gap-2">
-            <img
-              src={`/flags/${team?.name}.png`}
-              alt={team?.name}
-              className="h-7 w-7"
-            />
+            <Flag team={team} className="h-7 w-7" />
             <p className="text-lg font-bold text-white">{`${team?.name}`}</p>
           </div>
           <p className="text-lg text-white">{`Wins: ${teamWins}`}</p>

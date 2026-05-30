@@ -6,10 +6,16 @@ import {
 } from "../repositories/fixtures";
 import { ServiceHandler } from "./types";
 
+const mapFixture = (fixture: any) => ({
+  ...fixture,
+  homeTeamId: fixture?.homeTeamId ? parseInt(`${fixture.homeTeamId}`) : null,
+  awayTeamId: fixture?.awayTeamId ? parseInt(`${fixture.awayTeamId}`) : null,
+});
+
 export const getFixturesHandler: ServiceHandler = async (_, reply) => {
   const fixtures = await getFixtures();
 
-  reply.send(fixtures);
+  reply.send(fixtures.map(mapFixture));
 };
 
 export const getFixtureHandler: ServiceHandler = async (request, reply) => {
@@ -20,7 +26,7 @@ export const getFixtureHandler: ServiceHandler = async (request, reply) => {
     reply.status(404).send({ error: "Fixture not found" });
   }
 
-  reply.send(fixture);
+  reply.send(mapFixture(fixture));
 };
 
 export const insertFixturesHandler: ServiceHandler = async (request, reply) => {
