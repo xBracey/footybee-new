@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import {
   editUser,
   editUserBonuses,
+  editUserPassword,
   getUser,
   getUsers,
   insertUser,
@@ -103,11 +104,18 @@ export const loginUserHandler: (server: FastifyInstance) => ServiceHandler =
 
 export const editUserHandler: ServiceHandler = async (request, reply) => {
   const { username } = request.params as { username: string };
-  const { admin } = request.body as {
-    admin: boolean;
+  const { admin, newPassword } = request.body as {
+    admin?: boolean;
+    newPassword?: string;
   };
 
-  await editUser(username, admin);
+  if (admin !== undefined) {
+    await editUser(username, admin);
+  }
+
+  if (newPassword) {
+    await editUserPassword(username, newPassword);
+  }
 
   reply.send({ username, admin });
 };

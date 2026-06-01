@@ -4,25 +4,26 @@ import { User } from "../../../shared/types/database";
 
 interface PostUserRequest {
   username: string;
-  isAdmin: boolean;
+  isAdmin?: boolean;
+  newPassword?: string;
 }
 
-export const editUser = async ({ username, isAdmin }: PostUserRequest) => {
+export const editUser = async ({ username, isAdmin, newPassword }: PostUserRequest) => {
   try {
     const resp = await apiRequest<User>(`/users/${username}`, {
       method: "PUT",
-      data: { isAdmin },
+      data: { isAdmin, newPassword },
     });
     return resp;
   } catch (error) {
     console.log(error);
-    return { error: "Fixture could not be posted" };
+    return { error: "User could not be updated" };
   }
 };
 
 export const usePostUser = (username: string) => {
-  const postPutUser = (isAdmin: boolean) => {
-    return editUser({ username, isAdmin });
+  const postPutUser = (params: { isAdmin?: boolean; newPassword?: string }) => {
+    return editUser({ username, ...params });
   };
 
   const { mutate, isLoading, isError, data } = useMutation(postPutUser);

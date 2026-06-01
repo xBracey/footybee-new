@@ -44,6 +44,15 @@ export const editUser = (username: string, admin: boolean) => {
     .execute();
 };
 
+export const editUserPassword = async (username: string, newPassword: string) => {
+  const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+  return db
+    .update(users)
+    .set({ password: hashedPassword })
+    .where(eq(users.username, username))
+    .execute();
+};
+
 export const editUserBonuses = (
   username: string,
   bonusPlayerId: number,

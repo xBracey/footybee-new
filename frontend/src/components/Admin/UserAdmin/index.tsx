@@ -1,4 +1,4 @@
-import { Button, LoadingOverlay, Switch } from "@mantine/core";
+import { Button, LoadingOverlay, Switch, TextInput } from "@mantine/core";
 import { useGetUser } from "../../../queries/useGetUser";
 import { usePostUser } from "../../../queries/usePostUser";
 import AdminAddEdit from "../AdminAddEdit";
@@ -13,10 +13,11 @@ const UserAdmin = ({ username }: IUserAdmin) => {
   const { data: user, isLoading } = useGetUser(username);
   const { postUser, isLoading: isPosting } = usePostUser(username);
 
-  const form = useForm<{ admin: boolean }>({
+  const form = useForm<{ admin: boolean; newPassword: string }>({
     mode: "controlled",
     initialValues: {
       admin: false,
+      newPassword: "",
     },
   });
 
@@ -36,7 +37,10 @@ const UserAdmin = ({ username }: IUserAdmin) => {
       <LoadingOverlay visible={isPosting || isLoading} />
       <form
         onSubmit={form.onSubmit((values) => {
-          postUser(values.admin);
+          postUser({
+            isAdmin: values.admin,
+            newPassword: values.newPassword || undefined,
+          });
         })}
         className="flex flex-col gap-4"
       >
@@ -44,6 +48,12 @@ const UserAdmin = ({ username }: IUserAdmin) => {
           label="Admin"
           {...form.getInputProps("admin")}
           checked={form.values?.admin}
+        />
+
+        <TextInput
+          type="password"
+          label="New Password (leave blank to keep current)"
+          {...form.getInputProps("newPassword")}
         />
 
         <Button type="submit">Save</Button>
