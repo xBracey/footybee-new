@@ -82,7 +82,7 @@ export const getAllUsersPoints = async () => {
     const playerPoints =
       (playersResult.find((p) => p.id === user.bonusPlayerId)?.goals ?? 0) * 10;
 
-    const teamWins = user.bonusTeamId ? teamsWins[user.bonusTeamId] : 0;
+    const teamWins = user?.bonusTeamId ? teamsWins[user.bonusTeamId] ?? 0 : 0;
     const teamPoints = teamWins * 10;
 
     const userFixturesPoints = userFixturesResult
@@ -96,7 +96,7 @@ export const getAllUsersPoints = async () => {
       .reduce((acc, u) => acc + (u.user_teams?.points || 0), 0);
 
     return {
-      ...user,
+      username: user.username,
       points:
         playerPoints +
         teamPoints +
