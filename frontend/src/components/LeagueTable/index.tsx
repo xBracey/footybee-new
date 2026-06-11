@@ -25,6 +25,7 @@ interface LeagueTableProps {
   isPrediction?: boolean;
   groupSwitches?: number[];
   setGroupSwitches?: Dispatch<SetStateAction<number[]>>;
+  disabled?: boolean;
 }
 
 const LeagueTable: React.FC<LeagueTableProps> = ({
@@ -33,6 +34,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
   isPrediction = false,
   groupSwitches = [],
   setGroupSwitches,
+  disabled = false,
 }) => {
   const teamStats = useCalculateTeamStats(fixtures, teams);
   const { table, pairings } = teamStats;
@@ -79,7 +81,7 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
   }
 
   const onPairingClick = (pairingListIdx: number) => {
-    if (!setGroupSwitches) return;
+    if (!setGroupSwitches || disabled) return;
 
     setGroupSwitches([...groupSwitches, pairingListIdx]);
   };
@@ -136,8 +138,9 @@ const LeagueTable: React.FC<LeagueTableProps> = ({
               <td className="py-3 px-4 text-center">{team.points}</td>
               {isPrediction && pairingIndexList.includes(index) && (
                 <button
-                  className="bot-0 absolute right-1 -translate-y-1/2 md:right-5"
+                  className="bot-0 absolute right-1 -translate-y-1/2 md:right-5 disabled:cursor-not-allowed disabled:opacity-40"
                   onClick={() => onPairingClick(index)}
+                  disabled={disabled}
                 >
                   <Switch className="h-5 w-5 rotate-180" />
                 </button>

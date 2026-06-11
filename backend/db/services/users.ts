@@ -10,6 +10,7 @@ import {
 import { ServiceHandler } from "./types";
 import bcrypt from "bcrypt";
 import { tokenToUser } from "./utils";
+import { isPredictionLocked } from "../../../shared/config";
 
 export const getUserHandler: ServiceHandler = async (request, reply) => {
   const { username } = request.params as { username: string };
@@ -125,6 +126,11 @@ export const editMyBonuses: (server: FastifyInstance) => ServiceHandler =
     const userDecoded = await tokenToUser(server, request, reply);
 
     if (!userDecoded) {
+      return;
+    }
+
+    if (isPredictionLocked()) {
+      reply.status(403).send({ error: "Predictions are locked" });
       return;
     }
 

@@ -14,30 +14,47 @@ const RoundFixtureTeam = ({
   onClick,
   selected,
   hasNotBeenSelected,
+  disabled,
 }: {
   team: string;
   onClick: () => void;
   selected: boolean;
   hasNotBeenSelected: boolean;
-}) => (
-  <button
-    onClick={onClick}
-    className={`${
-      selected
-        ? "bg-shamrock-700 hover:bg-shamrock-800"
-        : hasNotBeenSelected
-        ? "hover:bg-azure-800"
-        : "bg-red-700 hover:bg-red-800"
-    } flex flex-1 items-center justify-center gap-1.5 p-4 px-6 duration-500`}
-  >
-    {team === "TBC" ? (
-      <div className="h-7 w-7 rounded-full bg-gray-300" />
-    ) : (
-      <Flag team={team} className="h-7 w-7" />
-    )}
-    <p>{team}</p>
-  </button>
-);
+  disabled?: boolean;
+}) => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (disabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    onClick();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      disabled={disabled}
+      type="button"
+      className={`${
+        selected
+          ? "bg-shamrock-700 hover:bg-shamrock-800"
+          : hasNotBeenSelected
+          ? "hover:bg-azure-800"
+          : "bg-red-700 hover:bg-red-800"
+      } flex flex-1 items-center justify-center gap-1.5 p-4 px-6 duration-500 ${
+        disabled ? "cursor-not-allowed opacity-60" : ""
+      }`}
+    >
+      {team === "TBC" ? (
+        <div className="h-7 w-7 rounded-full bg-gray-300" />
+      ) : (
+        <Flag team={team} className="h-7 w-7" />
+      )}
+      <p>{team}</p>
+    </button>
+  );
+};
 
 const RoundFixture = ({
   homeTeam,
@@ -60,6 +77,7 @@ const RoundFixture = ({
             onClick={onHomeClick}
             selected={selected === "home"}
             hasNotBeenSelected={selected === undefined}
+            disabled={disabled}
           />
 
           <RoundFixtureTeam
@@ -67,6 +85,7 @@ const RoundFixture = ({
             onClick={onAwayClick}
             selected={selected === "away"}
             hasNotBeenSelected={selected === undefined}
+            disabled={disabled}
           />
         </div>
 

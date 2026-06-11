@@ -8,6 +8,7 @@ interface SinglePredictionProps {
   username: string;
   prediction: Omit<Prediction, "username">;
   onChange: (Prediction: Omit<Prediction, "username">) => void;
+  disabled?: boolean;
 }
 
 const SinglePrediction: React.FC<SinglePredictionProps> = ({
@@ -15,41 +16,35 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
   awayTeam,
   prediction,
   onChange,
+  disabled = false,
 }) => {
   const { homeTeamScore, awayTeamScore } = prediction;
 
-  const incrementHomeScore = () =>
-    onChange({
-      ...prediction,
-      homeTeamScore: homeTeamScore + 1,
-    });
+  const handleChange = React.useCallback(
+    (newScores: { homeTeamScore?: number; awayTeamScore?: number }) => {
+      if (disabled) return;
+      onChange({
+        ...prediction,
+        ...newScores,
+      });
+    },
+    [disabled, onChange, prediction]
+  );
 
-  const decrementHomeScore = () =>
-    onChange({
-      ...prediction,
-      homeTeamScore: Math.max(0, homeTeamScore - 1),
-    });
-
-  const incrementAwayScore = () =>
-    onChange({
-      ...prediction,
-      awayTeamScore: awayTeamScore + 1,
-    });
-
-  const decrementAwayScore = () =>
-    onChange({
-      ...prediction,
-      awayTeamScore: Math.max(0, awayTeamScore - 1),
-    });
+  const incrementHomeScore = () => handleChange({ homeTeamScore: homeTeamScore + 1 });
+  const decrementHomeScore = () => handleChange({ homeTeamScore: Math.max(0, homeTeamScore - 1) });
+  const incrementAwayScore = () => handleChange({ awayTeamScore: awayTeamScore + 1 });
+  const decrementAwayScore = () => handleChange({ awayTeamScore: Math.max(0, awayTeamScore - 1) });
 
   return (
-    <div className="flex w-full justify-center md:w-auto">
+    <div className={`flex w-full justify-center md:w-auto ${disabled ? "pointer-events-none" : ""}`}>
       <div className="bg-shamrock-400 flex w-full items-center justify-around gap-4 rounded-md p-2 px-4">
         <TeamPrediction
           teamName={homeTeam.name}
           score={homeTeamScore}
           incrementScore={incrementHomeScore}
           decrementScore={decrementHomeScore}
+          disabled={disabled}
         />
 
         <TeamPrediction
@@ -57,6 +52,7 @@ const SinglePrediction: React.FC<SinglePredictionProps> = ({
           score={awayTeamScore}
           incrementScore={incrementAwayScore}
           decrementScore={decrementAwayScore}
+          disabled={disabled}
         />
       </div>
     </div>

@@ -37,6 +37,7 @@ const UserBonuses = ({
               label: team.name,
             }))}
             searchable
+            disabled={isPredictionLocked}
             value={state.bonuses.teamId ? state.bonuses.teamId.toString() : ""}
             onChange={(value) => onEditBonusTeam(parseInt(value, 10))}
           />
@@ -49,6 +50,7 @@ const UserBonuses = ({
               label: player.name,
             }))}
             searchable
+            disabled={isPredictionLocked}
             value={
               state.bonuses.playerId ? state.bonuses.playerId.toString() : ""
             }
@@ -57,7 +59,7 @@ const UserBonuses = ({
         </div>
       </div>
 
-      <PredictionLock isLocked />
+      <PredictionLock isLocked={isPredictionLocked} />
     </div>
   );
 };

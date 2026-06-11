@@ -17,6 +17,7 @@ interface PredictionsLayoutProps {
   teams: Team[];
   fixtures: Fixture[];
   players: Player[];
+  isPredictionLocked: boolean;
 }
 
 export const PredictionsLayout = ({
@@ -24,6 +25,7 @@ export const PredictionsLayout = ({
   teams,
   fixtures,
   players,
+  isPredictionLocked,
 }: PredictionsLayoutProps) => {
   const { state, dispatch } = usePredictionStore();
 
@@ -83,6 +85,7 @@ export const PredictionsLayout = ({
       onEditBonusPlayer={onEditBonusPlayer}
       onEditBonusTeam={onEditBonusTeam}
       players={players}
+      isPredictionLocked={isPredictionLocked}
     />
   );
 };

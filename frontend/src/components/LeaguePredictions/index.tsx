@@ -66,6 +66,7 @@ const LeaguePredictions = ({
                 username={username}
                 prediction={prediction}
                 onChange={onSinglePredictionChange}
+                disabled={isPredictionLocked}
               />
             );
           })}
@@ -77,10 +78,11 @@ const LeaguePredictions = ({
           isPrediction
           groupSwitches={groupSwitches}
           setGroupSwitches={onEditGroupSwitch}
+          disabled={isPredictionLocked}
         />
       </div>
 
-      <PredictionLock isLocked />
+      <PredictionLock isLocked={isPredictionLocked} />
     </div>
   );
 };

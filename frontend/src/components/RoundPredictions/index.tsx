@@ -76,6 +76,7 @@ interface IRoundPredictions {
   userTeams: UserTeam[];
   onSubmit: (fixtures: IRoundPrediction[]) => void;
   isLoading: boolean;
+  disabled?: boolean;
 }
 
 const RoundPredictions = ({
@@ -84,6 +85,7 @@ const RoundPredictions = ({
   onSubmit,
   isLoading,
   userTeams,
+  disabled = false,
 }: IRoundPredictions) => {
   const initialFixtures = calculateInitialFixtures(roundFixtures, userTeams);
   const [fixtures, setFixtures] = useState<IRoundPrediction[]>(initialFixtures);
@@ -142,7 +144,7 @@ const RoundPredictions = ({
                   onHomeClick={() => onClick(fixture, "home")}
                   onAwayClick={() => onClick(fixture, "away")}
                   selected={fixture.winner}
-                  disabled={!fixture.homeTeamId || !fixture.awayTeamId}
+                  disabled={disabled || !fixture.homeTeamId || !fixture.awayTeamId}
                 />
               ))}
           </div>
@@ -153,6 +155,7 @@ const RoundPredictions = ({
         <Button
           size="lg"
           onClick={() => setFixtures(calculateEmptyFixtures(roundFixtures))}
+          disabled={disabled}
         >
           Reset
         </Button>
@@ -160,7 +163,7 @@ const RoundPredictions = ({
           color="green"
           size="lg"
           onClick={() => onSubmit(fixtures)}
-          disabled={submitDisabled}
+          disabled={disabled || submitDisabled}
           className={submitDisabled ? "disabled:bg-gray-500" : ""}
         >
           Submit

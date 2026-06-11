@@ -5,12 +5,14 @@ import { useGetMe } from "../queries/useGetMe";
 import Loading from "../components/Loading";
 import { PredictionsLayout } from "../layouts/Predictions";
 import { useGetPlayers } from "../queries/useGetPlayers";
+import { useGetLockStatus } from "../queries/useGetLockStatus";
 
 const Predictions = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
   const { data: teams } = useGetTeams();
   const { data: fixtures } = useGetFixtures();
   const { data: players } = useGetPlayers();
+  const { data: lockStatus } = useGetLockStatus();
 
   if (userIsLoading) {
     return <Loading />;
@@ -26,6 +28,7 @@ const Predictions = () => {
       teams={teams}
       fixtures={fixtures}
       players={players}
+      isPredictionLocked={lockStatus?.isLocked ?? false}
     />
   );
 };

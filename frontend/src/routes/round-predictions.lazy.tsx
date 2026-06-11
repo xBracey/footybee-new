@@ -11,6 +11,7 @@ import { useGetUserTeams } from "../queries/useGetUserTeams";
 import { CheckIcon, Dialog } from "@mantine/core";
 import { useState } from "react";
 import PredictionLock from "../components/PredictionLock";
+import { useGetLockStatus } from "../queries/useGetLockStatus";
 
 const RoundPredictionsRoute = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
@@ -20,6 +21,7 @@ const RoundPredictionsRoute = () => {
   const { data: userTeams, isLoading: userTeamsIsLoading } = useGetUserTeams(
     user?.username
   );
+  const { data: lockStatus } = useGetLockStatus();
 
   const [savedDialog, setSavedDialog] = useState(false);
 
@@ -67,7 +69,7 @@ const RoundPredictionsRoute = () => {
     editUserTeams(userTeams);
   };
 
-  const isPredictionLocked = false;
+  const isPredictionLocked = lockStatus?.isLocked ?? false;
 
   return (
     <div className={`relative`}>
@@ -91,6 +93,7 @@ const RoundPredictionsRoute = () => {
           onSubmit={onSubmit}
           isLoading={editUserTeamsIsLoading}
           userTeams={userTeams}
+          disabled={isPredictionLocked}
         />
       </div>
     </div>

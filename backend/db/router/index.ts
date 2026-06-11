@@ -11,8 +11,14 @@ import { buildPlayersRoutes } from "./players";
 import { buildRoundFixturesRoutes } from "./roundFixtures";
 import { buildRoundsRoutes } from "./rounds";
 import { buildUserTeamsRoutes } from "./userTeams";
+import { getLockStatus } from "../services/lock";
 
 export const buildApiRoutes: Router = (fastify, _, done) => {
+  // Lock status endpoint (no auth required)
+  fastify.get("/lock", async (_, reply) => {
+    reply.send(getLockStatus());
+  });
+
   fastify.register(buildUserRoutes, { prefix: "/users" });
   fastify.register(buildTeamsRoutes, { prefix: "/teams" });
   fastify.register(buildPlayersRoutes, { prefix: "/players" });

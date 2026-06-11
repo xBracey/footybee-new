@@ -7,12 +7,9 @@ import {
 } from "../../../../shared/types/database";
 import LeaguePredictions from "../../components/LeaguePredictions";
 import { usePredictions } from "./usePredictions";
-import { Fragment, useEffect, useState } from "react";
 import { GroupSwitches } from "../../zustand/predictions/types";
 import Banner from "../../components/Banner";
 import UserBonuses from "../../components/UserBonuses";
-
-const predictionLockTime = 1718474400000; // 2024-06-15 20:00:00
 
 interface PredictionsPageProps {
   fixtures: Fixture[];
@@ -27,6 +24,7 @@ interface PredictionsPageProps {
   onEditBonusPlayer: (playerId: number) => void;
   onEditBonusTeam: (teamId: number) => void;
   players: Player[];
+  isPredictionLocked: boolean;
 }
 
 export const PredictionsPage = ({
@@ -42,9 +40,8 @@ export const PredictionsPage = ({
   onEditBonusPlayer,
   onEditBonusTeam,
   players,
+  isPredictionLocked,
 }: PredictionsPageProps) => {
-  const [currentTime, setCurrentTime] = useState(Date.now());
-
   const groupFixtures = usePredictions(teams, fixtures, predictions);
 
   const onEditGroupSwitch = (groupLetter: string) => (switches: number[]) => {
@@ -56,15 +53,6 @@ export const PredictionsPage = ({
       onPredictionChange(prediction, groupLetter);
     };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(Date.now());
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const isPredictionLocked = false;
-
   return (
     <div className="flex flex-col items-center justify-center">
       <Dialog opened={isSavingPrediction || isError}>
@@ -74,14 +62,14 @@ export const PredictionsPage = ({
             again.
           </p>
         ) : (
-          <Fragment>
+          <>
             <div className="mb-2 flex items-center justify-center gap-4">
               <Loader color="blue" size="sm" className="mr-4" />
             </div>
             <p className="text-center text-sm text-blue-600">
               Saving prediction, please wait until this dialog is closed.
             </p>
-          </Fragment>
+          </>
         )}
       </Dialog>
 

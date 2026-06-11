@@ -6,6 +6,7 @@ import { ServiceHandler } from "./types";
 import { UserGroup } from "../../../shared/types/database";
 import { tokenToUser } from "./utils";
 import { FastifyInstance } from "fastify";
+import { isPredictionLocked } from "../../../shared/config";
 
 export const getUserGroupsByUsernameHandler: ServiceHandler = async (
   req,
@@ -25,6 +26,11 @@ export const insertUserGroupsHandler: (
   const userDecoded = await tokenToUser(server, req, reply);
 
   if (!userDecoded) {
+    return;
+  }
+
+  if (isPredictionLocked()) {
+    reply.status(403).send({ error: "Predictions are locked" });
     return;
   }
 
