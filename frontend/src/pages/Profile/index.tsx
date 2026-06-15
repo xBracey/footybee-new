@@ -12,6 +12,7 @@ import {
 } from "../../../../shared/types/database";
 import Banner from "../../components/Banner";
 import FixturePoints from "../../components/FixturePoints";
+import TodaysPredictions from "../../components/TodaysPredictions";
 import LogoutButton from "../../components/LogoutButton";
 import { getTeamWins } from "../../../../shared/getTeamWins";
 import BonusPoints from "../../components/BonusPoints";
@@ -90,6 +91,14 @@ export const ProfilePage = ({
         teams={teams}
         roundFixtures={roundFixtures}
         userTeams={userTeams}
+      />
+
+      <TodaysPredictions
+        teams={teams}
+        fixtures={fixtures}
+        roundFixtures={roundFixtures}
+        predictions={predictions}
+        userFixtures={userFixtures}
       />
 
       <FixturePoints

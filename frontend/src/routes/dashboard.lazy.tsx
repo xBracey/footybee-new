@@ -3,6 +3,7 @@ import { useGetMe } from "../queries/useGetMe";
 import { useUserStore } from "../zustand/user";
 import Loading from "../components/Loading";
 import TodaysMatches from "../components/TodaysMatches";
+import TodaysPredictions from "../components/TodaysPredictions";
 import { useGetTeams } from "../queries/useGetTeams";
 import { useGetFixtures } from "../queries/useGetFixtures";
 import { useGetUserLeagues } from "../queries/useGetUserLeagues";
@@ -10,6 +11,8 @@ import UserLeagues from "../components/UserLeagues";
 import Box from "../components/Box";
 import { useState } from "react";
 import { useGetRoundFixtures } from "../queries/useGetRoundFixtures";
+import { useGetPredictions } from "../queries/useGetPredictions";
+import { useGetUserFixtures } from "../queries/useGetUserFixtures";
 
 const Dashboard = () => {
   const [leagueTimestamp, setLeagueTimestamp] = useState(Date.now());
@@ -19,6 +22,8 @@ const Dashboard = () => {
   const { data: fixtures } = useGetFixtures();
   const { data: roundFixtures } = useGetRoundFixtures();
   const { data: leagues } = useGetUserLeagues(leagueTimestamp);
+  const { data: predictions } = useGetPredictions(user?.username ?? "");
+  const { data: userFixtures } = useGetUserFixtures(user?.username ?? "");
 
   if (!token) {
     return <Navigate to="/login" from="/dashboard" />;
@@ -32,7 +37,17 @@ const Dashboard = () => {
     <div>
       <TodaysMatches teams={teams} fixtures={[...fixtures, ...roundFixtures]} />
 
-      <Box className="mx-auto mt-2 max-w-xl border-b-4 border-white p-1 text-center text-xl font-bold text-gray-800 md:text-2xl">
+      <div className="mt-4 flex flex-col items-center">
+        <TodaysPredictions
+          teams={teams}
+          fixtures={fixtures}
+          roundFixtures={roundFixtures}
+          predictions={predictions}
+          userFixtures={userFixtures}
+        />
+      </div>
+
+      <Box className="mx-auto mt-4 max-w-xl border-b-4 border-white p-1 text-center text-xl font-bold text-gray-800 md:text-2xl">
         {user.username}'s Leagues
       </Box>
 
