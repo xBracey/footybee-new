@@ -8,7 +8,7 @@ interface LockStatusResponse {
 export const getLockStatus = (): LockStatusResponse => {
   // const isLocked =
   //   PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
-  const isLocked = true;
+  const isLocked = false;
 
   return {
     isLocked,
