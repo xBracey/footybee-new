@@ -15,5 +15,6 @@ export const PREDICTION_LOCK_TIME = process.env.PREDICTION_LOCK_TIME
 
 // Check if predictions are currently locked
 export const isPredictionLocked = (): boolean => {
-  return PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
+  // return PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
+  return true;
 };

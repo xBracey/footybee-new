@@ -69,7 +69,7 @@ const RoundPredictionsRoute = () => {
     editUserTeams(userTeams);
   };
 
-  const isPredictionLocked = lockStatus?.isLocked ?? false;
+  const isPredictionLocked = true;
 
   return (
     <div className={`relative`}>

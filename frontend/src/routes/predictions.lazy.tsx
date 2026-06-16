@@ -28,7 +28,7 @@ const Predictions = () => {
       teams={teams}
       fixtures={fixtures}
       players={players}
-      isPredictionLocked={lockStatus?.isLocked ?? false}
+      isPredictionLocked={true}
     />
   );
 };
