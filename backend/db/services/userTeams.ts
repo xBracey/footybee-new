@@ -1,4 +1,5 @@
 import {
+  getKnockoutStatusByLeague,
   getUserTeamsByUsername,
   insertUserTeams,
 } from "../repositories/userTeams";
@@ -7,6 +8,7 @@ import { UserTeam } from "../../../shared/types/database";
 import { tokenToUser } from "./utils";
 import { FastifyInstance } from "fastify";
 import { isStagePredictionLocked } from "../../../shared/config";
+import { getUser } from "../repositories/users";
 
 export const getUserTeamsByUsernameHandler: ServiceHandler = async (
   req,
@@ -18,6 +20,26 @@ export const getUserTeamsByUsernameHandler: ServiceHandler = async (
 
   const userTeams = await getUserTeamsByUsername(username);
   reply.send(userTeams);
+};
+
+export const getKnockoutStatusHandler: (
+  server: FastifyInstance
+) => ServiceHandler = (server) => async (req, reply) => {
+  const userDecoded = await tokenToUser(server, req, reply);
+
+  if (!userDecoded) {
+    return;
+  }
+
+  const user = await getUser(userDecoded.username);
+
+  if (!user?.admin) {
+    reply.status(403).send({ error: "Admin only" });
+    return;
+  }
+
+  const status = await getKnockoutStatusByLeague();
+  reply.send(status);
 };
 
 export const insertUserTeamsHandler: (

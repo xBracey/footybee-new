@@ -1,4 +1,4 @@
-import { createLazyFileRoute, Navigate } from "@tanstack/react-router";
+import { createLazyFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useGetMe } from "../../queries/useGetMe";
 import { useGetTeams } from "../../queries/useGetTeams";
 import { useGetFixtures } from "../../queries/useGetFixtures";
@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import Loading from "../../components/Loading";
 import { useGetPlayers } from "../../queries/useGetPlayers";
 import { useGetRoundFixtures } from "../../queries/useGetRoundFixtures";
+import { Button } from "../../components/Button";
 
 const Admin = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
@@ -17,8 +18,6 @@ const Admin = () => {
   const { data: fixtures } = useGetFixtures();
   const { data: roundFixtures } = useGetRoundFixtures();
   const { data: users } = useGetUsers();
-
-  console.log(roundFixtures);
 
   const fixuresWithNames = useMemo(() => {
     return fixtures.map((fixture) => {
@@ -92,6 +91,18 @@ const Admin = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-4">
+        <div className="w-full rounded-lg bg-white p-3 shadow-2xl">
+          <h2 className="p-1 text-lg font-semibold text-gray-700">
+            Knockout Predictions
+          </h2>
+          <p className="px-1 pb-3 text-sm text-gray-600">
+            See which users have completed their knockout bracket.
+          </p>
+          <Link to="/admin/knockout-status">
+            <Button buttonType="secondary">View Status</Button>
+          </Link>
+        </div>
+
         <AdminEntity
           name="Fixtures"
           entities={fixuresWithNames}

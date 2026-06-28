@@ -117,3 +117,17 @@ export interface UserTeam {
   roundPredictions: string;
   points: number;
 }
+
+export interface UserKnockoutStatus {
+  username: string;
+  hasPredictions: boolean;
+  isComplete: boolean;
+  totalPredictions: number;
+  expectedTotal: number;
+}
+
+export interface LeagueKnockoutStatus {
+  id: string;
+  name: string;
+  members: UserKnockoutStatus[];
+}

@@ -27,6 +27,9 @@ const DashboardLazyImport = createFileRoute('/dashboard')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
+const AdminKnockoutStatusLazyImport = createFileRoute(
+  '/admin/knockout-status',
+)()
 const ProfileUsernameIndexLazyImport = createFileRoute('/profile/$username/')()
 const LeagueLeagueIdIndexLazyImport = createFileRoute('/league/$leagueId/')()
 const AdminEntityIndexLazyImport = createFileRoute('/admin/$entity/')()
@@ -89,6 +92,13 @@ const AdminIndexLazyRoute = AdminIndexLazyImport.update({
   path: '/admin/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
+
+const AdminKnockoutStatusLazyRoute = AdminKnockoutStatusLazyImport.update({
+  path: '/admin/knockout-status',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/admin/knockout-status.lazy').then((d) => d.Route),
+)
 
 const ProfileUsernameIndexLazyRoute = ProfileUsernameIndexLazyImport.update({
   path: '/profile/$username/',
@@ -155,6 +165,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin/knockout-status': {
+      preLoaderRoute: typeof AdminKnockoutStatusLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/': {
       preLoaderRoute: typeof AdminIndexLazyImport
       parentRoute: typeof rootRoute
@@ -187,6 +201,7 @@ export const routeTree = rootRoute.addChildren([
   PredictionsLazyRoute,
   RoundPredictionsLazyRoute,
   RulesLazyRoute,
+  AdminKnockoutStatusLazyRoute,
   AdminIndexLazyRoute,
   AdminEntityIndexLazyRoute,
   LeagueLeagueIdIndexLazyRoute,
