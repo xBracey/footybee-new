@@ -29,12 +29,15 @@ export const editFixture = async (id: number, fixture: InsertFixture) => {
 
   const newPoints = calculateFixturePoints({ ...fixture, id }, userPredictions);
 
-  await db
-    .insert(userFixtures)
-    .values(newPoints)
-    .onConflictDoUpdate({
-      target: [userFixtures.username, userFixtures.fixtureId],
-      set: { points: sql`excluded.points` },
-    })
-    .execute();
+  // Only insert if there are points to update
+  if (newPoints.length > 0) {
+    await db
+      .insert(userFixtures)
+      .values(newPoints)
+      .onConflictDoUpdate({
+        target: [userFixtures.username, userFixtures.fixtureId],
+        set: { points: sql`excluded.points` },
+      })
+      .execute();
+  }
 };

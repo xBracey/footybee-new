@@ -4,6 +4,8 @@ import { apiRequest } from "./utils";
 interface LockStatus {
   isLocked: boolean;
   lockTime: number;
+  knockoutLocked: boolean;
+  knockoutLockTime: number;
 }
 
 export const getLockStatus = async (): Promise<LockStatus> => {

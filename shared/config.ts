@@ -40,7 +40,6 @@ export const KNOCKOUT_PREDICTION_LOCK_TIME = readIntEnv(
 
 // Check if predictions are currently locked
 export const isPredictionLocked = (): boolean => {
-  return false;
   return PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
 };
 
@@ -49,16 +48,14 @@ export const isPredictionLocked = (): boolean => {
  * stage's predictions are locked.
  *
  *   - "group" → uses PREDICTION_LOCK_TIME
- *   - "knockout" → uses KNOCKOUT_PREDICTION_LOCK_TIME
+ *   - "knockout" → always returns true (manually locked)
  *
- * A lock time of 0 means "no lock" (always unlocked).
+ * A lock time of 0 means "no lock" (always unlocked) for group stage.
  */
 export const isStagePredictionLocked = (stage: TournamentStage): boolean => {
   if (stage === "knockout") {
-    return (
-      KNOCKOUT_PREDICTION_LOCK_TIME > 0 &&
-      Date.now() > KNOCKOUT_PREDICTION_LOCK_TIME
-    );
+    // Knockout predictions are manually locked
+    return true;
   }
   return PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
 };

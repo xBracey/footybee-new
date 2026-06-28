@@ -48,12 +48,15 @@ export const editRoundFixture = async (
     points: number;
   }[];
 
-  await db
-    .insert(userTeams)
-    .values(newPoints)
-    .onConflictDoUpdate({
-      target: [userTeams.username, userTeams.teamId],
-      set: { points: sql`excluded.points` },
-    })
-    .execute();
+  // Only insert if there are points to update
+  if (newPoints.length > 0) {
+    await db
+      .insert(userTeams)
+      .values(newPoints)
+      .onConflictDoUpdate({
+        target: [userTeams.username, userTeams.teamId],
+        set: { points: sql`excluded.points` },
+      })
+      .execute();
+  }
 };
