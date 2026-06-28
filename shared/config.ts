@@ -40,7 +40,7 @@ export const KNOCKOUT_PREDICTION_LOCK_TIME = readIntEnv(
 
 // Check if predictions are currently locked
 export const isPredictionLocked = (): boolean => {
-  return true;
+  return false;
   return PREDICTION_LOCK_TIME > 0 && Date.now() > PREDICTION_LOCK_TIME;
 };
 
