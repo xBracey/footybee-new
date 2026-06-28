@@ -14,6 +14,11 @@
  *
  * Reuses the existing `editFixture` / `editRoundFixture` repositories so
  * user points are recalculated automatically.
+ *
+ * For knockout fixtures, once a match is definitively decided the
+ * worker also advances the winner into the next round's fixture (using
+ * the current `order` to compute the next-round slot), so the bracket
+ * stays in sync without manual admin work.
  */
 
 import { editFixture, getFixtures } from "../repositories/fixtures";
@@ -23,6 +28,8 @@ import {
 } from "../repositories/roundFixtures";
 import { getTeam } from "../repositories/teams";
 import { fetchLiveMatches, LiveMatch } from "./liveScores";
+import { rounds } from "../../../shared/types/database";
+import { getMatchWinner } from "../../../shared/calculateIfTeamWon";
 
 // --- Configuration --------------------------------------------------------
 
@@ -270,6 +277,11 @@ const updateRoundFixture = async (
       live.homeScore
     }-${live.awayScore} ${away.name} (${live.status || "live"})`
   );
+
+  // If the match is now decided, advance the winner into the next
+  // round's fixture so the bracket stays in sync without manual admin
+  // work.
+  await advanceWinner(fixture, live, home, away);
 };
 
 // --- Match helpers --------------------------------------------------------
@@ -311,3 +323,107 @@ const findLiveMatch = (
   }
   return match;
 };
+
+// --- Advancement helpers -------------------------------------------------
+
+/**
+ * Given the current round, return the next round in the bracket, or
+ * `null` if there is no advancement (e.g. "Finals" or "Third Place").
+ */
+const getNextRound = (currentRound: string): string | null => {
+  const idx = rounds.indexOf(currentRound);
+  if (idx === -1 || idx === rounds.length - 1) return null;
+  return rounds[idx + 1];
+};
+
+/**
+ * If the current knockout match is now decided, advance the winning
+ * team into the next round's fixture. Uses the current fixture's
+ * `order` to determine which next-round slot to fill:
+ *
+ *   - nextOrder       = Math.floor(currentOrder / 2)
+ *   - home / away     = currentOrder % 2 === 0 ? home : away
+ *
+ * This is the inverse of the pairing logic in
+ * `RoundPredictions/calculateInitialFixtures.ts`, so the two stay in
+ * sync. Errors here are logged but do not propagate, so a single
+ * failed advancement cannot stop other tick work.
+ */
+type TeamRecord = NonNullable<Awaited<ReturnType<typeof getTeam>>>;
+
+const advanceWinner = async (
+  fixture: Awaited<ReturnType<typeof getRoundFixtures>>[number],
+  live: LiveMatch,
+  home: TeamRecord,
+  away: TeamRecord
+) => {
+  try {
+    // Drizzle infers all roundFixtures columns as nullable; narrow the
+    // ones we need for advancement before doing any work.
+    if (fixture.round === null || fixture.order === null) return;
+
+    const nextRound = getNextRound(fixture.round);
+    if (!nextRound) return; // "Finals" or "Third Place" - no advancement
+
+    const winnerId = getMatchWinner({
+      homeTeamId: fixture.homeTeamId,
+      awayTeamId: fixture.awayTeamId,
+      homeTeamScore: live.homeScore,
+      awayTeamScore: live.awayScore,
+      homeTeamExtraTimeScore: live.homeExtraTimeScore,
+      awayTeamExtraTimeScore: live.awayExtraTimeScore,
+      homeTeamPenaltiesScore: live.homePenaltiesScore,
+      awayTeamPenaltiesScore: live.awayPenaltiesScore,
+    });
+
+    if (winnerId === null) return; // match not yet decided
+
+    const nextOrder = Math.floor(fixture.order / 2);
+    const isHomeSlot = fixture.order % 2 === 0;
+
+    const allRoundFixtures = await getRoundFixtures();
+    const nextFixture = allRoundFixtures.find(
+      (f) => f.round === nextRound && f.order === nextOrder
+    );
+
+    if (!nextFixture) {
+      console.log(
+        `[live-worker] ⚠️  No ${nextRound} fixture at order=${nextOrder} (advancing from ${fixture.round} order=${fixture.order})`
+      );
+      return;
+    }
+
+    // Skip if the next fixture already has the correct team in the
+    // right slot (idempotent: re-running the worker is a no-op).
+    const currentSlotTeamId = isHomeSlot
+      ? nextFixture.homeTeamId
+      : nextFixture.awayTeamId;
+    if (currentSlotTeamId === winnerId) return;
+
+    const winnerName = winnerId === fixture.homeTeamId ? home.name : away.name;
+
+    await editRoundFixture(nextFixture.id, {
+      round: nextFixture.round ?? nextRound,
+      homeTeamId: isHomeSlot ? winnerId : nextFixture.homeTeamId,
+      awayTeamId: isHomeSlot ? nextFixture.awayTeamId : winnerId,
+      dateTime: nextFixture.dateTime,
+      homeTeamScore: nextFixture.homeTeamScore,
+      awayTeamScore: nextFixture.awayTeamScore,
+      homeTeamExtraTimeScore: nextFixture.homeTeamExtraTimeScore,
+      awayTeamExtraTimeScore: nextFixture.awayTeamExtraTimeScore,
+      homeTeamPenaltiesScore: nextFixture.homeTeamPenaltiesScore,
+      awayTeamPenaltiesScore: nextFixture.awayTeamPenaltiesScore,
+      order: nextFixture.order ?? 0,
+    });
+
+    console.log(
+      `[live-worker] advanced ${winnerName} (${fixture.round} #${fixture.order}) → ${nextRound} #${nextOrder} (${isHomeSlot ? "home" : "away"} slot)`
+    );
+  } catch (err) {
+    console.error(
+      `[live-worker] failed to advance winner from ${fixture.round} #${fixture.order}:`,
+      err
+    );
+  }
+};
+

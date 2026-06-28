@@ -171,7 +171,7 @@ const FixtureAdmin = ({ id }: IFixtureAdmin) => {
           label="Order"
           required
           min={0}
-          max={7}
+          max={15}
           {...form.getInputProps("order")}
         />
 

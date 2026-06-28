@@ -4,6 +4,7 @@ import { useGetMe } from "../../queries/useGetMe";
 import { Fragment, useEffect, useState } from "react";
 import InstallModal from "../InstallModal";
 import { Burger } from "@mantine/core";
+import { CURRENT_STAGE } from "../../../../shared/config";
 
 const HeaderLink = ({
   to,
@@ -63,7 +64,10 @@ const Header = ({ scrollToTop }: { scrollToTop: () => void }) => {
 
           {user && (
             <Fragment>
-              <HeaderLink to="/predictions" closeMenu={closeMenu}>
+              <HeaderLink
+                to={CURRENT_STAGE === "knockout" ? "/round-predictions" : "/predictions"}
+                closeMenu={closeMenu}
+              >
                 Predictions
               </HeaderLink>
               <HeaderLink

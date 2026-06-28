@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Football, Home, Pitch, Settings, User } from "../Icons/Icons";
 import { useGetMe } from "../../queries/useGetMe";
 import Logo from "../Logo";
+import { CURRENT_STAGE } from "../../../../shared/config";
 
 const MobileItem = ({
   children,
@@ -100,7 +101,10 @@ const Footer = () => {
         <MobileItem link="/fixtures" text="Fixtures">
           <Pitch className="h-6 w-6" />
         </MobileItem>
-        <MobileItem link="/predictions" text="Predict">
+        <MobileItem
+          link={CURRENT_STAGE === "knockout" ? "/round-predictions" : "/predictions"}
+          text="Predict"
+        >
           <Football className="h-6 w-6" />
         </MobileItem>
         <MobileItem link={`/profile/${username}`} text="Profile">

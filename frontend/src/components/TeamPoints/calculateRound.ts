@@ -24,7 +24,7 @@ export const calculateRound = (
   }, "");
 
   if (!highestRoundWin) {
-    return "Round of 16";
+    return "Round of 32";
   }
 
   const highestRoundWinIndex = rounds.findIndex(

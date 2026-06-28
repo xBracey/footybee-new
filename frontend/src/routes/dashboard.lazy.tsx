@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useGetRoundFixtures } from "../queries/useGetRoundFixtures";
 import { useGetPredictions } from "../queries/useGetPredictions";
 import { useGetUserFixtures } from "../queries/useGetUserFixtures";
+import { useGetUserTeams } from "../queries/useGetUserTeams";
 
 const Dashboard = () => {
   const [leagueTimestamp, setLeagueTimestamp] = useState(Date.now());
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const { data: leagues } = useGetUserLeagues(leagueTimestamp);
   const { data: predictions } = useGetPredictions(user?.username ?? "");
   const { data: userFixtures } = useGetUserFixtures(user?.username ?? "");
+  const { data: userTeams } = useGetUserTeams(user?.username ?? "");
 
   if (!token) {
     return <Navigate to="/login" from="/dashboard" />;
@@ -44,6 +46,7 @@ const Dashboard = () => {
           roundFixtures={roundFixtures}
           predictions={predictions}
           userFixtures={userFixtures}
+          userTeams={userTeams}
         />
       </div>
 

@@ -7,7 +7,12 @@ interface IFlag {
 }
 
 export const Flag = ({ team, height = 28, className }: IFlag) => {
-  const teamName = typeof team === "string" ? team : team.name;
+  const teamName =
+    team == null
+      ? ""
+      : typeof team === "string"
+      ? team
+      : team.name;
 
   return (
     <div

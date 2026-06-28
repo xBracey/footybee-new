@@ -144,7 +144,9 @@ const RoundPredictions = ({
                   onHomeClick={() => onClick(fixture, "home")}
                   onAwayClick={() => onClick(fixture, "away")}
                   selected={fixture.winner}
-                  disabled={disabled || !fixture.homeTeamId || !fixture.awayTeamId}
+                  disabled={
+                    disabled || !fixture.homeTeamId || !fixture.awayTeamId
+                  }
                 />
               ))}
           </div>

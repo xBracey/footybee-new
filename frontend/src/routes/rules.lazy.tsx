@@ -13,7 +13,7 @@ const Rules = () => {
         <Box className="flex flex-col gap-2 text-center text-sm">
           <h2 className="text-2xl font-bold">Welcome to FootyBee</h2>
           <p>
-            Welcome to FootyBee, a World Cup 2022 football predictor where you
+            Welcome to FootyBee, a World Cup 2026 football predictor where you
             can make predictions on games and create and join leagues with your
             friends.
           </p>
@@ -97,7 +97,7 @@ const Rules = () => {
           <Box className="flex flex-col items-center gap-2 text-center text-sm">
             <h2 className="text-2xl font-bold">Knockout Stage Rules</h2>
             <p>
-              In the knockout stages, starting from the Round of 16 all the way
+              In the knockout stages, starting from the Round of 32 all the way
               to the Final, you'll be predicting which teams will advance
               through each round. Points are awarded cumulatively based on how
               far you accurately predict a team's progression. For each team,
@@ -107,10 +107,11 @@ const Rules = () => {
             </p>
 
             <ul className="pl-3 font-bold">
-              <li>Round of 16 Advancement: 15 points</li>
-              <li>Quarterfinal Advancement: 20 points</li>
-              <li>Semifinal Advancement: 30 points</li>
-              <li>Tournament Winner: 40 points</li>
+              <li>Round of 32 Advancement: 10 points</li>
+              <li>Round of 16 Advancement: 20 points</li>
+              <li>Quarterfinal Advancement: 30 points</li>
+              <li>Semifinal Advancement: 40 points</li>
+              <li>Tournament Winner: 50 points</li>
             </ul>
 
             <p className="my-2 text-lg font-bold">Here are some examples</p>
@@ -121,11 +122,12 @@ const Rules = () => {
                   You predict Portugal to reach the final, but they win the
                   tournament, you earn:
                 </p>
-                <p>15 points (Round of 16 advancement)</p>
-                <p>20 points (Quarter Final advancement)</p>
-                <p>30 points (Semi Final advancement)</p>
+                <p>10 points (Round of 32 advancement)</p>
+                <p>20 points (Round of 16 advancement)</p>
+                <p>30 points (Quarter Final advancement)</p>
+                <p>40 points (Semi Final advancement)</p>
                 <p>
-                  <b> For a total of 65 points</b>
+                  <b> For a total of 100 points</b>
                 </p>
               </div>
 
@@ -134,19 +136,21 @@ const Rules = () => {
                   You predict France to reach the semi finals, but they're
                   eliminated in the quarter finals, you earn:
                 </p>
-                <p>15 points (Round of 16 advancement)</p>
+                <p>10 points (Round of 32 advancement)</p>
+                <p>20 points (Round of 16 advancement)</p>
                 <p>
-                  <b> For a total of 15 points</b>
+                  <b> For a total of 30 points</b>
                 </p>
               </div>
 
               <div>
                 <p>
                   You predict Germany to reach the quarter finals, but they are
-                  eliminated in the round of 16.
+                  eliminated in the round of 16, you earn:
                 </p>
+                <p>10 points (Round of 32 advancement)</p>
                 <p>
-                  <b>You earn 0 points</b>
+                  <b>For a total of 10 points</b>
                 </p>
               </div>
 
@@ -155,12 +159,13 @@ const Rules = () => {
                   You predict England to win the tournament and they do! You
                   earn:
                 </p>
-                <p>15 points (Round of 16 advancement)</p>
-                <p>20 points (Quarter Final advancement)</p>
-                <p>30 points (Semi Final advancement)</p>
-                <p>40 points (Final advancement)</p>
+                <p>10 points (Round of 32 advancement)</p>
+                <p>20 points (Round of 16 advancement)</p>
+                <p>30 points (Quarter Final advancement)</p>
+                <p>40 points (Semi Final advancement)</p>
+                <p>50 points (Final advancement)</p>
                 <p>
-                  <b> For a total of 105 points</b>
+                  <b> For a total of 150 points</b>
                 </p>
               </div>
             </div>

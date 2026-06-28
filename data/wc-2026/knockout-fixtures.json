@@ -1,0 +1,448 @@
+[
+  {
+    "round": "Round of 32",
+    "fixtures": [
+      {
+        "id": 1853386,
+        "round": "Round of 32",
+        "date": "2026-06-28",
+        "time": "19:00:00",
+        "homeTeamId": 2767,
+        "homeTeamName": "South Africa",
+        "awayTeamId": 1674,
+        "awayTeamName": "Canada",
+        "location": "SoFi Stadium, Inglewood",
+        "dateTime": 1782669600000,
+        "order": 0
+      },
+      {
+        "id": 1853394,
+        "round": "Round of 32",
+        "date": "2026-06-29",
+        "time": "17:00:00",
+        "homeTeamId": 1448,
+        "homeTeamName": "Brazil",
+        "awayTeamId": 1458,
+        "awayTeamName": "Japan",
+        "location": "NRG Stadium, Houston",
+        "dateTime": 1782748800000,
+        "order": 1
+      },
+      {
+        "id": 1853387,
+        "round": "Round of 32",
+        "date": "2026-06-29",
+        "time": "20:30:00",
+        "homeTeamId": 1449,
+        "homeTeamName": "Germany",
+        "awayTeamId": 4040,
+        "awayTeamName": "Paraguay",
+        "location": "Gillette Stadium, Foxborough",
+        "dateTime": 1782761400000,
+        "order": 2
+      },
+      {
+        "id": 1853388,
+        "round": "Round of 32",
+        "date": "2026-06-30",
+        "time": "01:00:00",
+        "homeTeamId": 1649,
+        "homeTeamName": "Netherlands",
+        "awayTeamId": 1435,
+        "awayTeamName": "Morocco",
+        "location": "Estadio BBVA, Guadalupe",
+        "dateTime": 1782777600000,
+        "order": 3
+      },
+      {
+        "id": 1853395,
+        "round": "Round of 32",
+        "date": "2026-06-30",
+        "time": "17:00:00",
+        "homeTeamId": 1628,
+        "homeTeamName": "Ivory Coast",
+        "awayTeamId": 2677,
+        "awayTeamName": "Norway",
+        "location": "AT&T Stadium, Arlington",
+        "dateTime": 1782835200000,
+        "order": 4
+      },
+      {
+        "id": 1853389,
+        "round": "Round of 32",
+        "date": "2026-06-30",
+        "time": "21:00:00",
+        "homeTeamId": 1439,
+        "homeTeamName": "France",
+        "awayTeamId": 1451,
+        "awayTeamName": "Sweden",
+        "location": "MetLife Stadium, East Rutherford",
+        "dateTime": 1782849600000,
+        "order": 5
+      },
+      {
+        "id": 1853396,
+        "round": "Round of 32",
+        "date": "2026-07-01",
+        "time": "01:00:00",
+        "homeTeamId": 1450,
+        "homeTeamName": "Mexico",
+        "awayTeamId": 1847,
+        "awayTeamName": "Ecuador",
+        "location": "Estadio Azteca, Mexico City",
+        "dateTime": 1782864000000,
+        "order": 6
+      },
+      {
+        "id": 1853397,
+        "round": "Round of 32",
+        "date": "2026-07-01",
+        "time": "16:00:00",
+        "homeTeamId": 1456,
+        "homeTeamName": "England",
+        "awayTeamId": 2752,
+        "awayTeamName": "DR Congo",
+        "location": "Mercedes-Benz Stadium, Atlanta",
+        "dateTime": 1782918000000,
+        "order": 7
+      },
+      {
+        "id": 1853391,
+        "round": "Round of 32",
+        "date": "2026-07-01",
+        "time": "20:00:00",
+        "homeTeamId": 1453,
+        "homeTeamName": "Belgium",
+        "awayTeamId": 1460,
+        "awayTeamName": "Senegal",
+        "location": "Lumen Field, Seattle",
+        "dateTime": 1782932400000,
+        "order": 8
+      },
+      {
+        "id": 1853390,
+        "round": "Round of 32",
+        "date": "2026-07-02",
+        "time": "00:00:00",
+        "homeTeamId": 1849,
+        "homeTeamName": "USA",
+        "awayTeamId": 2686,
+        "awayTeamName": "Bosnia and Herzegovina",
+        "location": "Levi's Stadium, Santa Clara",
+        "dateTime": 1782946800000,
+        "order": 9
+      },
+      {
+        "id": 1853393,
+        "round": "Round of 32",
+        "date": "2026-07-02",
+        "time": "19:00:00",
+        "homeTeamId": 1438,
+        "homeTeamName": "Spain",
+        "awayTeamId": 2684,
+        "awayTeamName": "Austria",
+        "location": "SoFi Stadium, Inglewood",
+        "dateTime": 1783015200000,
+        "order": 10
+      },
+      {
+        "id": 1853392,
+        "round": "Round of 32",
+        "date": "2026-07-02",
+        "time": "23:00:00",
+        "homeTeamId": 1437,
+        "homeTeamName": "Portugal",
+        "awayTeamId": 211,
+        "awayTeamName": "Croatia",
+        "location": "BMO Field, Toronto",
+        "dateTime": 1783029600000,
+        "order": 11
+      },
+      {
+        "id": 1853398,
+        "round": "Round of 32",
+        "date": "2026-07-03",
+        "time": "03:00:00",
+        "homeTeamId": 208,
+        "homeTeamName": "Switzerland",
+        "awayTeamId": 1528,
+        "awayTeamName": "Algeria",
+        "location": "BC Place, Vancouver",
+        "dateTime": 1783044000000,
+        "order": 12
+      },
+      {
+        "id": 1853401,
+        "round": "Round of 32",
+        "date": "2026-07-03",
+        "time": "18:00:00",
+        "homeTeamId": 1440,
+        "homeTeamName": "Australia",
+        "awayTeamId": 215,
+        "awayTeamName": "Egypt",
+        "location": "AT&T Stadium, Arlington",
+        "dateTime": 1783098000000,
+        "order": 13
+      },
+      {
+        "id": 1853399,
+        "round": "Round of 32",
+        "date": "2026-07-03",
+        "time": "22:00:00",
+        "homeTeamId": 1443,
+        "homeTeamName": "Argentina",
+        "awayTeamId": 1608,
+        "awayTeamName": "Cape Verde",
+        "location": "Hard Rock Stadium, Miami Gardens",
+        "dateTime": 1783112400000,
+        "order": 14
+      },
+      {
+        "id": 1853400,
+        "round": "Round of 32",
+        "date": "2026-07-04",
+        "time": "01:30:00",
+        "homeTeamId": 1457,
+        "homeTeamName": "Colombia",
+        "awayTeamId": 214,
+        "awayTeamName": "Ghana",
+        "location": "Arrowhead Stadium, Kansas City",
+        "dateTime": 1783125000000,
+        "order": 15
+      }
+    ]
+  },
+  {
+    "round": "Round of 16",
+    "fixtures": [
+      {
+        "id": 1853403,
+        "round": "Round of 16",
+        "date": "2026-07-04",
+        "time": "17:00:00",
+        "homeTeamId": 8589,
+        "homeTeamName": "Winner R32 Match 1",
+        "awayTeamId": 8591,
+        "awayTeamName": "Winner R32 Match 3",
+        "location": "NRG Stadium, Houston",
+        "dateTime": 1783180800000,
+        "order": 0
+      },
+      {
+        "id": 1853402,
+        "round": "Round of 16",
+        "date": "2026-07-04",
+        "time": "21:00:00",
+        "homeTeamId": 8590,
+        "homeTeamName": "Winner R32 Match 2",
+        "awayTeamId": 8593,
+        "awayTeamName": "Winner R32 Match 5",
+        "location": "Lincoln Financial Field, Philadelphia",
+        "dateTime": 1783195200000,
+        "order": 1
+      },
+      {
+        "id": 1853404,
+        "round": "Round of 16",
+        "date": "2026-07-05",
+        "time": "20:00:00",
+        "homeTeamId": 8592,
+        "homeTeamName": "Winner R32 Match 4",
+        "awayTeamId": 8594,
+        "awayTeamName": "Winner R32 Match 6",
+        "location": "MetLife Stadium, East Rutherford",
+        "dateTime": 1783278000000,
+        "order": 2
+      },
+      {
+        "id": 1853405,
+        "round": "Round of 16",
+        "date": "2026-07-06",
+        "time": "00:00:00",
+        "homeTeamId": 8595,
+        "homeTeamName": "Winner R32 Match 7",
+        "awayTeamId": 8596,
+        "awayTeamName": "Winner R32 Match 8",
+        "location": "Estadio Azteca, Mexico City",
+        "dateTime": 1783292400000,
+        "order": 3
+      },
+      {
+        "id": 1853406,
+        "round": "Round of 16",
+        "date": "2026-07-06",
+        "time": "19:00:00",
+        "homeTeamId": 8599,
+        "homeTeamName": "Winner R32 Match 11",
+        "awayTeamId": 8600,
+        "awayTeamName": "Winner R32 Match 12",
+        "location": "AT&T Stadium, Arlington",
+        "dateTime": 1783360800000,
+        "order": 4
+      },
+      {
+        "id": 1853407,
+        "round": "Round of 16",
+        "date": "2026-07-07",
+        "time": "00:00:00",
+        "homeTeamId": 8597,
+        "homeTeamName": "Winner R32 Match 9",
+        "awayTeamId": 8598,
+        "awayTeamName": "Winner R32 Match 10",
+        "location": "Lumen Field, Seattle",
+        "dateTime": 1783378800000,
+        "order": 5
+      },
+      {
+        "id": 1853408,
+        "round": "Round of 16",
+        "date": "2026-07-07",
+        "time": "16:00:00",
+        "homeTeamId": 8602,
+        "homeTeamName": "Winner R32 Match 14",
+        "awayTeamId": 8604,
+        "awayTeamName": "Winner R32 Match 16",
+        "location": "Mercedes-Benz Stadium, Atlanta",
+        "dateTime": 1783436400000,
+        "order": 6
+      },
+      {
+        "id": 1853409,
+        "round": "Round of 16",
+        "date": "2026-07-07",
+        "time": "20:00:00",
+        "homeTeamId": 8601,
+        "homeTeamName": "Winner R32 Match 13",
+        "awayTeamId": 8603,
+        "awayTeamName": "Winner R32 Match 15",
+        "location": "BC Place, Vancouver",
+        "dateTime": 1783450800000,
+        "order": 7
+      }
+    ]
+  },
+  {
+    "round": "Quarter-finals",
+    "fixtures": [
+      {
+        "id": 1853410,
+        "round": "Quarter-finals",
+        "date": "2026-07-09",
+        "time": "20:00:00",
+        "homeTeamId": 6872,
+        "homeTeamName": "Winner R16 Match 1",
+        "awayTeamId": 6873,
+        "awayTeamName": "Winner R16 Match 2",
+        "location": "Gillette Stadium, Foxborough",
+        "dateTime": 1783623600000,
+        "order": 0
+      },
+      {
+        "id": 1853411,
+        "round": "Quarter-finals",
+        "date": "2026-07-10",
+        "time": "19:00:00",
+        "homeTeamId": 6876,
+        "homeTeamName": "Winner R16 Match 5",
+        "awayTeamId": 6877,
+        "awayTeamName": "Winner R16 Match 6",
+        "location": "SoFi Stadium, Inglewood",
+        "dateTime": 1783706400000,
+        "order": 1
+      },
+      {
+        "id": 1853412,
+        "round": "Quarter-finals",
+        "date": "2026-07-11",
+        "time": "21:00:00",
+        "homeTeamId": 6874,
+        "homeTeamName": "Winner R16 Match 3",
+        "awayTeamId": 6875,
+        "awayTeamName": "Winner R16 Match 4",
+        "location": "Hard Rock Stadium, Miami Gardens",
+        "dateTime": 1783800000000,
+        "order": 2
+      },
+      {
+        "id": 1853413,
+        "round": "Quarter-finals",
+        "date": "2026-07-12",
+        "time": "01:00:00",
+        "homeTeamId": 6878,
+        "homeTeamName": "Winner R16 Match 7",
+        "awayTeamId": 6879,
+        "awayTeamName": "Winner R16 Match 8",
+        "location": "Arrowhead Stadium, Kansas City",
+        "dateTime": 1783814400000,
+        "order": 3
+      }
+    ]
+  },
+  {
+    "round": "Semi-finals",
+    "fixtures": [
+      {
+        "id": 1853414,
+        "round": "Semi-finals",
+        "date": "2026-07-14",
+        "time": "19:00:00",
+        "homeTeamId": 6881,
+        "homeTeamName": "Winner QF Match 1",
+        "awayTeamId": 6880,
+        "awayTeamName": "Winner QF Match 2",
+        "location": "AT&T Stadium, Arlington",
+        "dateTime": 1784052000000,
+        "order": 0
+      },
+      {
+        "id": 1853415,
+        "round": "Semi-finals",
+        "date": "2026-07-15",
+        "time": "19:00:00",
+        "homeTeamId": 6882,
+        "homeTeamName": "Winner QF Match 3",
+        "awayTeamId": 6883,
+        "awayTeamName": "Winner QF Match 4",
+        "location": "Mercedes-Benz Stadium, Atlanta",
+        "dateTime": 1784138400000,
+        "order": 1
+      }
+    ]
+  },
+  {
+    "round": "Third Place",
+    "fixtures": [
+      {
+        "id": 1853416,
+        "round": "Third Place",
+        "date": "2026-07-18",
+        "time": "21:00:00",
+        "homeTeamId": 6890,
+        "homeTeamName": "Loser SF1",
+        "awayTeamId": 6891,
+        "awayTeamName": "Loser SF2",
+        "location": "Hard Rock Stadium, Miami Gardens",
+        "dateTime": 1784404800000,
+        "order": 0
+      }
+    ]
+  },
+  {
+    "round": "Finals",
+    "fixtures": [
+      {
+        "id": 1853417,
+        "round": "Finals",
+        "date": "2026-07-19",
+        "time": "19:00:00",
+        "homeTeamId": 6884,
+        "homeTeamName": "Winner SF1",
+        "awayTeamId": 6885,
+        "awayTeamName": "Winner SF2",
+        "location": "MetLife Stadium, East Rutherford",
+        "dateTime": 1784484000000,
+        "order": 0
+      }
+    ]
+  }
+]

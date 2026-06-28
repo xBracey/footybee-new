@@ -9,37 +9,46 @@ interface IFixtureList {
 
 const FixtureList = ({ teams, fixtures }: IFixtureList) => {
   const fixturesWithTeams = useMemo(() => {
-    const data = [...fixtures].map((fixture) => {
-      const homeTeam = teams.find(
-        (team) => team.id === fixture.homeTeamId
-      )?.name;
-      const awayTeam = teams.find(
-        (team) => team.id === fixture.awayTeamId
-      )?.name;
-      return {
-        dateTime: fixture.dateTime,
-        homeTeam,
-        awayTeam,
-        homeScore: fixture.homeTeamScore,
-        awayScore: fixture.awayTeamScore,
-        homeTeamExtraTimeScore:
-          "homeTeamExtraTimeScore" in fixture
-            ? fixture.homeTeamExtraTimeScore
-            : undefined,
-        awayTeamExtraTimeScore:
-          "awayTeamExtraTimeScore" in fixture
-            ? fixture.awayTeamExtraTimeScore
-            : undefined,
-        homeTeamPenaltiesScore:
-          "homeTeamPenaltiesScore" in fixture
-            ? fixture.homeTeamPenaltiesScore
-            : undefined,
-        awayTeamPenaltiesScore:
-          "awayTeamPenaltiesScore" in fixture
-            ? fixture.awayTeamPenaltiesScore
-            : undefined,
-      };
-    });
+    const data = [...fixtures]
+      .map((fixture) => {
+        const homeTeam = teams.find(
+          (team) => team.id === fixture.homeTeamId
+        )?.name;
+        const awayTeam = teams.find(
+          (team) => team.id === fixture.awayTeamId
+        )?.name;
+
+        // Skip fixtures where either team is missing (e.g. knockout
+        // placeholders that haven't been filled in yet).
+        if (!homeTeam || !awayTeam) {
+          return null;
+        }
+
+        return {
+          dateTime: fixture.dateTime,
+          homeTeam,
+          awayTeam,
+          homeScore: fixture.homeTeamScore,
+          awayScore: fixture.awayTeamScore,
+          homeTeamExtraTimeScore:
+            "homeTeamExtraTimeScore" in fixture
+              ? fixture.homeTeamExtraTimeScore
+              : undefined,
+          awayTeamExtraTimeScore:
+            "awayTeamExtraTimeScore" in fixture
+              ? fixture.awayTeamExtraTimeScore
+              : undefined,
+          homeTeamPenaltiesScore:
+            "homeTeamPenaltiesScore" in fixture
+              ? fixture.homeTeamPenaltiesScore
+              : undefined,
+          awayTeamPenaltiesScore:
+            "awayTeamPenaltiesScore" in fixture
+              ? fixture.awayTeamPenaltiesScore
+              : undefined,
+        };
+      })
+      .filter((fixture): fixture is NonNullable<typeof fixture> => fixture !== null);
 
     const dataSorted = data.sort((a, b) => a.dateTime - b.dateTime);
     return dataSorted;

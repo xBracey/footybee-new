@@ -190,6 +190,13 @@
       "when": 1719666531648,
       "tag": "0026_cloudy_absorbing_man",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "5",
+      "when": 1782669600000,
+      "tag": "0027_quick_silver_surfer",
+      "breakpoints": true
     }
   ]
 }

@@ -99,6 +99,7 @@ export const ProfilePage = ({
         roundFixtures={roundFixtures}
         predictions={predictions}
         userFixtures={userFixtures}
+        userTeams={userTeams}
       />
 
       <FixturePoints

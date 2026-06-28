@@ -2,7 +2,11 @@ import { Prediction } from "../../../../shared/types/database";
 import FixtureComponent from "../Fixture";
 
 /** Row shape consumed by FixtureTable. Each consumer is responsible for
- *  joining fixtures with their user-specific prediction + points. */
+ *  joining fixtures with their user-specific prediction + points.
+ *
+ *  - `prediction` (group stage): the user's predicted score.
+ *  - `knockoutPick` (knockout): the side ("home" or "away") the user
+ *    picked to advance from this fixture. */
 export interface FixturesWithPoints {
   fixtureId: number;
   homeTeam?: string;
@@ -13,6 +17,7 @@ export interface FixturesWithPoints {
   points: number;
   hasBeenPlayed: boolean;
   prediction?: Prediction;
+  knockoutPick?: "home" | "away" | null;
 }
 
 const getBackgroundColor = (
@@ -75,6 +80,15 @@ const FixtureTable = ({ fixtures }: IFixtureTableProps) => (
         {fixture.prediction && (
           <div className="flex w-20 items-center justify-center text-sm">
             <p className="text-white">{`${fixture.prediction.homeTeamScore} - ${fixture.prediction.awayTeamScore}`}</p>
+          </div>
+        )}
+        {!fixture.prediction && fixture.knockoutPick && (
+          <div className="flex w-20 items-center justify-center text-sm">
+            <p className="text-white">
+              {fixture.knockoutPick === "home"
+                ? fixture.homeTeam ?? "Home"
+                : fixture.awayTeam ?? "Away"}
+            </p>
           </div>
         )}
         <div className="flex w-10 items-center justify-end text-sm">

@@ -16,6 +16,7 @@ import * as path from "path";
 const scripts = [
   { name: "Teams", script: "fetch-teams.ts" },
   { name: "Fixtures", script: "fetch-fixtures.ts" },
+  { name: "Knockout Fixtures", script: "fetch-knockout-fixtures.ts" },
   { name: "Squads", script: "fetch-squads.ts" },
   { name: "Flags", script: "download-flags.ts" },
 ];

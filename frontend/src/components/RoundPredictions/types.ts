@@ -1,5 +1,5 @@
 export interface IRoundPrediction {
-  round: "Round of 16" | "Quarter-finals" | "Semi-finals" | "Finals";
+  round: "Round of 32" | "Round of 16" | "Quarter-finals" | "Semi-finals" | "Finals";
   order: number;
   homeTeamId?: number;
   awayTeamId?: number;

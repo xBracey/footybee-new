@@ -12,6 +12,7 @@ import { CheckIcon, Dialog } from "@mantine/core";
 import { useState } from "react";
 import PredictionLock from "../components/PredictionLock";
 import { useGetLockStatus } from "../queries/useGetLockStatus";
+import { isStagePredictionLocked } from "../../../shared/config";
 
 const RoundPredictionsRoute = () => {
   const { data: user, isLoading: userIsLoading } = useGetMe();
@@ -49,12 +50,18 @@ const RoundPredictionsRoute = () => {
   }
 
   const onSubmit = (predictions: IRoundPrediction[]) => {
-    const finalTeamIds = roundFixtures
-      .filter((f) => f.round === "Round of 16")
+    // The knockout bracket starts at Round of 32, which is the only
+    // round where the DB has real (non-null) team assignments at the
+    // start of the knockout stage. R16+ rows are placeholders that
+    // get filled in by the live worker as games complete, so we pull
+    // the team list from R32 to get the full 32-team knockout roster.
+    const bracketTeamIds = roundFixtures
+      .filter((f) => f.round === "Round of 32")
       .map((f) => [f.homeTeamId, f.awayTeamId])
-      .flat();
-    const finalTeams = teams.filter((t) => finalTeamIds.includes(t.id));
-    const userTeams: UserTeam[] = finalTeams.map((t) => ({
+      .flat()
+      .filter((id): id is number => id !== null);
+    const bracketTeams = teams.filter((t) => bracketTeamIds.includes(t.id));
+    const userTeams: UserTeam[] = bracketTeams.map((t) => ({
       username: user.username,
       roundPredictions:
         predictions.find(
@@ -69,7 +76,9 @@ const RoundPredictionsRoute = () => {
     editUserTeams(userTeams);
   };
 
-  const isPredictionLocked = true;
+  // Knockout predictions lock at the first R32 kickoff. Until then,
+  // the bracket is fully editable.
+  const isPredictionLocked = isStagePredictionLocked("knockout");
 
   return (
     <div className={`relative`}>

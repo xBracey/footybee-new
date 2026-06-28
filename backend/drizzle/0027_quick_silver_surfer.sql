@@ -1,0 +1,1 @@
+INSERT OR IGNORE INTO rounds (round) VALUES ('Round of 32');

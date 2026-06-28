@@ -11,7 +11,7 @@ const Database = require("better-sqlite3");
 const { drizzle } = require("drizzle-orm/better-sqlite3");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { groups, rounds, teams, fixtures, players } = require("../schema");
+const { groups, rounds, teams, fixtures, players, roundFixtures } = require("../schema");
 
 const sqlite = new Database("sqlite.db");
 const db = drizzle(sqlite);
@@ -44,6 +44,25 @@ interface GroupData {
   fixtures: FixtureRaw[];
 }
 
+interface KnockoutFixtureRaw {
+  id: number;
+  round: string;        // e.g. "Round of 32", "Round of 16", "Quarter-finals", "Semi-finals", "Finals", "Third Place"
+  date: string;
+  time: string;
+  homeTeamId: number;
+  homeTeamName: string;
+  awayTeamId: number;
+  awayTeamName: string;
+  location: string;
+  dateTime: number;
+  order: number;        // bracket position within the round
+}
+
+interface KnockoutData {
+  round: string;
+  fixtures: KnockoutFixtureRaw[];
+}
+
 interface SquadData {
   teamId: number;
   teamName: string;
@@ -65,6 +84,14 @@ function loadTeams(): TeamData[] {
 
 function loadFixtures(): GroupData[] {
   const dataPath = path.join(DATA_PATH, "fixtures.json");
+  return JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+}
+
+function loadKnockoutFixtures(): KnockoutData[] {
+  const dataPath = path.join(DATA_PATH, "knockout-fixtures.json");
+  if (!fs.existsSync(dataPath)) {
+    return [];
+  }
   return JSON.parse(fs.readFileSync(dataPath, "utf-8"));
 }
 
@@ -94,7 +121,15 @@ async function seed() {
 
   // 2. Seed rounds
   console.log("📦 Seeding rounds...");
-  const roundNames = ["Round of 16", "Quarter-finals", "Semi-finals", "Third Place", "Finals", "Group Stages"];
+  const roundNames = [
+    "Round of 32",
+    "Round of 16",
+    "Quarter-finals",
+    "Semi-finals",
+    "Third Place",
+    "Finals",
+    "Group Stages",
+  ];
   for (const round of roundNames) {
     try {
       db.insert(rounds).values({ round }).run();
@@ -167,7 +202,48 @@ async function seed() {
   }
   console.log(`   ✅ Seeded ${fixturesInserted} fixtures\n`);
 
-  // 5. Seed players
+  // 5. Seed round fixtures (knockout)
+  console.log("📦 Seeding round fixtures...");
+  const knockoutData = loadKnockoutFixtures();
+  let roundFixturesInserted = 0;
+
+  if (knockoutData.length === 0) {
+    console.log("   ⚠️  No knockout-fixtures.json found - skipping round fixtures seed");
+  } else {
+    for (const roundBlock of knockoutData) {
+      for (const fixture of roundBlock.fixtures) {
+        const homeTeamDbId = teamApiIdToDbId.get(fixture.homeTeamId) ?? null;
+        const awayTeamDbId = teamApiIdToDbId.get(fixture.awayTeamId) ?? null;
+
+        // For rounds after Round of 32 the API returns placeholders like
+        // "Winner R32 Match 1" which we don't have team records for yet.
+        // We still insert the fixture row with NULL team ids so the
+        // bracket dates/order are in the DB and can be filled in later
+        // via the admin panel.
+        if (!homeTeamDbId || !awayTeamDbId) {
+          console.log(
+            `   ⏭️  ${roundBlock.round} order=${fixture.order} (${fixture.homeTeamName} vs ${fixture.awayTeamName}) - teams TBD, inserting with NULL ids`
+          );
+        }
+
+        try {
+          db.insert(roundFixtures).values({
+            round: roundBlock.round,
+            homeTeamId: homeTeamDbId,
+            awayTeamId: awayTeamDbId,
+            dateTime: fixture.dateTime,
+            order: fixture.order,
+          }).run();
+          roundFixturesInserted++;
+        } catch (e: any) {
+          console.log(`   ⚠️  Error seeding round fixture: ${e.message}`);
+        }
+      }
+    }
+  }
+  console.log(`   ✅ Seeded ${roundFixturesInserted} round fixtures\n`);
+
+  // 6. Seed players
   console.log("📦 Seeding players...");
   const squadsData = loadSquads();
   let playersInserted = 0;

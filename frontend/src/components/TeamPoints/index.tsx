@@ -77,7 +77,7 @@ const TeamPoints = ({ teams, userTeams, roundFixtures }: IFixturePoints) => {
         const prediction = userTeam?.roundPredictions ?? "N/A";
         return {
           team: team,
-          round: round ? round : "Round of 16",
+          round: round ? round : "Round of 32",
           prediction: prediction,
           points: userTeam?.points ?? 0,
         };

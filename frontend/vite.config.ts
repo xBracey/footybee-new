@@ -8,6 +8,27 @@ const isLadle = !!process.env.VITE_LADLE_APP_ID;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Inject tournament env vars into the client bundle. Vite only
+  // exposes `VITE_*`-prefixed vars via `import.meta.env`, but the
+  // shared `config.ts` reads plain (unprefixed) names via
+  // `process.env` (used by the backend). This `define` block maps
+  // both names to the same value at build time so the same code
+  // works in both runtimes.
+  define: {
+    "process.env.CURRENT_STAGE": JSON.stringify(
+      process.env.VITE_CURRENT_STAGE ?? process.env.CURRENT_STAGE ?? ""
+    ),
+    "process.env.PREDICTION_LOCK_TIME": JSON.stringify(
+      process.env.VITE_PREDICTION_LOCK_TIME ??
+        process.env.PREDICTION_LOCK_TIME ??
+        ""
+    ),
+    "process.env.KNOCKOUT_PREDICTION_LOCK_TIME": JSON.stringify(
+      process.env.VITE_KNOCKOUT_PREDICTION_LOCK_TIME ??
+        process.env.KNOCKOUT_PREDICTION_LOCK_TIME ??
+        ""
+    ),
+  },
   plugins: [
     react(),
     TanStackRouterVite(),

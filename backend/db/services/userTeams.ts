@@ -6,7 +6,7 @@ import { ServiceHandler } from "./types";
 import { UserTeam } from "../../../shared/types/database";
 import { tokenToUser } from "./utils";
 import { FastifyInstance } from "fastify";
-import { isPredictionLocked } from "../../../shared/config";
+import { isStagePredictionLocked } from "../../../shared/config";
 
 export const getUserTeamsByUsernameHandler: ServiceHandler = async (
   req,
@@ -29,7 +29,7 @@ export const insertUserTeamsHandler: (
     return;
   }
 
-  if (isPredictionLocked()) {
+  if (isStagePredictionLocked("knockout")) {
     reply.status(403).send({ error: "Predictions are locked" });
     return;
   }

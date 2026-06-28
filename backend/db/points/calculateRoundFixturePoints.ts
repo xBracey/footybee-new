@@ -4,12 +4,18 @@ import { calculateIfTeamWon } from "./calculateIfTeamWon";
 
 const roundsWithWinners = [...rounds, "Winner"];
 
+// Cumulative points per round. The value at a given index is the
+// points awarded for a team that advanced *through* that round (so
+// the sum up to the user's predicted exit round gives the total
+// points). The R32 entry is 0 because every knockout team starts
+// there; the user only earns points for advancing past R32.
 const roundPoints: Record<string, number> = {
-  "Round of 16": 0,
-  "Quarter-finals": 15,
-  "Semi-finals": 20,
-  Finals: 30,
-  Winner: 40,
+  "Round of 32": 0,
+  "Round of 16": 10,
+  "Quarter-finals": 20,
+  "Semi-finals": 30,
+  Finals: 40,
+  Winner: 50,
 };
 
 const calculateSingleRoundFixturePoints = (

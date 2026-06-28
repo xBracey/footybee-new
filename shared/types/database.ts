@@ -1,4 +1,5 @@
 export const rounds = [
+  "Round of 32",
   "Round of 16",
   "Quarter-finals",
   "Semi-finals",

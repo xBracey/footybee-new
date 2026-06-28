@@ -6,11 +6,13 @@
   "scripts": {
     "fetch-teams": "npx ts-node fetch-teams.ts",
     "fetch-fixtures": "npx ts-node fetch-fixtures.ts",
+    "fetch-knockout-fixtures": "npx ts-node fetch-knockout-fixtures.ts",
     "fetch-squads": "npx ts-node fetch-squads.ts",
     "download-flags": "npx ts-node download-flags.ts",
     "fetch-all": "npx ts-node fetch-all.ts",
     "fetch:teams": "npx ts-node fetch-teams.ts",
     "fetch:fixtures": "npx ts-node fetch-fixtures.ts",
+    "fetch:knockout-fixtures": "npx ts-node fetch-knockout-fixtures.ts",
     "fetch:squads": "npx ts-node fetch-squads.ts",
     "fetch:flags": "npx ts-node download-flags.ts",
     "fetch:all": "npx ts-node fetch-all.ts"
